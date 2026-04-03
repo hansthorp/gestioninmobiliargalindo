@@ -1,0 +1,44 @@
+[
+  {
+    "id": "prop-001",
+    "slug": "casa-lujo-coapexpan",
+    "titulo": "Residencia Premium Coapexpan",
+    "descripcion": "Increíble propiedad con acabados de mármol, vista al bosque y seguridad 24/7. Ideal para familias que buscan tranquilidad y exclusividad.",
+    "operacion": "venta",
+    "tipo": "casa",
+    "precio": 4500000,
+    "moneda": "MXN",
+    "zona": "Coapexpan",
+    "ciudad": "Xalapa",
+    "m2Construccion": 350,
+    "recamaras": 4,
+    "banos": 3,
+    "estacionamientos": 2,
+    "imagenes": ["https://images.unsplash.com/photo-1568605114967-8130f3a36994"],
+    "contacto": {
+      "whatsapp": "5212281234567",
+      "mensajeBase": "Hola, me interesa la Residencia en Coapexpan"
+    }
+  },
+  {
+    "id": "prop-002",
+    "slug": "penthouse-centro",
+    "titulo": "Penthouse Moderno Centro",
+    "descripcion": "Departamento en el corazón de Xalapa con terraza privada, vista panorámica y acabados minimalistas.",
+    "operacion": "renta",
+    "tipo": "departamento",
+    "precio": 18000,
+    "moneda": "MXN",
+    "zona": "Centro",
+    "ciudad": "Xalapa",
+    "m2Construccion": 120,
+    "recamaras": 2,
+    "banos": 2,
+    "estacionamientos": 1,
+    "imagenes": ["https://images.unsplash.com/photo-1502672260266-1c1ef2d93688"],
+    "contacto": {
+      "whatsapp": "5212281234567",
+      "mensajeBase": "Hola, me interesa el Penthouse del Centro"
+    }
+  }
+]

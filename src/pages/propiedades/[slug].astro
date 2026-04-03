@@ -1,0 +1,165 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import propiedades from '../../data/propiedades.json';
+import { BedDouble, Bath, Car, Ruler, MapPin, MessageCircle, ChevronLeft } from 'lucide-astro';
+
+export async function getStaticPaths() {
+  return propiedades.map((p) => ({
+    params: { slug: p.slug },
+    props: { property: p }
+  }));
+}
+
+const { property } = Astro.props;
+
+const formatCurrency = (value, currency) =>
+  new Intl.NumberFormat('es-MX', {
+    style: 'currency',
+    currency,
+    maximumFractionDigits: 0
+  }).format(value);
+
+const whatsappUrl = `https://wa.me/${property.contacto.whatsapp}?text=${encodeURIComponent(property.contacto.mensajeBase)}`;
+
+// Si la propiedad no tiene suficientes imágenes para el demo, rellenamos con aleatorias
+const galleryImages = property.imagenes.length < 4 
+  ? [...property.imagenes, ...Array.from({ length: 5 }, (_, i) => `https://picsum.photos/1200/900?random=${i + 50}`)]
+  : property.imagenes;
+---
+
+<BaseLayout title={`${property.titulo} | Detalle`}>
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <a href="/" class="inline-flex items-center gap-2 text-slate-500 hover:text-emerald-600 transition-colors mb-8 font-bold">
+      <ChevronLeft class="h-5 w-5" /> Volver al catálogo
+    </a>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div class="space-y-4">
+        <div class="relative overflow-hidden rounded-3xl shadow-2xl border-4 border-white bg-slate-100 cursor-none" id="zoom-area">
+          <img 
+            id="main-image" 
+            src={galleryImages[0]} 
+            class="w-full h-[500px] object-cover transition-opacity duration-300" 
+            alt={property.titulo}
+          />
+          <div 
+            id="zoom-lens" 
+            class="absolute pointer-events-none rounded-full border-2 border-white shadow-xl opacity-0 transition-opacity duration-200"
+            style="width: 180px; height: 180px; background-repeat: no-repeat; display: none; z-index: 10;"
+          ></div>
+        </div>
+
+        <div class="grid grid-cols-5 gap-2">
+          {galleryImages.slice(0, 5).map((img) => (
+            <button class="thumb-btn rounded-xl overflow-hidden h-20 border-2 border-transparent hover:border-emerald-500 transition-all" data-src={img}>
+              <img src={img} class="w-full h-full object-cover" />
+            </button>
+          ))}
+        </div>
+      </div>
+      
+      <div>
+        <div class="flex gap-2 mb-4">
+          <span class="bg-emerald-600 text-white px-3 py-1 rounded-lg text-xs font-black uppercase tracking-widest">{property.operacion}</span>
+          <span class="bg-slate-200 text-slate-700 px-3 py-1 rounded-lg text-xs font-black uppercase tracking-widest">{property.tipo}</span>
+        </div>
+        
+        <h1 class="text-4xl font-black text-slate-900 mb-4">{property.titulo}</h1>
+        
+        <p class="flex items-center gap-2 text-slate-500 mb-6 font-medium">
+          <MapPin class="h-5 w-5 text-emerald-500" /> {property.zona}, {property.ciudad}
+        </p>
+        
+        <div class="text-5xl font-black text-emerald-600 mb-8 tracking-tighter">
+          {formatCurrency(property.precio, property.moneda)}
+        </div>
+        
+        <div class="grid grid-cols-4 gap-4 p-6 bg-white border border-slate-100 rounded-3xl mb-8 shadow-sm">
+          <div class="flex flex-col items-center border-r border-slate-50">
+            <BedDouble class="text-slate-400 mb-1" />
+            <span class="text-lg font-bold">{property.recamaras}</span>
+            <span class="text-[10px] text-slate-400 font-black uppercase">Recs.</span>
+          </div>
+          <div class="flex flex-col items-center border-r border-slate-50">
+            <Bath class="text-slate-400 mb-1" />
+            <span class="text-lg font-bold">{property.banos}</span>
+            <span class="text-[10px] text-slate-400 font-black uppercase">Baños</span>
+          </div>
+          <div class="flex flex-col items-center border-r border-slate-50">
+            <Car class="text-slate-400 mb-1" />
+            <span class="text-lg font-bold">{property.estacionamientos}</span>
+            <span class="text-[10px] text-slate-400 font-black uppercase">Estac.</span>
+          </div>
+          <div class="flex flex-col items-center">
+            <Ruler class="text-slate-400 mb-1" />
+            <span class="text-lg font-bold">{property.m2Construccion}</span>
+            <span class="text-[10px] text-slate-400 font-black uppercase">m²</span>
+          </div>
+        </div>
+
+        <div class="prose prose-slate mb-10">
+          <h3 class="text-lg font-bold text-slate-900 mb-2">Descripción</h3>
+          <p class="text-slate-600 leading-relaxed border-l-4 border-emerald-500 pl-4 bg-slate-50 py-3 rounded-r-lg">
+            {property.descripcion}
+          </p>
+        </div>
+        
+        <a href={whatsappUrl} target="_blank" class="flex items-center justify-center gap-3 bg-green-600 text-white py-5 rounded-2xl font-black text-xl hover:bg-green-700 transition-all shadow-xl shadow-green-100 hover:scale-[1.02]">
+          <MessageCircle class="h-6 w-6" /> Contactar por WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  const zoomArea = document.getElementById('zoom-area');
+  const zoomLens = document.getElementById('zoom-lens');
+  const mainImage = document.getElementById('main-image') as HTMLImageElement;
+  const thumbBtns = document.querySelectorAll('.thumb-btn');
+
+  thumbBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const src = btn.getAttribute('data-src');
+      if(src && mainImage) {
+        mainImage.src = src;
+        if(zoomLens) zoomLens.style.backgroundImage = `url('${src}')`;
+      }
+    });
+  });
+
+  if (zoomArea && zoomLens && mainImage) {
+    zoomArea.addEventListener('mousemove', (e: MouseEvent) => {
+      const rect = zoomArea.getBoundingClientRect();
+      let x = e.clientX - rect.left;
+      let y = e.clientY - rect.top;
+      const lensSize = 180;
+      
+      let posX = x - lensSize / 2;
+      let posY = y - lensSize / 2;
+
+      if (posX < 0) posX = 0;
+      if (posY < 0) posY = 0;
+      if (posX > rect.width - lensSize) posX = rect.width - lensSize;
+      if (posY > rect.height - lensSize) posY = rect.height - lensSize;
+
+      zoomLens.style.left = `${posX}px`;
+      zoomLens.style.top = `${posY}px`;
+
+      const zoomFactor = 2.5;
+      zoomLens.style.backgroundImage = `url('${mainImage.src}')`;
+      zoomLens.style.backgroundSize = `${rect.width * zoomFactor}px ${rect.height * zoomFactor}px`;
+      zoomLens.style.backgroundPosition = `-${x * zoomFactor - lensSize / 2}px -${y * zoomFactor - lensSize / 2}px`;
+    });
+
+    zoomArea.addEventListener('mouseenter', () => {
+      zoomLens.style.display = 'block';
+      zoomLens.style.opacity = '1';
+    });
+
+    zoomArea.addEventListener('mouseleave', () => {
+      zoomLens.style.opacity = '0';
+      setTimeout(() => { zoomLens.style.display = 'none'; }, 200);
+    });
+  }
+</script>

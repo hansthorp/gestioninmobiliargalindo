@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { BedDouble, Bath, Car, Ruler, MapPin, MessageCircle, ChevronLeft } from 'lucide-astro';
+
+const property = {
+  titulo: "Propiedad con Zoom Óptico Real",
+  precio: 4200000,
+  moneda: "MXN",
+  zona: "Fraccionamiento Las Ánimas",
+  ciudad: "Xalapa",
+  descripcion: "Este prototipo tiene el zoom corregido. Pasa el cursor sobre la imagen: la lente ahora muestra un aumento real de la zona apuntada. Haz clic en las miniaturas para cambiar de vista.",
+  recamaras: 4,
+  banos: 3,
+  estacionamientos: 2,
+  m2Construccion: 210,
+  contacto: { whatsapp: "5212281234567" }
+};
+
+const formatCurrency = (value, currency) =>
+  new Intl.NumberFormat('es-MX', { style: 'currency', currency, maximumFractionDigits: 0 }).format(value);
+
+const randomImages = Array.from({ length: 6 }, (_, i) => `https://picsum.photos/1200/900?random=${i + 40}`);
+---
+
+<BaseLayout title="Zoom Corregido | Demo">
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <a href="/" class="inline-flex items-center gap-2 text-slate-500 hover:text-emerald-600 transition-colors mb-8 font-bold">
+      <ChevronLeft class="h-5 w-5" /> Volver al catálogo
+    </a>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div class="space-y-4">
+        <div class="relative overflow-hidden rounded-3xl shadow-2xl border-4 border-white bg-slate-100 cursor-none" id="zoom-area">
+          <img 
+            id="main-image" 
+            src={randomImages[0]} 
+            class="w-full h-[500px] object-cover" 
+            alt="Imagen principal"
+          />
+          <div 
+            id="zoom-lens" 
+            class="absolute pointer-events-none rounded-full border-2 border-white shadow-lg opacity-0 transition-opacity duration-200"
+            style="width: 180px; height: 180px; background-repeat: no-repeat; display: none; z-index: 10;"
+          ></div>
+        </div>
+
+        <div class="grid grid-cols-6 gap-2">
+          {randomImages.map((img) => (
+            <button class="thumb-btn rounded-xl overflow-hidden h-16 border-2 border-transparent hover:border-emerald-500 transition-all" data-src={img}>
+              <img src={img} class="w-full h-full object-cover" />
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h1 class="text-4xl font-black text-slate-900 mb-4">{property.titulo}</h1>
+        <p class="flex items-center gap-2 text-slate-500 mb-8"><MapPin class="h-5 w-5 text-emerald-500" /> {property.zona}, {property.ciudad}</p>
+        <div class="text-5xl font-black text-emerald-600 mb-10 tracking-tight italic">{formatCurrency(property.precio, property.moneda)}</div>
+
+        <div class="grid grid-cols-4 gap-4 p-6 bg-white border border-slate-100 rounded-2xl mb-10 shadow-sm text-slate-600">
+          <div class="flex flex-col items-center"><BedDouble class="mb-1" /><span class="font-bold text-slate-900">{property.recamaras}</span></div>
+          <div class="flex flex-col items-center"><Bath class="mb-1" /><span class="font-bold text-slate-900">{property.banos}</span></div>
+          <div class="flex flex-col items-center"><Car class="mb-1" /><span class="font-bold text-slate-900">{property.estacionamientos}</span></div>
+          <div class="flex flex-col items-center"><Ruler class="mb-1" /><span class="font-bold text-slate-900">{property.m2Construccion}</span></div>
+        </div>
+
+        <p class="text-slate-600 leading-relaxed mb-10 border-l-4 border-emerald-500 pl-4 italic bg-slate-50 py-3 rounded-r-lg">{property.descripcion}</p>
+        
+        <a href="#" class="flex items-center justify-center gap-3 bg-green-600 text-white py-5 rounded-2xl font-black text-xl hover:bg-green-700 transition-all shadow-xl shadow-green-100">
+          <MessageCircle class="h-6 w-6" /> WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  const zoomArea = document.getElementById('zoom-area');
+  const zoomLens = document.getElementById('zoom-lens');
+  const mainImage = document.getElementById('main-image') as HTMLImageElement;
+  const thumbBtns = document.querySelectorAll('.thumb-btn');
+
+  // Cambiar imagen principal
+  thumbBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const src = btn.getAttribute('data-src');
+      if(src && mainImage && zoomLens) {
+        mainImage.src = src;
+        zoomLens.style.backgroundImage = `url('${src}')`;
+      }
+    });
+  });
+
+  // Lógica de Zoom
+  if (zoomArea && zoomLens && mainImage) {
+    zoomArea.addEventListener('mousemove', (e: MouseEvent) => {
+      const rect = zoomArea.getBoundingClientRect();
+      const lensWidth = zoomLens.offsetWidth;
+      const lensHeight = zoomLens.offsetHeight;
+
+      // Posición del mouse relativa a la imagen
+      let x = e.clientX - rect.left;
+      let y = e.clientY - rect.top;
+
+      // Centrar la lente en el mouse
+      let posX = x - lensWidth / 2;
+      let posY = y - lensHeight / 2;
+
+      // Mantener lente dentro de los bordes
+      if (posX < 0) posX = 0;
+      if (posY < 0) posY = 0;
+      if (posX > rect.width - lensWidth) posX = rect.width - lensWidth;
+      if (posY > rect.height - lensHeight) posY = rect.height - lensHeight;
+
+      zoomLens.style.left = `${posX}px`;
+      zoomLens.style.top = `${posY}px`;
+
+      // ZOOM REAL: Ajustamos el backgroundSize para que sea el doble de la imagen original
+      // y calculamos la posición del fondo para que coincida con el punto apuntado
+      const zoomFactor = 2; 
+      zoomLens.style.backgroundImage = `url('${mainImage.src}')`;
+      zoomLens.style.backgroundSize = `${rect.width * zoomFactor}px ${rect.height * zoomFactor}px`;
+      zoomLens.style.backgroundPosition = `-${x * zoomFactor - lensWidth / 2}px -${y * zoomFactor - lensHeight / 2}px`;
+    });
+
+    zoomArea.addEventListener('mouseenter', () => {
+      zoomLens.style.display = 'block';
+      zoomLens.style.opacity = '1';
+    });
+
+    zoomArea.addEventListener('mouseleave', () => {
+      zoomLens.style.opacity = '0';
+      setTimeout(() => { zoomLens.style.display = 'none'; }, 200);
+    });
+  }
+</script>
