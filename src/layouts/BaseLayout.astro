@@ -7,8 +7,8 @@ interface Props {
 }
 
 const {
-  title = 'Catálogo inmobiliario',
-  description = 'Catálogo inmobiliario estático con Astro'
+  title = 'Gestión Inmobiliaria Galindo | Tu patrimonio en buenas manos',
+  description = 'Bienes Raíces en Xalapa y Veracruz. Calidad, honradez y profesionalismo.'
 } = Astro.props;
 ---
 
@@ -18,20 +18,73 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
   </head>
-  <body class="bg-slate-50 text-slate-900">
-    <header class="border-b border-slate-200 bg-white">
+  <body class="bg-slate-50 text-slate-900 selection:bg-red-100 selection:text-red-900">
+    <div class="bg-slate-900 text-white py-2 text-[10px] font-bold uppercase tracking-[0.2em]">
+      <div class="mx-auto max-w-7xl px-4 flex justify-between items-center">
+        <span>Xalapa • Veracruz • Banderilla</span>
+        <div class="flex gap-4">
+          <a href="tel:2281852255" class="hover:text-red-400 transition-colors">📞 228 185 2255</a>
+        </div>
+      </div>
+    </div>
+
+    <header class="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur-md">
       <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
-        <a href="/" class="text-xl font-bold tracking-tight">Inmobiliaria Demo</a>
-        <nav class="text-sm text-slate-600">
-          <a href="/" class="hover:text-slate-900">Catálogo</a>
+        <a href="/" class="flex items-center gap-3 group">
+          <div class="h-10 w-10 bg-red-600 rounded-lg flex items-center justify-center text-white font-black shadow-lg shadow-red-200 group-hover:scale-110 transition-transform">
+            G
+          </div>
+          <div class="flex flex-col">
+            <span class="text-xl font-black tracking-tighter leading-none text-slate-900 uppercase">
+              Galindo
+            </span>
+            <span class="text-[9px] font-bold text-red-600 uppercase tracking-[0.3em] leading-none mt-1">
+              Gestión Inmobiliaria
+            </span>
+          </div>
+        </a>
+        
+        <nav class="hidden md:flex items-center gap-8 text-xs font-black uppercase tracking-widest text-slate-500">
+          <a href="/" class="hover:text-red-600 transition-colors border-b-2 border-red-600 text-slate-900 pb-1">Catálogo</a>
+          <a href="/nosotros" class="hover:text-red-600 transition-colors pb-1">Nosotros</a>
+          <a href="https://wa.me/522281852255" class="bg-red-600 text-white px-5 py-2.5 rounded-xl hover:bg-slate-900 transition-all shadow-lg shadow-red-100">
+            Vende tu propiedad
+          </a>
         </nav>
       </div>
     </header>
 
-    <main class="mx-auto max-w-7xl px-4 py-8">
+    <main class="mx-auto max-w-7xl px-4 py-12">
       <slot />
     </main>
+
+    <footer class="bg-slate-900 text-white py-16 mt-20">
+      <div class="mx-auto max-w-7xl px-4 grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div>
+          <span class="text-2xl font-black uppercase tracking-tighter">Galindo</span>
+          <p class="mt-4 text-slate-400 text-sm leading-relaxed">
+            Ofreciendo servicios de calidad, honradez y profesionalismo en todas las áreas de bienes raíces.
+          </p>
+        </div>
+        <div>
+          <h4 class="font-bold uppercase text-xs tracking-widest mb-6 text-red-500">Contacto</h4>
+          <ul class="text-sm text-slate-400 space-y-3">
+            <li>📍 Heriberto Jara #24, Col. 10 de Mayo, Xalapa</li>
+            <li>📧 asesor_inmobiliario_gc@hotmail.com</li>
+            <li>📱 228 185 2255</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold uppercase text-xs tracking-widest mb-6 text-red-500">Horario</h4>
+          <p class="text-sm text-slate-400">Lunes a Viernes: 9:00 AM - 6:00 PM<br>Sábados: 10:00 AM - 2:00 PM</p>
+        </div>
+      </div>
+      <div class="mx-auto max-w-7xl px-4 mt-16 pt-8 border-t border-slate-800 text-[10px] text-slate-500 text-center uppercase tracking-widest">
+        © 2026 Gestión Inmobiliaria Galindo - Todos los derechos reservados.
+      </div>
+    </footer>
   </body>
 </html>
