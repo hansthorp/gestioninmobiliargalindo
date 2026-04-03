@@ -2,6 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { BedDouble, Bath, Car, Ruler, MapPin, MessageCircle, ChevronLeft, Landmark } from 'lucide-astro';
 
+// 1. EXTRAEMOS LA BASE (será '/galindo')
+const base = import.meta.env.BASE_URL;
+
 const property = {
   titulo: "Propiedad con Zoom y Ficha Completa",
   precio: 4200000,
@@ -14,7 +17,7 @@ const property = {
   estacionamientos: 2,
   m2Construccion: 210,
   m2Terreno: 350,
-  contacto: { whatsapp: "5212281234567" }
+  contacto: { whatsapp: "522281852255" } // Actualizado con tu número
 };
 
 const formatCurrency = (value, currency) =>
@@ -25,7 +28,7 @@ const randomImages = Array.from({ length: 6 }, (_, i) => `https://picsum.photos/
 
 <BaseLayout title="Detalle Pro | Inmobiliaria">
   <div class="max-w-7xl mx-auto px-4 py-8">
-    <a href="/" class="inline-flex items-center gap-2 text-slate-500 hover:text-emerald-600 transition-colors mb-8 font-bold">
+    <a href={base} class="inline-flex items-center gap-2 text-slate-500 hover:text-red-600 transition-colors mb-8 font-bold">
       <ChevronLeft class="h-5 w-5" /> Volver al catálogo
     </a>
 
@@ -47,7 +50,7 @@ const randomImages = Array.from({ length: 6 }, (_, i) => `https://picsum.photos/
 
         <div class="grid grid-cols-6 gap-2">
           {randomImages.map((img) => (
-            <button class="thumb-btn rounded-xl overflow-hidden h-16 border-2 border-transparent hover:border-emerald-500 transition-all" data-src={img}>
+            <button class="thumb-btn rounded-xl overflow-hidden h-16 border-2 border-transparent hover:border-red-500 transition-all" data-src={img}>
               <img src={img} class="w-full h-full object-cover" />
             </button>
           ))}
@@ -55,11 +58,11 @@ const randomImages = Array.from({ length: 6 }, (_, i) => `https://picsum.photos/
       </div>
 
       <div>
-        <h1 class="text-4xl font-black text-slate-900 mb-4 tracking-tight">{property.titulo}</h1>
-        <p class="flex items-center gap-2 text-slate-500 mb-8 font-medium">
-          <MapPin class="h-5 w-5 text-emerald-500" /> {property.zona}, {property.ciudad}
+        <h1 class="text-4xl font-black text-slate-900 mb-4 tracking-tight uppercase leading-tight">{property.titulo}</h1>
+        <p class="flex items-center gap-2 text-slate-500 mb-8 font-medium italic">
+          <MapPin class="h-5 w-5 text-red-500" /> {property.zona}, {property.ciudad}
         </p>
-        <div class="text-5xl font-black text-emerald-600 mb-10 tracking-tighter italic">
+        <div class="text-5xl font-black text-red-600 mb-10 tracking-tighter italic">
           {formatCurrency(property.precio, property.moneda)}
         </div>
 
@@ -67,36 +70,40 @@ const randomImages = Array.from({ length: 6 }, (_, i) => `https://picsum.photos/
           <div class="flex flex-col items-center border-r border-slate-50">
             <BedDouble class="text-slate-400 mb-1 h-5 w-5" />
             <span class="text-sm font-bold text-slate-900">{property.recamaras}</span>
-            <span class="text-[8px] text-slate-400 font-black uppercase">Hab.</span>
+            <span class="text-[8px] text-slate-400 font-black uppercase tracking-tighter">Hab.</span>
           </div>
           <div class="flex flex-col items-center border-r border-slate-50">
             <Bath class="text-slate-400 mb-1 h-5 w-5" />
             <span class="text-sm font-bold text-slate-900">{property.banos}</span>
-            <span class="text-[8px] text-slate-400 font-black uppercase">Baños</span>
+            <span class="text-[8px] text-slate-400 font-black uppercase tracking-tighter">Baños</span>
           </div>
           <div class="flex flex-col items-center border-r border-slate-50">
             <Car class="text-slate-400 mb-1 h-5 w-5" />
             <span class="text-sm font-bold text-slate-900">{property.estacionamientos}</span>
-            <span class="text-[8px] text-slate-400 font-black uppercase">Estac.</span>
+            <span class="text-[8px] text-slate-400 font-black uppercase tracking-tighter">Estac.</span>
           </div>
           <div class="flex flex-col items-center border-r border-slate-50">
             <Ruler class="text-slate-400 mb-1 h-5 w-5" />
             <span class="text-sm font-bold text-slate-900">{property.m2Construccion}</span>
-            <span class="text-[8px] text-slate-400 font-black uppercase">Const.</span>
+            <span class="text-[8px] text-slate-400 font-black uppercase tracking-tighter">Const.</span>
           </div>
           <div class="flex flex-col items-center">
-            <Landmark class="text-emerald-500 mb-1 h-5 w-5" />
-            <span class="text-sm font-bold text-emerald-700">{property.m2Terreno}</span>
-            <span class="text-[8px] text-slate-400 font-black uppercase">Terr.</span>
+            <Landmark class="text-red-600 mb-1 h-5 w-5" />
+            <span class="text-sm font-bold text-red-700">{property.m2Terreno}</span>
+            <span class="text-[8px] text-slate-400 font-black uppercase tracking-tighter">Terr.</span>
           </div>
         </div>
 
-        <p class="text-slate-600 leading-relaxed mb-10 border-l-4 border-emerald-500 pl-4 italic bg-slate-50 py-3 rounded-r-lg">
+        <p class="text-slate-600 leading-relaxed mb-10 border-l-4 border-red-500 pl-4 italic bg-slate-50 py-4 rounded-r-2xl">
           {property.descripcion}
         </p>
         
-        <a href="#" class="flex items-center justify-center gap-3 bg-green-600 text-white py-5 rounded-2xl font-black text-xl hover:bg-green-700 transition-all shadow-xl shadow-green-100">
-          <MessageCircle class="h-6 w-6" /> WhatsApp
+        <a 
+          href={`https://wa.me/${property.contacto.whatsapp}`} 
+          target="_blank"
+          class="flex items-center justify-center gap-3 bg-green-600 text-white py-5 rounded-2xl font-black text-xl hover:bg-green-700 transition-all shadow-xl shadow-green-100 hover:-translate-y-1"
+        >
+          <MessageCircle class="h-6 w-6" /> CONTACTAR POR WHATSAPP
         </a>
       </div>
     </div>
@@ -104,12 +111,12 @@ const randomImages = Array.from({ length: 6 }, (_, i) => `https://picsum.photos/
 </BaseLayout>
 
 <script>
+  // Lógica de Zoom y Galería (Sin cambios, ya son compatibles)
   const zoomArea = document.getElementById('zoom-area');
   const zoomLens = document.getElementById('zoom-lens');
   const mainImage = document.getElementById('main-image') as HTMLImageElement;
   const thumbBtns = document.querySelectorAll('.thumb-btn');
 
-  // Galería
   thumbBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const src = btn.getAttribute('data-src');
@@ -124,7 +131,6 @@ const randomImages = Array.from({ length: 6 }, (_, i) => `https://picsum.photos/
     });
   });
 
-  // Lógica de Zoom
   if (zoomArea && zoomLens && mainImage) {
     zoomArea.addEventListener('mousemove', (e: MouseEvent) => {
       const rect = zoomArea.getBoundingClientRect();
@@ -146,7 +152,7 @@ const randomImages = Array.from({ length: 6 }, (_, i) => `https://picsum.photos/
       const zoomFactor = 2.5; 
       zoomLens.style.backgroundImage = `url('${mainImage.src}')`;
       zoomLens.style.backgroundSize = `${rect.width * zoomFactor}px ${rect.height * zoomFactor}px`;
-clea      zoomLens.style.backgroundPosition = `-${x * zoomFactor - lensSize / 2}px -${y * zoomFactor - lensSize / 2}px`;
+      zoomLens.style.backgroundPosition = `-${x * zoomFactor - lensSize / 2}px -${y * zoomFactor - lensSize / 2}px`;
     });
 
     zoomArea.addEventListener('mouseenter', () => {
@@ -156,7 +162,9 @@ clea      zoomLens.style.backgroundPosition = `-${x * zoomFactor - lensSize / 2}
 
     zoomArea.addEventListener('mouseleave', () => {
       zoomLens.style.opacity = '0';
-      setTimeout(() => { zoomLens.style.display = 'none'; }, 200);
+      setTimeout(() => { 
+        if(zoomLens) zoomLens.style.display = 'none'; 
+      }, 200);
     });
   }
 </script>

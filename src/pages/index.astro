@@ -1,86 +1,139 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro'; // UN SOLO PUNTO-PUNTO
+import BaseLayout from '../layouts/BaseLayout.astro';
 import PropertyCard from '../components/PropertyCard.astro';
 import propiedades from '../data/propiedades.json';
+
+// 1. EXTRAEMOS LA BASE PARA LOS ENLACES
+const base = import.meta.env.BASE_URL;
 
 const total = propiedades.length;
 const disponibles = propiedades.filter(p => p.estatus === 'disponible').length;
 const cerrados = propiedades.filter(p => p.estatus === 'vendido' || p.estatus === 'rentado').length;
 ---
 
-<BaseLayout title="Catálogo Inmobiliario | Fernando Pérez">
-  <header class="mb-12 text-center">
-    <h1 class="text-5xl font-black tracking-tight text-slate-900 italic">Tu Próximo Hogar</h1>
-    <p class="mt-4 text-lg text-slate-500">Gestión profesional de inmuebles en Xalapa y Veracruz</p>
+<BaseLayout title="Gestión Inmobiliaria Galindo | Catálogo">
+  <header class="mb-16 text-center">
+    <span class="text-red-600 font-black uppercase text-[10px] tracking-[0.4em] mb-4 block text-center">Xalapa & Veracruz</span>
+    <h1 class="text-5xl md:text-6xl font-black tracking-tighter text-slate-900 uppercase italic leading-none">
+       Gestión Inmobiliaria <span class="text-red-600">Galindo</span>
+    </h1>
+    <p class="mt-6 text-xl text-slate-500 font-medium italic">"Calidad, honradez y profesionalismo"</p>
     
-    <div class="mt-6 text-slate-400 font-bold uppercase text-[10px] tracking-[0.2em]">
-       {disponibles} Propiedades Disponibles | {cerrados} Casos de Éxito
+    <div class="mt-10 flex flex-wrap justify-center gap-4">
+      <div class="flex items-center gap-3 bg-white border-2 border-slate-200 px-6 py-3 rounded-2xl shadow-sm">
+        <span class="text-lg">📊</span>
+        <div class="text-left">
+          <p class="text-[9px] font-black uppercase tracking-widest text-slate-400 leading-none">Total</p>
+          <p class="text-base font-black text-slate-700 leading-none mt-1">{total} Inmuebles</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3 bg-[#dc2626] px-6 py-3 rounded-2xl shadow-lg shadow-red-100">
+        <span class="text-lg">🏠</span>
+        <div class="text-left">
+          <p class="text-[9px] font-black uppercase tracking-widest text-red-200 leading-none">Activas</p>
+          <p class="text-base font-black text-white leading-none mt-1">{disponibles} Disponibles</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3 bg-[#334155] px-6 py-3 rounded-2xl shadow-lg shadow-slate-200">
+        <span class="text-lg">🚩</span>
+        <div class="text-left">
+          <p class="text-[9px] font-black uppercase tracking-widest text-slate-300 leading-none">Resultados</p>
+          <p class="text-base font-black text-white leading-none mt-1">{cerrados} Casos de Éxito</p>
+        </div>
+      </div>
     </div>
   </header>
 
-  <div class="mb-12 flex flex-wrap justify-center gap-3" id="filters-container">
-    <button class="filter-btn active" data-filter="todos">🏠 Ver Todo</button>
-    <button class="filter-btn" data-filter="venta">💰 Venta</button>
-    <button class="filter-btn" data-filter="renta">🔑 Renta</button>
+  <div class="mb-14 flex flex-wrap justify-center gap-3" id="filters-container">
+    <button class="filter-btn active" data-filter="todos">🚀 Ver Todo</button>
+    <button class="filter-btn" data-filter="venta">💰 En Venta</button>
+    <button class="filter-btn" data-filter="renta">🔑 En Renta</button>
     <button class="filter-btn" data-filter="vendido">✅ Vendidos</button>
     <button class="filter-btn" data-filter="rentado">🤝 Rentados</button>
   </div>
 
-  <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3" id="properties-grid">
+  <div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3" id="properties-grid">
     {propiedades.map((prop) => (
-      <div class="property-wrapper" data-category={prop.operacion} data-status={prop.estatus}>
+      <div class="property-wrapper transition-all duration-300" data-category={prop.operacion} data-status={prop.estatus}>
         <PropertyCard property={prop} />
       </div>
     ))}
   </div>
 </BaseLayout>
 
-<style>
+<style is:global>
+  .hidden-card { 
+    display: none !important;
+  }
+
   .filter-btn {
-    border-radius: 0.75rem;
-    border-width: 2px;
-    padding: 0.625rem 1.5rem;
-    font-weight: 900;
-    transition: all 0.3s;
+    border-radius: 0.85rem;
+    border: 2px solid #e2e8f0;
     background-color: white;
-    border-color: #e2e8f0;
-    color: #475569;
+    padding: 0.8rem 1.6rem;
+    font-weight: 900;
+    color: #64748b;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    transition: all 0.3s ease;
+    cursor: pointer;
   }
-  .filter-btn:hover {
-    border-color: #10b981;
-    color: #059669;
+  
+  .filter-btn:hover:not(.active) {
+    border-color: #dc2626;
+    color: #dc2626;
+    background-color: #fef2f2;
+    transform: translateY(-2px);
   }
+  
   .filter-btn.active {
-    border-color: #0f172a;
-    background-color: #0f172a;
+    border-color: #334155;
+    background-color: #334155;
     color: white;
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px -5px rgba(51, 65, 85, 0.3);
   }
-  .hidden-card { display: none; }
 </style>
 
 <script>
   function setupFilters() {
     const buttons = document.querySelectorAll('.filter-btn');
     const wrappers = document.querySelectorAll('.property-wrapper');
+    
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
         buttons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         const filter = btn.getAttribute('data-filter');
+        
         wrappers.forEach(wrapper => {
           const status = wrapper.getAttribute('data-status');
           const category = wrapper.getAttribute('data-category');
+          let shouldShow = false;
+
           if (filter === 'todos') {
-            status === 'disponible' ? wrapper.classList.remove('hidden-card') : wrapper.classList.add('hidden-card');
+            shouldShow = (status === 'disponible');
           } else if (filter === 'vendido' || filter === 'rentado') {
-            status === filter ? wrapper.classList.remove('hidden-card') : wrapper.classList.add('hidden-card');
+            shouldShow = (status === filter);
           } else {
-            (category === filter && status === 'disponible') ? wrapper.classList.remove('hidden-card') : wrapper.classList.add('hidden-card');
+            shouldShow = (category === filter && status === 'disponible');
+          }
+
+          if (shouldShow) {
+            wrapper.classList.remove('hidden-card');
+          } else {
+            wrapper.classList.add('hidden-card');
           }
         });
       });
     });
-    (document.querySelector('[data-filter="todos"]') as HTMLElement)?.click();
+
+    const initialBtn = document.querySelector('.filter-btn.active') as HTMLElement;
+    if (initialBtn) initialBtn.click();
   }
-  window.addEventListener('DOMContentLoaded', setupFilters);
+
+  window.addEventListener('load', setupFilters);
 </script>

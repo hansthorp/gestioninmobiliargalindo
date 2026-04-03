@@ -1,11 +1,14 @@
 ---
-import { BedDouble, Bath, Car, Ruler, MapPin, MessageCircle, Landmark, CheckCircle2, Timer, Tag } from 'lucide-astro';
+import { BedDouble, Bath, Car, Ruler, MapPin, MessageCircle, Landmark, CheckCircle2, Timer } from 'lucide-astro';
 
 interface Props {
   property: any;
 }
 
 const { property } = Astro.props;
+
+// 1. EXTRAEMOS LA BASE (será '/galindo' en tu host de pruebas)
+const base = import.meta.env.BASE_URL;
 
 // LÓGICA DE ESTADOS BASADA EN EXCEL
 const estatus = property.estatus?.toLowerCase().trim();
@@ -75,27 +78,27 @@ const whatsappUrl = `https://wa.me/${property.contacto.whatsapp}?text=${encodeUR
     </div>
 
     <div class="mb-5 grid grid-cols-5 gap-1 border-y border-slate-100 py-4 text-slate-600 text-center bg-slate-50/50 rounded-xl">
-      <div class="flex flex-col items-center border-r border-slate-200">
-        <BedDouble class="h-4 w-4 mb-1" />
-        <span class="text-sm font-bold text-slate-900">{property.recamaras}</span>
+        <div class="flex flex-col items-center border-r border-slate-200">
+          <BedDouble class="h-4 w-4 mb-1" />
+          <span class="text-sm font-bold text-slate-900">{property.recamaras}</span>
+        </div>
+        <div class="flex flex-col items-center border-r border-slate-200">
+          <Bath class="h-4 w-4 mb-1" />
+          <span class="text-sm font-bold text-slate-900">{property.banos}</span>
+        </div>
+        <div class="flex flex-col items-center border-r border-slate-200">
+          <Car class="h-4 w-4 mb-1" />
+          <span class="text-sm font-bold text-slate-900">{property.estacionamientos}</span>
+        </div>
+        <div class="flex flex-col items-center border-r border-slate-200">
+          <Ruler class="h-4 w-4 mb-1" />
+          <span class="text-sm font-bold text-slate-900">{property.m2Construccion}</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <Landmark class="h-4 w-4 text-emerald-600 mb-1" />
+          <span class="text-sm font-bold text-emerald-600">{property.m2Terreno}</span>
+        </div>
       </div>
-      <div class="flex flex-col items-center border-r border-slate-200">
-        <Bath class="h-4 w-4 mb-1" />
-        <span class="text-sm font-bold text-slate-900">{property.banos}</span>
-      </div>
-      <div class="flex flex-col items-center border-r border-slate-200">
-        <Car class="h-4 w-4 mb-1" />
-        <span class="text-sm font-bold text-slate-900">{property.estacionamientos}</span>
-      </div>
-      <div class="flex flex-col items-center border-r border-slate-200">
-        <Ruler class="h-4 w-4 mb-1" />
-        <span class="text-sm font-bold text-slate-900">{property.m2Construccion}</span>
-      </div>
-      <div class="flex flex-col items-center">
-        <Landmark class="h-4 w-4 text-emerald-600 mb-1" />
-        <span class="text-sm font-bold text-emerald-600">{property.m2Terreno}</span>
-      </div>
-    </div>
 
     <div class="mt-auto flex gap-2">
       {isCerrado ? (
@@ -103,8 +106,9 @@ const whatsappUrl = `https://wa.me/${property.contacto.whatsapp}?text=${encodeUR
            {property.estatus} </div>
       ) : (
         <>
+          {/* 2. EL FIX: Usamos ${base} para que el link funcione en la subcarpeta */}
           <a 
-            href={`/propiedades/${property.slug}`} 
+            href={`${base}/propiedades/${property.slug}`} 
             class="flex-1 rounded-xl bg-slate-900 py-3.5 text-center text-sm font-black text-white hover:bg-emerald-700 transition-all shadow-lg shadow-slate-200"
           >
             Ver Detalles
