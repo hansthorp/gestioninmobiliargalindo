@@ -1,201 +1,9 @@
 [
   {
-    "id": "prop-001",
-    "slug": "casa-lujo-coapexpan",
-    "titulo": "Casa Lujo Coapexpan",
-    "descripcion": "Residencia con acabados de mármol...",
-    "operacion": "venta",
-    "tipo": "casa",
-    "precio": 4500000,
-    "moneda": "MXN",
-    "zona": "Coapexpan",
-    "ciudad": "Xalapa",
-    "m2Terreno": 600,
-    "m2Construccion": 350,
-    "recamaras": 4,
-    "banos": 3,
-    "estacionamientos": 2,
-    "imagenes": [
-      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
-    ],
-    "contacto": {
-      "whatsapp": "5212281234567",
-      "mensajeBase": "Hola, me interesa la propiedad: Casa Lujo Coapexpan"
-    }
-  },
-  {
-    "id": "prop-002",
-    "slug": "penthouse-centro",
-    "titulo": "Depto Centro",
-    "descripcion": "Penthouse con vista panorámica...",
-    "operacion": "renta",
-    "tipo": "departamento",
-    "precio": 15000,
-    "moneda": "MXN",
-    "zona": "Centro",
-    "ciudad": "Xalapa",
-    "m2Terreno": 120,
-    "m2Construccion": 120,
-    "recamaras": 2,
-    "banos": 2,
-    "estacionamientos": 1,
-    "imagenes": [
-      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
-    ],
-    "contacto": {
-      "whatsapp": "5212281234567",
-      "mensajeBase": "Hola, me interesa la propiedad: Depto Centro"
-    }
-  },
-  {
-    "id": "prop-003",
-    "slug": "residencia-cumbres",
-    "titulo": "Residencia Cumbres",
-    "descripcion": "Lujosa casa con acabados de cedro y granito, alberca climatizada.",
-    "operacion": "venta",
-    "tipo": "casa",
-    "precio": 5800000,
-    "moneda": "MXN",
-    "zona": "Cumbres",
-    "ciudad": "Xalapa",
-    "m2Terreno": 450,
-    "m2Construccion": 400,
-    "recamaras": 4,
-    "banos": 4,
-    "estacionamientos": 3,
-    "imagenes": [
-      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
-    ],
-    "contacto": {
-      "whatsapp": "5212281234567",
-      "mensajeBase": "Hola, me interesa la propiedad: Residencia Cumbres"
-    }
-  },
-  {
-    "id": "prop-004",
-    "slug": "loft-centro-xalapa",
-    "titulo": "Loft Industrial Centro",
-    "descripcion": "Espacio abierto estilo New York, techos altos y excelente iluminación.",
-    "operacion": "renta",
-    "tipo": "departamento",
-    "precio": 12500,
-    "moneda": "MXN",
-    "zona": "Centro",
-    "ciudad": "Xalapa",
-    "m2Terreno": 90,
-    "m2Construccion": 90,
-    "recamaras": 1,
-    "banos": 1,
-    "estacionamientos": 1,
-    "imagenes": [
-      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
-    ],
-    "contacto": {
-      "whatsapp": "5212281234567",
-      "mensajeBase": "Hola, me interesa la propiedad: Loft Industrial Centro"
-    }
-  },
-  {
-    "id": "prop-005",
-    "slug": "animas-lujo-xalapa",
-    "titulo": "Casa Las Ánimas Plus",
-    "descripcion": "Ubicación privilegiada frente a parque, seguridad privada 24 hrs.",
-    "operacion": "venta",
-    "tipo": "casa",
-    "precio": 7200000,
-    "moneda": "MXN",
-    "zona": "Ánimas",
-    "ciudad": "Xalapa",
-    "m2Terreno": 500,
-    "m2Construccion": 480,
-    "recamaras": 5,
-    "banos": 5,
-    "estacionamientos": 4,
-    "imagenes": [
-      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
-    ],
-    "contacto": {
-      "whatsapp": "5212281234567",
-      "mensajeBase": "Hola, me interesa la propiedad: Casa Las Ánimas Plus"
-    }
-  },
-  {
-    "id": "prop-006",
-    "slug": "minimal-coatepec",
-    "titulo": "Casa Minimalista Coatepec",
-    "descripcion": "En medio de la naturaleza, grandes ventanales y jardín perimetral.",
-    "operacion": "venta",
-    "tipo": "casa",
-    "precio": 3950000,
-    "moneda": "MXN",
-    "zona": "Briones",
-    "ciudad": "Coatepec",
-    "m2Terreno": 1000,
-    "m2Construccion": 280,
-    "recamaras": 3,
-    "banos": 3,
-    "estacionamientos": 3,
-    "imagenes": [
-      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
-    ],
-    "contacto": {
-      "whatsapp": "5212281234567",
-      "mensajeBase": "Hola, me interesa la propiedad: Casa Minimalista Coatepec"
-    }
-  },
-  {
     "id": "prop-007",
-    "slug": "depto-mar-veracruz",
-    "titulo": "Depto Vista al Mar",
-    "descripcion": "Terraza amplia con vista directa al Golfo, amenidades premium.",
-    "operacion": "venta",
-    "tipo": "departamento",
-    "precio": 4100000,
-    "moneda": "MXN",
-    "zona": "Boca del Río",
-    "ciudad": "Veracruz",
-    "m2Terreno": 150,
-    "m2Construccion": 150,
-    "recamaras": 3,
-    "banos": 2,
-    "estacionamientos": 2,
-    "imagenes": [
-      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
-    ],
-    "contacto": {
-      "whatsapp": "5212281234567",
-      "mensajeBase": "Hola, me interesa la propiedad: Depto Vista al Mar"
-    }
-  },
-  {
-    "id": "prop-008",
-    "slug": "campo-teocelo",
-    "titulo": "Casa de Campo Teocelo",
-    "descripcion": "Ideal para descanso, frutales y clima inmejorable.",
-    "operacion": "renta",
-    "tipo": "casa",
-    "precio": 8000,
-    "moneda": "MXN",
-    "zona": "Centro",
-    "ciudad": "Teocelo",
-    "m2Terreno": 1200,
-    "m2Construccion": 150,
-    "recamaras": 2,
-    "banos": 2,
-    "estacionamientos": 5,
-    "imagenes": [
-      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
-    ],
-    "contacto": {
-      "whatsapp": "5212281234567",
-      "mensajeBase": "Hola, me interesa la propiedad: Casa de Campo Teocelo"
-    }
-  },
-  {
-    "id": "prop-009",
     "slug": "monte-magno-moderna",
     "titulo": "Residencia Monte Magno",
-    "descripcion": "Diseño moderno con roof garden y área de asador.",
+    "descripcion": "Diseño moderno con roof garden y asador.",
     "operacion": "venta",
     "tipo": "casa",
     "precio": 4900000,
@@ -207,6 +15,8 @@
     "recamaras": 3,
     "banos": 3,
     "estacionamientos": 2,
+    "fechaPublicacion": "2026-04-02",
+    "estatus": "disponible",
     "imagenes": [
       "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
     ],
@@ -216,298 +26,62 @@
     }
   },
   {
-    "id": "prop-010",
-    "slug": "penthouse-sky-ver",
-    "titulo": "Penthouse Veracruz Sky",
-    "descripcion": "Jacuzzi privado en terraza, acceso a gimnasio y alberca.",
-    "operacion": "renta",
-    "tipo": "departamento",
-    "precio": 25000,
-    "moneda": "MXN",
-    "zona": "Costa de Oro",
-    "ciudad": "Veracruz",
-    "m2Terreno": 220,
-    "m2Construccion": 220,
-    "recamaras": 3,
-    "banos": 4,
-    "estacionamientos": 2,
-    "imagenes": [
-      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
-    ],
-    "contacto": {
-      "whatsapp": "5212281234567",
-      "mensajeBase": "Hola, me interesa la propiedad: Penthouse Veracruz Sky"
-    }
-  },
-  {
-    "id": "prop-011",
-    "slug": "bugambilias-xalapa",
-    "titulo": "Casa Familiar Bugambilias",
-    "descripcion": "Excelente estado, cocina integral nueva y patio amplio.",
+    "id": "prop-022",
+    "slug": "preventa-animas",
+    "titulo": "Casa en Pre-venta",
+    "descripcion": "Oportunidad de inversión, entrega 6 meses.",
     "operacion": "venta",
     "tipo": "casa",
-    "precio": 2850000,
+    "precio": 3200000,
     "moneda": "MXN",
-    "zona": "Bugambilias",
+    "zona": "Ánimas",
     "ciudad": "Xalapa",
-    "m2Terreno": 180,
-    "m2Construccion": 220,
+    "m2Terreno": 200,
+    "m2Construccion": 250,
     "recamaras": 3,
-    "banos": 2,
+    "banos": 3,
     "estacionamientos": 2,
+    "fechaPublicacion": "2026-04-02",
+    "estatus": "disponible",
     "imagenes": [
       "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
     ],
     "contacto": {
       "whatsapp": "5212281234567",
-      "mensajeBase": "Hola, me interesa la propiedad: Casa Familiar Bugambilias"
+      "mensajeBase": "Hola, me interesa la propiedad: Casa en Pre-venta"
     }
   },
   {
-    "id": "prop-012",
-    "slug": "studio-estudiantes",
-    "titulo": "Departamento Studio",
-    "descripcion": "Ideal para una persona, servicios incluidos, cerca de facultades.",
+    "id": "prop-002",
+    "slug": "loft-centro-xalapa",
+    "titulo": "Loft Industrial Centro",
+    "descripcion": "Espacio abierto estilo New York, techos altos.",
     "operacion": "renta",
     "tipo": "departamento",
-    "precio": 6500,
+    "precio": 12500,
     "moneda": "MXN",
-    "zona": "Zona UV",
+    "zona": "Centro",
     "ciudad": "Xalapa",
-    "m2Terreno": 45,
-    "m2Construccion": 45,
+    "m2Terreno": 90,
+    "m2Construccion": 90,
     "recamaras": 1,
     "banos": 1,
-    "estacionamientos": 0,
-    "imagenes": [
-      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
-    ],
-    "contacto": {
-      "whatsapp": "5212281234567",
-      "mensajeBase": "Hola, me interesa la propiedad: Departamento Studio"
-    }
-  },
-  {
-    "id": "prop-013",
-    "slug": "colonial-xalapa",
-    "titulo": "Casa Estilo Colonial",
-    "descripcion": "Patio central con fuente, techos de teja y madera fina.",
-    "operacion": "venta",
-    "tipo": "casa",
-    "precio": 5200000,
-    "moneda": "MXN",
-    "zona": "Centro",
-    "ciudad": "Xalapa",
-    "m2Terreno": 400,
-    "m2Construccion": 380,
-    "recamaras": 4,
-    "banos": 3,
     "estacionamientos": 1,
+    "fechaPublicacion": "2026-04-01",
+    "estatus": "disponible",
     "imagenes": [
       "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
     ],
     "contacto": {
       "whatsapp": "5212281234567",
-      "mensajeBase": "Hola, me interesa la propiedad: Casa Estilo Colonial"
-    }
-  },
-  {
-    "id": "prop-014",
-    "slug": "casa-lago-animas",
-    "titulo": "Residencia El Lago",
-    "descripcion": "Vista exclusiva al lago, salón de juegos y acabados de lujo.",
-    "operacion": "venta",
-    "tipo": "casa",
-    "precio": 8500000,
-    "moneda": "MXN",
-    "zona": "El Lago",
-    "ciudad": "Xalapa",
-    "m2Terreno": 600,
-    "m2Construccion": 550,
-    "recamaras": 4,
-    "banos": 5,
-    "estacionamientos": 3,
-    "imagenes": [
-      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
-    ],
-    "contacto": {
-      "whatsapp": "5212281234567",
-      "mensajeBase": "Hola, me interesa la propiedad: Residencia El Lago"
-    }
-  },
-  {
-    "id": "prop-015",
-    "slug": "fracc-seguro-ver",
-    "titulo": "Casa en Fracc. Privado",
-    "descripcion": "Casa nueva en cluster con casa club y vigilancia.",
-    "operacion": "venta",
-    "tipo": "casa",
-    "precio": 2100000,
-    "moneda": "MXN",
-    "zona": "Riviera Veracruzana",
-    "ciudad": "Veracruz",
-    "m2Terreno": 160,
-    "m2Construccion": 180,
-    "recamaras": 3,
-    "banos": 2,
-    "estacionamientos": 2,
-    "imagenes": [
-      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
-    ],
-    "contacto": {
-      "whatsapp": "5212281234567",
-      "mensajeBase": "Hola, me interesa la propiedad: Casa en Fracc. Privado"
-    }
-  },
-  {
-    "id": "prop-016",
-    "slug": "oficina-centro-xal",
-    "titulo": "Oficina Ejecutiva Centro",
-    "descripcion": "Espacio para oficinas con divisiones de cristal templado.",
-    "operacion": "renta",
-    "tipo": "departamento",
-    "precio": 14000,
-    "moneda": "MXN",
-    "zona": "Centro",
-    "ciudad": "Xalapa",
-    "m2Terreno": 110,
-    "m2Construccion": 110,
-    "recamaras": 0,
-    "banos": 2,
-    "estacionamientos": 1,
-    "imagenes": [
-      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
-    ],
-    "contacto": {
-      "whatsapp": "5212281234567",
-      "mensajeBase": "Hola, me interesa la propiedad: Oficina Ejecutiva Centro"
-    }
-  },
-  {
-    "id": "prop-017",
-    "slug": "cabana-huatusco",
-    "titulo": "Terreno con Cabaña",
-    "descripcion": "Cabaña de troncos en bosque de niebla, clima frío.",
-    "operacion": "venta",
-    "tipo": "casa",
-    "precio": 1950000,
-    "moneda": "MXN",
-    "zona": "Bosque",
-    "ciudad": "Huatusco",
-    "m2Terreno": 2500,
-    "m2Construccion": 80,
-    "recamaras": 2,
-    "banos": 1,
-    "estacionamientos": 10,
-    "imagenes": [
-      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
-    ],
-    "contacto": {
-      "whatsapp": "5212281234567",
-      "mensajeBase": "Hola, me interesa la propiedad: Terreno con Cabaña"
-    }
-  },
-  {
-    "id": "prop-018",
-    "slug": "valle-rubi-xal",
-    "titulo": "Residencia Valle Rubí",
-    "descripcion": "Garage techado con portón eléctrico, cuarto de servicio.",
-    "operacion": "venta",
-    "tipo": "casa",
-    "precio": 4300000,
-    "moneda": "MXN",
-    "zona": "Valle Rubí",
-    "ciudad": "Xalapa",
-    "m2Terreno": 250,
-    "m2Construccion": 320,
-    "recamaras": 3,
-    "banos": 3,
-    "estacionamientos": 2,
-    "imagenes": [
-      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
-    ],
-    "contacto": {
-      "whatsapp": "5212281234567",
-      "mensajeBase": "Hola, me interesa la propiedad: Residencia Valle Rubí"
-    }
-  },
-  {
-    "id": "prop-019",
-    "slug": "depto-amueblado-ver",
-    "titulo": "Depto Amueblado",
-    "descripcion": "Listo para habitar, aire acondicionado en todas las áreas.",
-    "operacion": "renta",
-    "tipo": "departamento",
-    "precio": 16000,
-    "moneda": "MXN",
-    "zona": "Reforma",
-    "ciudad": "Veracruz",
-    "m2Terreno": 100,
-    "m2Construccion": 100,
-    "recamaras": 2,
-    "banos": 2,
-    "estacionamientos": 1,
-    "imagenes": [
-      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
-    ],
-    "contacto": {
-      "whatsapp": "5212281234567",
-      "mensajeBase": "Hola, me interesa la propiedad: Depto Amueblado"
+      "mensajeBase": "Hola, me interesa la propiedad: Loft Industrial Centro"
     }
   },
   {
     "id": "prop-020",
-    "slug": "casa-ecofriendly",
-    "titulo": "Casa Sustentable",
-    "descripcion": "Paneles solares, captación pluvial y huerto orgánico.",
-    "operacion": "venta",
-    "tipo": "casa",
-    "precio": 3600000,
-    "moneda": "MXN",
-    "zona": "Coatepec",
-    "ciudad": "Coatepec",
-    "m2Terreno": 800,
-    "m2Construccion": 200,
-    "recamaras": 3,
-    "banos": 2,
-    "estacionamientos": 4,
-    "imagenes": [
-      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
-    ],
-    "contacto": {
-      "whatsapp": "5212281234567",
-      "mensajeBase": "Hola, me interesa la propiedad: Casa Sustentable"
-    }
-  },
-  {
-    "id": "prop-021",
-    "slug": "mansion-lujo-ver",
-    "titulo": "Mansión Imperial",
-    "descripcion": "Cine privado, cava de vinos y acceso directo a playa.",
-    "operacion": "venta",
-    "tipo": "casa",
-    "precio": 15000000,
-    "moneda": "MXN",
-    "zona": "Costa de Oro",
-    "ciudad": "Veracruz",
-    "m2Terreno": 1000,
-    "m2Construccion": 900,
-    "recamaras": 6,
-    "banos": 8,
-    "estacionamientos": 6,
-    "imagenes": [
-      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
-    ],
-    "contacto": {
-      "whatsapp": "5212281234567",
-      "mensajeBase": "Hola, me interesa la propiedad: Mansión Imperial"
-    }
-  },
-  {
-    "id": "prop-022",
     "slug": "loft-boutique-xal",
     "titulo": "Loft Boutique",
-    "descripcion": "Estilo vintage remodelado en el corazón de la ciudad.",
+    "descripcion": "Estilo vintage remodelado en el centro.",
     "operacion": "renta",
     "tipo": "departamento",
     "precio": 9500,
@@ -519,12 +93,482 @@
     "recamaras": 1,
     "banos": 1,
     "estacionamientos": 0,
+    "fechaPublicacion": "2026-04-01",
+    "estatus": "disponible",
     "imagenes": [
       "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
     ],
     "contacto": {
       "whatsapp": "5212281234567",
       "mensajeBase": "Hola, me interesa la propiedad: Loft Boutique"
+    }
+  },
+  {
+    "id": "prop-010",
+    "slug": "studio-estudiantes",
+    "titulo": "Departamento Studio",
+    "descripcion": "Ideal para estudiantes, cerca de facultades.",
+    "operacion": "renta",
+    "tipo": "departamento",
+    "precio": 6500,
+    "moneda": "MXN",
+    "zona": "Zona UV",
+    "ciudad": "Xalapa",
+    "m2Terreno": 45,
+    "m2Construccion": 45,
+    "recamaras": 1,
+    "banos": 1,
+    "estacionamientos": 0,
+    "fechaPublicacion": "2026-03-30",
+    "estatus": "disponible",
+    "imagenes": [
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
+    ],
+    "contacto": {
+      "whatsapp": "5212281234567",
+      "mensajeBase": "Hola, me interesa la propiedad: Departamento Studio"
+    }
+  },
+  {
+    "id": "prop-013",
+    "slug": "fracc-seguro-ver",
+    "titulo": "Casa en Fracc. Privado",
+    "descripcion": "Casa nueva en cluster con casa club.",
+    "operacion": "venta",
+    "tipo": "casa",
+    "precio": 2100000,
+    "moneda": "MXN",
+    "zona": "Riviera Veracruzana",
+    "ciudad": "Veracruz",
+    "m2Terreno": 160,
+    "m2Construccion": 180,
+    "recamaras": 3,
+    "banos": 2,
+    "estacionamientos": 2,
+    "fechaPublicacion": "2026-03-29",
+    "estatus": "disponible",
+    "imagenes": [
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
+    ],
+    "contacto": {
+      "whatsapp": "5212281234567",
+      "mensajeBase": "Hola, me interesa la propiedad: Casa en Fracc. Privado"
+    }
+  },
+  {
+    "id": "prop-004",
+    "slug": "minimal-coatepec",
+    "titulo": "Casa Minimalista Coatepec",
+    "descripcion": "En medio de la naturaleza con grandes ventanales.",
+    "operacion": "venta",
+    "tipo": "casa",
+    "precio": 3950000,
+    "moneda": "MXN",
+    "zona": "Briones",
+    "ciudad": "Coatepec",
+    "m2Terreno": 1000,
+    "m2Construccion": 280,
+    "recamaras": 3,
+    "banos": 3,
+    "estacionamientos": 3,
+    "fechaPublicacion": "2026-03-28",
+    "estatus": "disponible",
+    "imagenes": [
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
+    ],
+    "contacto": {
+      "whatsapp": "5212281234567",
+      "mensajeBase": "Hola, me interesa la propiedad: Casa Minimalista Coatepec"
+    }
+  },
+  {
+    "id": "prop-019",
+    "slug": "mansion-lujo-ver",
+    "titulo": "Mansión Imperial",
+    "descripcion": "Cine privado y acceso directo a playa.",
+    "operacion": "venta",
+    "tipo": "casa",
+    "precio": 15000000,
+    "moneda": "MXN",
+    "zona": "Costa de Oro",
+    "ciudad": "Veracruz",
+    "m2Terreno": 1000,
+    "m2Construccion": 900,
+    "recamaras": 6,
+    "banos": 8,
+    "estacionamientos": 6,
+    "fechaPublicacion": "2026-03-27",
+    "estatus": "disponible",
+    "imagenes": [
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
+    ],
+    "contacto": {
+      "whatsapp": "5212281234567",
+      "mensajeBase": "Hola, me interesa la propiedad: Mansión Imperial"
+    }
+  },
+  {
+    "id": "prop-001",
+    "slug": "residencia-cumbres",
+    "titulo": "Residencia Cumbres",
+    "descripcion": "Lujosa casa con acabados de cedro y alberca climatizada.",
+    "operacion": "venta",
+    "tipo": "casa",
+    "precio": 5800000,
+    "moneda": "MXN",
+    "zona": "Cumbres",
+    "ciudad": "Xalapa",
+    "m2Terreno": 450,
+    "m2Construccion": 400,
+    "recamaras": 4,
+    "banos": 4,
+    "estacionamientos": 3,
+    "fechaPublicacion": "2026-03-25",
+    "estatus": "disponible",
+    "imagenes": [
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
+    ],
+    "contacto": {
+      "whatsapp": "5212281234567",
+      "mensajeBase": "Hola, me interesa la propiedad: Residencia Cumbres"
+    }
+  },
+  {
+    "id": "prop-016",
+    "slug": "valle-rubi-xal",
+    "titulo": "Residencia Valle Rubí",
+    "descripcion": "Garage techado con portón eléctrico.",
+    "operacion": "venta",
+    "tipo": "casa",
+    "precio": 4300000,
+    "moneda": "MXN",
+    "zona": "Valle Rubí",
+    "ciudad": "Xalapa",
+    "m2Terreno": 250,
+    "m2Construccion": 320,
+    "recamaras": 3,
+    "banos": 3,
+    "estacionamientos": 2,
+    "fechaPublicacion": "2026-03-22",
+    "estatus": "disponible",
+    "imagenes": [
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
+    ],
+    "contacto": {
+      "whatsapp": "5212281234567",
+      "mensajeBase": "Hola, me interesa la propiedad: Residencia Valle Rubí"
+    }
+  },
+  {
+    "id": "prop-012",
+    "slug": "casa-lago-animas",
+    "titulo": "Residencia El Lago",
+    "descripcion": "Vista exclusiva al lago, acabados de lujo.",
+    "operacion": "venta",
+    "tipo": "casa",
+    "precio": 8500000,
+    "moneda": "MXN",
+    "zona": "El Lago",
+    "ciudad": "Xalapa",
+    "m2Terreno": 600,
+    "m2Construccion": 550,
+    "recamaras": 4,
+    "banos": 5,
+    "estacionamientos": 3,
+    "fechaPublicacion": "2026-03-20",
+    "estatus": "disponible",
+    "imagenes": [
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
+    ],
+    "contacto": {
+      "whatsapp": "5212281234567",
+      "mensajeBase": "Hola, me interesa la propiedad: Residencia El Lago"
+    }
+  },
+  {
+    "id": "prop-009",
+    "slug": "bugambilias-xalapa",
+    "titulo": "Casa Familiar Bugambilias",
+    "descripcion": "Excelente estado, cocina integral nueva.",
+    "operacion": "venta",
+    "tipo": "casa",
+    "precio": 2850000,
+    "moneda": "MXN",
+    "zona": "Bugambilias",
+    "ciudad": "Xalapa",
+    "m2Terreno": 180,
+    "m2Construccion": 220,
+    "recamaras": 3,
+    "banos": 2,
+    "estacionamientos": 2,
+    "fechaPublicacion": "2026-03-15",
+    "estatus": "disponible",
+    "imagenes": [
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
+    ],
+    "contacto": {
+      "whatsapp": "5212281234567",
+      "mensajeBase": "Hola, me interesa la propiedad: Casa Familiar Bugambilias"
+    }
+  },
+  {
+    "id": "prop-017",
+    "slug": "depto-amueblado-ver",
+    "titulo": "Depto Amueblado",
+    "descripcion": "Listo para habitar con aire acondicionado.",
+    "operacion": "renta",
+    "tipo": "departamento",
+    "precio": 16000,
+    "moneda": "MXN",
+    "zona": "Reforma",
+    "ciudad": "Veracruz",
+    "m2Terreno": 100,
+    "m2Construccion": 100,
+    "recamaras": 2,
+    "banos": 2,
+    "estacionamientos": 1,
+    "fechaPublicacion": "2026-03-12",
+    "estatus": "disponible",
+    "imagenes": [
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
+    ],
+    "contacto": {
+      "whatsapp": "5212281234567",
+      "mensajeBase": "Hola, me interesa la propiedad: Depto Amueblado"
+    }
+  },
+  {
+    "id": "prop-005",
+    "slug": "depto-mar-veracruz",
+    "titulo": "Depto Vista al Mar",
+    "descripcion": "Terraza amplia con vista directa al Golfo.",
+    "operacion": "venta",
+    "tipo": "departamento",
+    "precio": 4100000,
+    "moneda": "MXN",
+    "zona": "Boca del Río",
+    "ciudad": "Veracruz",
+    "m2Terreno": 150,
+    "m2Construccion": 150,
+    "recamaras": 3,
+    "banos": 2,
+    "estacionamientos": 2,
+    "fechaPublicacion": "2026-03-10",
+    "estatus": "disponible",
+    "imagenes": [
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
+    ],
+    "contacto": {
+      "whatsapp": "5212281234567",
+      "mensajeBase": "Hola, me interesa la propiedad: Depto Vista al Mar"
+    }
+  },
+  {
+    "id": "prop-015",
+    "slug": "cabana-huatusco",
+    "titulo": "Terreno con Cabaña",
+    "descripcion": "Cabaña de troncos en bosque de niebla.",
+    "operacion": "venta",
+    "tipo": "casa",
+    "precio": 1950000,
+    "moneda": "MXN",
+    "zona": "Bosque",
+    "ciudad": "Huatusco",
+    "m2Terreno": 2500,
+    "m2Construccion": 80,
+    "recamaras": 2,
+    "banos": 1,
+    "estacionamientos": 10,
+    "fechaPublicacion": "2026-03-05",
+    "estatus": "disponible",
+    "imagenes": [
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
+    ],
+    "contacto": {
+      "whatsapp": "5212281234567",
+      "mensajeBase": "Hola, me interesa la propiedad: Terreno con Cabaña"
+    }
+  },
+  {
+    "id": "prop-018",
+    "slug": "casa-ecofriendly",
+    "titulo": "Casa Sustentable",
+    "descripcion": "Paneles solares y captación pluvial.",
+    "operacion": "venta",
+    "tipo": "casa",
+    "precio": 3600000,
+    "moneda": "MXN",
+    "zona": "Coatepec",
+    "ciudad": "Coatepec",
+    "m2Terreno": 800,
+    "m2Construccion": 200,
+    "recamaras": 3,
+    "banos": 2,
+    "estacionamientos": 4,
+    "fechaPublicacion": "2026-03-01",
+    "estatus": "disponible",
+    "imagenes": [
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
+    ],
+    "contacto": {
+      "whatsapp": "5212281234567",
+      "mensajeBase": "Hola, me interesa la propiedad: Casa Sustentable"
+    }
+  },
+  {
+    "id": "prop-006",
+    "slug": "campo-teocelo",
+    "titulo": "Casa de Campo Teocelo",
+    "descripcion": "Ideal para descanso, frutales y clima fresco.",
+    "operacion": "renta",
+    "tipo": "casa",
+    "precio": 8000,
+    "moneda": "MXN",
+    "zona": "Centro",
+    "ciudad": "Teocelo",
+    "m2Terreno": 1200,
+    "m2Construccion": 150,
+    "recamaras": 2,
+    "banos": 2,
+    "estacionamientos": 5,
+    "fechaPublicacion": "2026-02-20",
+    "estatus": "rentado",
+    "imagenes": [
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
+    ],
+    "contacto": {
+      "whatsapp": "5212281234567",
+      "mensajeBase": "Hola, me interesa la propiedad: Casa de Campo Teocelo"
+    }
+  },
+  {
+    "id": "prop-014",
+    "slug": "oficina-centro-xal",
+    "titulo": "Oficina Ejecutiva Centro",
+    "descripcion": "Espacio para oficinas con divisiones.",
+    "operacion": "renta",
+    "tipo": "departamento",
+    "precio": 14000,
+    "moneda": "MXN",
+    "zona": "Centro",
+    "ciudad": "Xalapa",
+    "m2Terreno": 110,
+    "m2Construccion": 110,
+    "recamaras": 0,
+    "banos": 2,
+    "estacionamientos": 1,
+    "fechaPublicacion": "2026-02-15",
+    "estatus": "disponible",
+    "imagenes": [
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
+    ],
+    "contacto": {
+      "whatsapp": "5212281234567",
+      "mensajeBase": "Hola, me interesa la propiedad: Oficina Ejecutiva Centro"
+    }
+  },
+  {
+    "id": "prop-021",
+    "slug": "terreno-ind-ver",
+    "titulo": "Terreno Industrial",
+    "descripcion": "Amplio terreno ideal para bodega o patio.",
+    "operacion": "venta",
+    "tipo": "casa",
+    "precio": 12000000,
+    "moneda": "MXN",
+    "zona": "Bruno Pagliai",
+    "ciudad": "Veracruz",
+    "m2Terreno": 5000,
+    "m2Construccion": 0,
+    "recamaras": 0,
+    "banos": 0,
+    "estacionamientos": 0,
+    "fechaPublicacion": "2026-01-20",
+    "estatus": "vendido",
+    "imagenes": [
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
+    ],
+    "contacto": {
+      "whatsapp": "5212281234567",
+      "mensajeBase": "Hola, me interesa la propiedad: Terreno Industrial"
+    }
+  },
+  {
+    "id": "prop-003",
+    "slug": "animas-lujo-xalapa",
+    "titulo": "Casa Las Ánimas Plus",
+    "descripcion": "Ubicación privilegiada frente a parque.",
+    "operacion": "venta",
+    "tipo": "casa",
+    "precio": 7200000,
+    "moneda": "MXN",
+    "zona": "Ánimas",
+    "ciudad": "Xalapa",
+    "m2Terreno": 500,
+    "m2Construccion": 480,
+    "recamaras": 5,
+    "banos": 5,
+    "estacionamientos": 4,
+    "fechaPublicacion": "2026-01-15",
+    "estatus": "vendido",
+    "imagenes": [
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
+    ],
+    "contacto": {
+      "whatsapp": "5212281234567",
+      "mensajeBase": "Hola, me interesa la propiedad: Casa Las Ánimas Plus"
+    }
+  },
+  {
+    "id": "prop-011",
+    "slug": "colonial-xalapa",
+    "titulo": "Casa Estilo Colonial",
+    "descripcion": "Patio central con fuente y techos de teja.",
+    "operacion": "venta",
+    "tipo": "casa",
+    "precio": 5200000,
+    "moneda": "MXN",
+    "zona": "Centro",
+    "ciudad": "Xalapa",
+    "m2Terreno": 400,
+    "m2Construccion": 380,
+    "recamaras": 4,
+    "banos": 3,
+    "estacionamientos": 1,
+    "fechaPublicacion": "2026-01-05",
+    "estatus": "vendido",
+    "imagenes": [
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
+    ],
+    "contacto": {
+      "whatsapp": "5212281234567",
+      "mensajeBase": "Hola, me interesa la propiedad: Casa Estilo Colonial"
+    }
+  },
+  {
+    "id": "prop-008",
+    "slug": "penthouse-sky-ver",
+    "titulo": "Penthouse Veracruz Sky",
+    "descripcion": "Jacuzzi privado en terraza y amenidades.",
+    "operacion": "renta",
+    "tipo": "departamento",
+    "precio": 25000,
+    "moneda": "MXN",
+    "zona": "Costa de Oro",
+    "ciudad": "Veracruz",
+    "m2Terreno": 220,
+    "m2Construccion": 220,
+    "recamaras": 3,
+    "banos": 4,
+    "estacionamientos": 2,
+    "fechaPublicacion": "2025-12-10",
+    "estatus": "rentado",
+    "imagenes": [
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994"
+    ],
+    "contacto": {
+      "whatsapp": "5212281234567",
+      "mensajeBase": "Hola, me interesa la propiedad: Penthouse Veracruz Sky"
     }
   }
 ]

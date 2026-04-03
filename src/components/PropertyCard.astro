@@ -1,11 +1,23 @@
 ---
-import { BedDouble, Bath, Car, Ruler, MapPin, MessageCircle, Landmark } from 'lucide-astro';
+import { BedDouble, Bath, Car, Ruler, MapPin, MessageCircle, Landmark, CheckCircle2, Timer, Tag } from 'lucide-astro';
 
 interface Props {
   property: any;
 }
 
 const { property } = Astro.props;
+
+// LÓGICA DE ESTADOS BASADA EN EXCEL
+const estatus = property.estatus?.toLowerCase().trim();
+const isVendido = estatus === 'vendido';
+const isRentado = estatus === 'rentado';
+const isCerrado = isVendido || isRentado;
+
+// LÓGICA DE "NUEVO" (Menos de 10 días de publicado)
+const fechaPub = new Date(property.fechaPublicacion);
+const hoy = new Date();
+const diferenciaDias = Math.floor((hoy.getTime() - fechaPub.getTime()) / (1000 * 60 * 60 * 24));
+const isNuevo = diferenciaDias <= 10 && !isCerrado;
 
 const formatCurrency = (value, currency) =>
   new Intl.NumberFormat('es-MX', {
@@ -17,17 +29,45 @@ const formatCurrency = (value, currency) =>
 const whatsappUrl = `https://wa.me/${property.contacto.whatsapp}?text=${encodeURIComponent(property.contacto.mensajeBase)}`;
 ---
 
-<article class="group relative flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
-  <a href={`/propiedades/${property.slug}`} class="relative block h-64 overflow-hidden">
-    <img src={property.imagenes[0]} alt={property.titulo} class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
-    <div class="absolute left-4 top-4">
-      <span class="rounded-lg bg-emerald-600 px-3 py-1 text-[10px] font-black uppercase text-white shadow-lg">{property.operacion}</span>
+<article class={`group relative flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${isCerrado ? 'opacity-85' : ''}`}>
+  
+  <div class="relative block h-64 overflow-hidden">
+    <img 
+      src={property.imagenes[0]} 
+      alt={property.titulo} 
+      class={`h-full w-full object-cover transition-transform duration-700 group-hover:scale-110 ${isCerrado ? 'grayscale' : ''}`} 
+    />
+    
+    <div class="absolute left-4 top-4 flex flex-col gap-2">
+      <span class={`rounded-lg px-3 py-1 text-[10px] font-black uppercase text-white shadow-lg ${isCerrado ? 'bg-slate-500' : 'bg-emerald-600'}`}>
+        {property.operacion}
+      </span>
+
+      {isVendido && (
+        <span class="flex items-center gap-1 rounded-lg bg-red-600 px-3 py-1 text-[10px] font-black uppercase text-white shadow-lg shadow-red-200">
+          <CheckCircle2 class="h-3 w-3" /> VENDIDO
+        </span>
+      )}
+
+      {isRentado && (
+        <span class="flex items-center gap-1 rounded-lg bg-blue-600 px-3 py-1 text-[10px] font-black uppercase text-white shadow-lg shadow-blue-200">
+          <CheckCircle2 class="h-3 w-3" /> RENTADO
+        </span>
+      )}
+
+      {isNuevo && (
+        <span class="flex items-center gap-1 rounded-lg bg-amber-400 px-3 py-1 text-[10px] font-black uppercase text-slate-900 shadow-lg">
+          <Timer class="h-3 w-3" /> ¡NUEVO!
+        </span>
+      )}
     </div>
-  </a>
+  </div>
 
   <div class="flex flex-1 flex-col p-5">
     <div class="mb-4">
-      <div class="text-2xl font-black text-slate-900 leading-tight">{formatCurrency(property.precio, property.moneda)}</div>
+      <div class={`text-2xl font-black leading-tight ${isCerrado ? 'text-slate-400 line-through' : 'text-slate-900'}`}>
+        {formatCurrency(property.precio, property.moneda)}
+      </div>
       <h3 class="mt-1 line-clamp-1 text-lg font-bold text-slate-800">{property.titulo}</h3>
       <p class="mt-1 flex items-center gap-1 text-sm font-medium text-slate-500 italic">
         <MapPin class="h-3 w-3 text-emerald-500" /> {property.zona}, {property.ciudad}
@@ -35,20 +75,49 @@ const whatsappUrl = `https://wa.me/${property.contacto.whatsapp}?text=${encodeUR
     </div>
 
     <div class="mb-5 grid grid-cols-5 gap-1 border-y border-slate-100 py-4 text-slate-600 text-center bg-slate-50/50 rounded-xl">
-      <div class="flex flex-col items-center border-r border-slate-200"><BedDouble class="h-4 w-4 mb-1" /><span class="text-sm font-bold text-slate-900">{property.recamaras}</span></div>
-      <div class="flex flex-col items-center border-r border-slate-200"><Bath class="h-4 w-4 mb-1" /><span class="text-sm font-bold text-slate-900">{property.banos}</span></div>
-      <div class="flex flex-col items-center border-r border-slate-200"><Car class="h-4 w-4 mb-1" /><span class="text-sm font-bold text-slate-900">{property.estacionamientos}</span></div>
-      <div class="flex flex-col items-center border-r border-slate-200"><Ruler class="h-4 w-4 mb-1" /><span class="text-sm font-bold text-slate-900">{property.m2Construccion}</span></div>
-      <div class="flex flex-col items-center"><Landmark class="h-4 w-4 text-emerald-600 mb-1" /><span class="text-sm font-bold text-emerald-600">{property.m2Terreno}</span></div>
+      <div class="flex flex-col items-center border-r border-slate-200">
+        <BedDouble class="h-4 w-4 mb-1" />
+        <span class="text-sm font-bold text-slate-900">{property.recamaras}</span>
+      </div>
+      <div class="flex flex-col items-center border-r border-slate-200">
+        <Bath class="h-4 w-4 mb-1" />
+        <span class="text-sm font-bold text-slate-900">{property.banos}</span>
+      </div>
+      <div class="flex flex-col items-center border-r border-slate-200">
+        <Car class="h-4 w-4 mb-1" />
+        <span class="text-sm font-bold text-slate-900">{property.estacionamientos}</span>
+      </div>
+      <div class="flex flex-col items-center border-r border-slate-200">
+        <Ruler class="h-4 w-4 mb-1" />
+        <span class="text-sm font-bold text-slate-900">{property.m2Construccion}</span>
+      </div>
+      <div class="flex flex-col items-center">
+        <Landmark class="h-4 w-4 text-emerald-600 mb-1" />
+        <span class="text-sm font-bold text-emerald-600">{property.m2Terreno}</span>
+      </div>
     </div>
 
     <div class="mt-auto flex gap-2">
-      <a href={`/propiedades/${property.slug}`} class="flex-1 rounded-xl bg-slate-900 py-3.5 text-center text-sm font-black text-white hover:bg-emerald-700 transition-all shadow-lg shadow-slate-200">
-        Ver Detalles
-      </a>
-      <a href={whatsappUrl} target="_blank" class="rounded-xl border-2 border-green-600 px-4 py-3 text-green-600 hover:bg-green-600 hover:text-white transition-all">
-        <MessageCircle class="h-5 w-5" />
-      </a>
+      {isCerrado ? (
+        <div class="flex flex-1 items-center justify-center gap-2 rounded-xl bg-slate-100 py-3.5 text-sm font-black uppercase tracking-widest text-slate-500 border border-slate-200">
+           {property.estatus} </div>
+      ) : (
+        <>
+          <a 
+            href={`/propiedades/${property.slug}`} 
+            class="flex-1 rounded-xl bg-slate-900 py-3.5 text-center text-sm font-black text-white hover:bg-emerald-700 transition-all shadow-lg shadow-slate-200"
+          >
+            Ver Detalles
+          </a>
+          <a 
+            href={whatsappUrl} 
+            target="_blank" 
+            class="rounded-xl border-2 border-green-600 px-4 py-3 text-green-600 hover:bg-green-600 hover:text-white transition-all"
+          >
+            <MessageCircle class="h-5 w-5" />
+          </a>
+        </>
+      )}
     </div>
   </div>
 </article>
