@@ -12,14 +12,24 @@ export async function getStaticPaths() {
 
 const { property } = Astro.props;
 
-// 1. FORMATEO DE PRECIO
+// SEGURIDAD: Si la propiedad no existe por error en el JSON, evitamos el error de "undefined"
+if (!property) {
+  return Astro.redirect('/404');
+}
+
+// 1. FORMATEO DE PRECIO (Añadimos valor por defecto 0)
 const formatCurrency = (value, currency) =>
-  new Intl.NumberFormat('es-MX', { style: 'currency', currency, maximumFractionDigits: 0 }).format(value);
+  new Intl.NumberFormat('es-MX', { 
+    style: 'currency', 
+    currency: currency || 'MXN', 
+    maximumFractionDigits: 0 
+  }).format(value || 0);
 
-// 2. WHATSAPP DINÁMICO
-const whatsappUrl = `https://wa.me/${property.contacto.whatsapp}?text=${encodeURIComponent(`Hola, me interesa la propiedad: ${property.titulo}`)}`;
+// 2. WHATSAPP DINÁMICO (Usamos el "?" para proteger si falta el objeto contacto)
+const whatsappNumber = property.contacto?.whatsapp || "522281852255";
+const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Hola, me interesa la propiedad: ${property.titulo}`)}`;
 
-// 3. MANEJO DE IMÁGENES (Rutas limpias para la raíz)
+// 3. MANEJO DE IMÁGENES
 const galleryImages = property.imagenes && property.imagenes.length > 0 
   ? property.imagenes 
   : ["/images/placeholder-galindo.jpg"];
