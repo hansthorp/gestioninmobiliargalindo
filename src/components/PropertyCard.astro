@@ -37,12 +37,12 @@ const whatsappUrl = `https://wa.me/${property.contacto.whatsapp}?text=${encodeUR
     />
     
     <div class="absolute left-4 top-4 flex flex-col gap-2">
-      <span class={`rounded-lg px-3 py-1 text-[10px] font-black uppercase text-white shadow-lg ${isCerrado ? 'bg-slate-500' : 'bg-red-600'}`}>
+      <span class={`rounded-lg px-3 py-1 text-[10px] font-black uppercase text-white shadow-lg ${isCerrado ? 'bg-slate-500' : 'bg-galindo'}`}>
         {property.operacion}
       </span>
 
       {isVendido && (
-        <span class="flex items-center gap-1 rounded-lg bg-red-600 px-3 py-1 text-[10px] font-black uppercase text-white shadow-lg shadow-red-200">
+        <span class="flex items-center gap-1 rounded-lg bg-galindo px-3 py-1 text-[10px] font-black uppercase text-white shadow-lg shadow-red-200">
           <CheckCircle2 class="h-3 w-3" /> VENDIDO
         </span>
       )}
@@ -63,7 +63,7 @@ const whatsappUrl = `https://wa.me/${property.contacto.whatsapp}?text=${encodeUR
 
   <div class="flex flex-1 flex-col p-5">
     <div class="mb-4">
-      <div class={`text-2xl font-black leading-tight ${isCerrado ? 'text-slate-400 line-through' : 'text-red-600'}`}>
+      <div class={`text-2xl font-black leading-tight ${isCerrado ? 'text-slate-400 line-through' : 'text-galindo'}`}>
         {formatCurrency(property.precio, property.moneda)}
       </div>
       <h3 class="mt-1 line-clamp-1 text-lg font-bold text-slate-800 italic uppercase tracking-tighter">{property.titulo}</h3>
@@ -90,8 +90,8 @@ const whatsappUrl = `https://wa.me/${property.contacto.whatsapp}?text=${encodeUR
           <span class="text-sm font-bold text-slate-900">{property.m2Construccion}</span>
         </div>
         <div class="flex flex-col items-center">
-          <Landmark class="h-4 w-4 text-red-600 mb-1" />
-          <span class="text-sm font-bold text-red-600">{property.m2Terreno}</span>
+          <Landmark class="h-4 w-4 text-galindo mb-1" />
+          <span class="text-sm font-bold text-galindo">{property.m2Terreno}</span>
         </div>
     </div>
 
@@ -104,7 +104,7 @@ const whatsappUrl = `https://wa.me/${property.contacto.whatsapp}?text=${encodeUR
         <>
           <a 
             href={detailUrl} 
-            class="flex-1 rounded-xl bg-slate-900 py-3.5 text-center text-sm font-black text-white hover:bg-red-600 transition-all shadow-lg active:scale-95 uppercase tracking-widest"
+            class="flex-1 rounded-xl bg-slate-900 py-3.5 text-center text-sm font-black text-white hover:bg-galindo transition-all shadow-lg active:scale-95 uppercase tracking-widest"
           >
             Ver Detalles
           </a>

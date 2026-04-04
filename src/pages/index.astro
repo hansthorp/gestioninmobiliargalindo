@@ -3,55 +3,40 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PropertyCard from '../components/PropertyCard.astro';
 import propiedades from '../data/propiedades.json';
 
-// Estadísticas blindadas (limpiamos espacios y normalizamos minúsculas)
-const total = propiedades.length;
+// Estadísticas simplificadas
 const disponibles = propiedades.filter(p => p.estatus.toLowerCase().trim() === 'disponible').length;
-const cerrados = propiedades.filter(p => 
-  ['vendido', 'rentado'].includes(p.estatus.toLowerCase().trim())
-).length;
 ---
 
 <BaseLayout title="Gestión Inmobiliaria Galindo | Catálogo">
-  <header class="mb-16 text-center pt-8">
-    <span class="text-red-600 font-black uppercase text-[10px] tracking-[0.4em] mb-4 block italic">Xalapa & Veracruz</span>
-    <h1 class="text-5xl md:text-6xl font-black tracking-tighter text-slate-900 uppercase italic leading-none">
-       Gestión Inmobiliaria <span class="text-red-600">Galindo</span>
-    </h1>
-    <p class="mt-6 text-xl text-slate-500 font-medium italic">"Calidad, honradez y profesionalismo"</p>
-    
-    <div class="mt-10 flex flex-wrap justify-center gap-4">
-      <div class="flex items-center gap-3 bg-white border-2 border-slate-200 px-6 py-3 rounded-2xl shadow-sm">
-        <span class="text-lg">📊</span>
-        <div class="text-left">
-          <p class="text-[9px] font-black uppercase tracking-widest text-slate-400 leading-none">Total</p>
-          <p class="text-base font-black text-slate-700 leading-none mt-1">{total} Inmuebles</p>
-        </div>
-      </div>
-
-      <div class="flex items-center gap-3 bg-[#dc2626] px-6 py-3 rounded-2xl shadow-lg shadow-red-100">
-        <span class="text-lg">🏠</span>
-        <div class="text-left">
-          <p class="text-[9px] font-black uppercase tracking-widest text-red-200 leading-none">Activas</p>
-          <p class="text-base font-black text-white leading-none mt-1">{disponibles} Disponibles</p>
-        </div>
-      </div>
-
-      <div class="flex items-center gap-3 bg-[#334155] px-6 py-3 rounded-2xl shadow-lg shadow-slate-200">
-        <span class="text-lg">🚩</span>
-        <div class="text-left">
-          <p class="text-[9px] font-black uppercase tracking-widest text-slate-300 leading-none">Éxitos</p>
-          <p class="text-base font-black text-white leading-none mt-1">{cerrados} Cerrados</p>
-        </div>
-      </div>
+  
+  <header class="mb-12 text-center pt-8">
+    <div class="mb-10">
+      <img 
+        src="/images/logo.jpeg" 
+        alt="Galindo Gestión Inmobiliaria" 
+        class="h-20 md:h-28 mx-auto object-contain transition-transform hover:scale-105 duration-300"
+      />
     </div>
+
+    <div class="flex items-center justify-center gap-4 text-slate-400 mb-6">
+      <div class="h-[1px] w-8 bg-slate-200"></div>
+      <p class="text-[11px] font-black uppercase tracking-[0.3em] italic">
+        Contamos con <span class="text-galindo text-sm">{disponibles}</span> inmuebles disponibles para ti
+      </p>
+      <div class="h-[1px] w-8 bg-slate-200"></div>
+    </div>
+
+    <p class="text-[10px] text-slate-300 font-medium italic uppercase tracking-widest">
+      "Calidad, honradez y profesionalismo"
+    </p>
   </header>
 
-  <div class="mb-14 flex flex-wrap justify-center gap-3" id="filters-container">
-    <button class="filter-btn active" data-filter="todos">🚀 Ver Todo</button>
-    <button class="filter-btn" data-filter="venta">💰 En Venta</button>
-    <button class="filter-btn" data-filter="renta">🔑 En Renta</button>
-    <button class="filter-btn" data-filter="vendido">✅ Vendidos</button>
-    <button class="filter-btn" data-filter="rentado">🤝 Rentados</button>
+  <div class="mb-14 flex flex-wrap justify-center gap-2 md:gap-3" id="filters-container">
+    <button class="filter-btn active" data-filter="todos">Ver Todo</button>
+    <button class="filter-btn" data-filter="venta">Venta</button>
+    <button class="filter-btn" data-filter="renta">Renta</button>
+    <button class="filter-btn" data-filter="vendido">Vendidos</button>
+    <button class="filter-btn" data-filter="rentado">Rentados</button>
   </div>
 
   <div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 min-h-[400px]" id="properties-grid">
@@ -68,41 +53,37 @@ const cerrados = propiedades.filter(p =>
 </BaseLayout>
 
 <style is:global>
-  /* Animación suave para las tarjetas */
   .hidden-card { 
     opacity: 0;
     transform: scale(0.95);
-    pointer-events: none;
     display: none !important;
   }
 
+  /* Filtros más discretos para que no compitan con el logo */
   .filter-btn {
-    border-radius: 0.85rem;
-    border: 2px solid #e2e8f0;
+    border-radius: 0.5rem;
+    border: 1px solid #e2e8f0;
     background-color: white;
-    padding: 0.8rem 1.6rem;
-    font-weight: 900;
-    color: #64748b;
-    font-size: 0.7rem;
+    padding: 0.6rem 1.2rem;
+    font-weight: 800;
+    color: #94a3b8;
+    font-size: 0.65rem;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    letter-spacing: 0.1em;
+    transition: all 0.2s ease;
     cursor: pointer;
   }
   
   .filter-btn:hover:not(.active) {
-    border-color: #dc2626;
-    color: #dc2626;
-    background-color: #fef2f2;
-    transform: translateY(-2px);
+    border-color: #D0162B; /* Rojo Galindo */
+    color: #D0162B;
   }
   
   .filter-btn.active {
-    border-color: #334155;
-    background-color: #334155;
+    border-color: #0f172a; /* Slate 900 */
+    background-color: #0f172a;
     color: white;
-    transform: scale(1.05);
-    box-shadow: 0 10px 20px -5px rgba(51, 65, 85, 0.3);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
   }
 </style>
 
@@ -133,9 +114,7 @@ const cerrados = propiedades.filter(p =>
 
           if (shouldShow) {
             (wrapper as HTMLElement).style.display = 'block';
-            setTimeout(() => {
-                wrapper.classList.remove('hidden-card');
-            }, 10);
+            setTimeout(() => wrapper.classList.remove('hidden-card'), 10);
           } else {
             wrapper.classList.add('hidden-card');
             (wrapper as HTMLElement).style.display = 'none';
@@ -144,12 +123,11 @@ const cerrados = propiedades.filter(p =>
       });
     });
 
-    // Aplicar filtro inicial (Disponibles)
-    const activeBtn = document.querySelector('.filter-btn.active') as HTMLElement;
-    if (activeBtn) activeBtn.click();
+    // Forzar el filtro inicial
+    const initialBtn = document.querySelector('.filter-btn.active') as HTMLElement;
+    if (initialBtn) initialBtn.click();
   }
 
-  // Soporte para carga inicial y navegación de Astro
   window.addEventListener('load', setupFilters);
   document.addEventListener('astro:after-swap', setupFilters);
 </script>

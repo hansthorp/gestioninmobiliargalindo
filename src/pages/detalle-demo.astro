@@ -28,7 +28,7 @@ const galleryImages = property.imagenes && property.imagenes.length > 0
 <BaseLayout title={`${property.titulo} | Gestión Inmobiliaria Galindo`}>
   <div class="max-w-7xl mx-auto px-4 py-8">
     
-    <a href="/" class="inline-flex items-center gap-2 text-slate-500 hover:text-red-600 transition-colors mb-8 font-bold uppercase text-[10px] tracking-widest">
+    <a href="/" class="inline-flex items-center gap-2 text-slate-500 hover:text-galindo transition-colors mb-8 font-bold uppercase text-[10px] tracking-widest">
       <ChevronLeft class="h-4 w-4" /> VOLVER AL CATÁLOGO
     </a>
 
@@ -51,7 +51,7 @@ const galleryImages = property.imagenes && property.imagenes.length > 0
         <div class="grid grid-cols-5 gap-2">
           {galleryImages.map((img, index) => (
             <button 
-              class={`thumb-btn rounded-xl overflow-hidden h-16 border-2 transition-all ${index === 0 ? 'border-red-600' : 'border-transparent'}`} 
+              class={`thumb-btn rounded-xl overflow-hidden h-16 border-2 transition-all ${index === 0 ? 'border-galindo' : 'border-transparent'}`} 
               data-src={img}
             >
               <img src={img} class="w-full h-full object-cover" alt="Miniatura" />
@@ -62,7 +62,7 @@ const galleryImages = property.imagenes && property.imagenes.length > 0
 
       <div>
         <div class="mb-4">
-           <span class="bg-red-600 text-white px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest italic">
+           <span class="bg-galindo text-white px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest italic">
             En {property.operacion}
           </span>
         </div>
@@ -75,7 +75,7 @@ const galleryImages = property.imagenes && property.imagenes.length > 0
           <MapPin class="h-5 w-5 text-red-500" /> {property.zona}, {property.ciudad}
         </p>
         
-        <div class="text-5xl font-black text-red-600 mb-10 tracking-tighter italic border-b border-slate-100 pb-6">
+        <div class="text-5xl font-black text-galindo mb-10 tracking-tighter italic border-b border-slate-100 pb-6">
           {formatCurrency(property.precio, property.moneda)}
         </div>
 
@@ -101,7 +101,7 @@ const galleryImages = property.imagenes && property.imagenes.length > 0
             <span class="text-[8px] text-slate-400 font-black uppercase">Const. m²</span>
           </div>
           <div class="flex flex-col items-center">
-            <Landmark class="text-red-600 mb-1 h-5 w-5" />
+            <Landmark class="text-galindo mb-1 h-5 w-5" />
             <span class="text-sm font-bold text-red-700">{property.m2Terreno}</span>
             <span class="text-[8px] text-slate-400 font-black uppercase">Terr. m²</span>
           </div>
@@ -140,8 +140,8 @@ const galleryImages = property.imagenes && property.imagenes.length > 0
           mainImage.style.opacity = '0.5';
           setTimeout(() => {
             mainImage.src = src;
-            thumbBtns.forEach(b => b.classList.remove('border-red-600'));
-            btn.classList.add('border-red-600');
+            thumbBtns.forEach(b => b.classList.remove('border-galindo'));
+            btn.classList.add('border-galindo');
             if(zoomLens) zoomLens.style.backgroundImage = `url('${src}')`;
             mainImage.style.opacity = '1';
           }, 150);

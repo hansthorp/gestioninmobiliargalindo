@@ -1,4 +1,19 @@
+# Dependencias
 node_modules/
+
+# Astro y Vite (Caché y Build)
 .astro/
 dist/
+
+# Archivos de Sistema
 .DS_Store
+Thumbs.db
+
+# ✅ IMÁGENES DE PROPIEDADES (Para no saturar el Repo de GitHub)
+# Tu script de Python las vuelve a crear en tu carpeta local
+public/images/properties/
+
+# Logs de error
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

@@ -26,7 +26,7 @@ const galleryImages = property.imagenes && property.imagenes.length > 0
 <BaseLayout title={`${property.titulo} | Gestión Inmobiliaria Galindo`}>
   <div class="max-w-7xl mx-auto px-4 py-8">
     
-    <a href="/" class="inline-flex items-center gap-2 text-slate-500 hover:text-red-600 transition-colors mb-8 font-bold uppercase text-[10px] tracking-widest italic">
+    <a href="/" class="inline-flex items-center gap-2 text-slate-500 hover:text-galindo transition-colors mb-8 font-bold uppercase text-[10px] tracking-widest italic">
       <ChevronLeft class="h-4 w-4" /> Volver al catálogo
     </a>
     
@@ -45,7 +45,7 @@ const galleryImages = property.imagenes && property.imagenes.length > 0
         <div class="grid grid-cols-4 sm:grid-cols-5 gap-3">
           {galleryImages.map((img, index) => (
             <button 
-              class={`thumb-btn rounded-xl overflow-hidden h-20 border-2 transition-all ${index === 0 ? 'border-red-600' : 'border-transparent'}`} 
+              class={`thumb-btn rounded-xl overflow-hidden h-20 border-2 transition-all ${index === 0 ? 'border-galindo' : 'border-transparent'}`} 
               data-src={img}
             >
               <img src={img} class="w-full h-full object-cover hover:opacity-80 transition-opacity" alt={`Vista ${index + 1}`} />
@@ -56,7 +56,7 @@ const galleryImages = property.imagenes && property.imagenes.length > 0
       
       <div class="flex flex-col">
         <div class="flex items-center gap-2 mb-4">
-          <span class="bg-red-600 text-white px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] italic">
+          <span class="bg-galindo text-white px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] italic">
             En {property.operacion}
           </span>
           <span class="bg-slate-900 text-white px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] italic">
@@ -69,10 +69,10 @@ const galleryImages = property.imagenes && property.imagenes.length > 0
         </h1>
         
         <p class="flex items-center gap-2 text-slate-500 mb-6 font-bold italic">
-          <MapPin class="h-5 w-5 text-red-600" /> {property.zona}, {property.ciudad}
+          <MapPin class="h-5 w-5 text-galindo" /> {property.zona}, {property.ciudad}
         </p>
 
-        <div class="text-5xl font-black text-red-600 mb-8 tracking-tighter italic border-b border-slate-100 pb-6">
+        <div class="text-5xl font-black text-galindo mb-8 tracking-tighter italic border-b border-slate-100 pb-6">
           {formatCurrency(property.precio, property.moneda)}
         </div>
         
@@ -98,7 +98,7 @@ const galleryImages = property.imagenes && property.imagenes.length > 0
             <span class="text-lg font-black text-red-700 leading-none">{property.m2Construccion}<br/><small class="text-[9px]">m²</small></span>
           </div>
           <div class="flex flex-col items-center last:border-0">
-            <Landmark class="text-red-600 mb-1 h-5 w-5" />
+            <Landmark class="text-galindo mb-1 h-5 w-5" />
             <span class="text-[8px] font-black text-red-400 uppercase tracking-tighter">Terr</span>
             <span class="text-lg font-black text-red-700 leading-none">{property.m2Terreno}<br/><small class="text-[9px]">m²</small></span>
           </div>
@@ -106,7 +106,7 @@ const galleryImages = property.imagenes && property.imagenes.length > 0
 
         <div class="mb-10">
           <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-4 italic">Descripción de la Propiedad</h3>
-          <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm leading-relaxed text-slate-600 font-medium italic border-l-4 border-red-600 uppercase tracking-tighter text-xs">
+          <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm leading-relaxed text-slate-600 font-medium italic border-l-4 border-galindo uppercase tracking-tighter text-xs">
             {property.descripcion}
           </div>
         </div>
@@ -134,8 +134,8 @@ const galleryImages = property.imagenes && property.imagenes.length > 0
           mainImage.style.opacity = '0.4';
           setTimeout(() => {
             mainImage.src = src;
-            thumbBtns.forEach(b => b.classList.remove('border-red-600'));
-            btn.classList.add('border-red-600');
+            thumbBtns.forEach(b => b.classList.remove('border-galindo'));
+            btn.classList.add('border-galindo');
             if(zoomLens) zoomLens.style.backgroundImage = `url('${src}')`;
             mainImage.style.opacity = '1';
           }, 150);

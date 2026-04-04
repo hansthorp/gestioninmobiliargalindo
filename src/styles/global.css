@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+@theme {
+  /* ✅ Registramos el color oficial del cliente */
+  --color-galindo: #D0162B;
+  
+  /* Opcional: un rojo más oscuro para efectos de hover */
+  --color-galindo-dark: #b01224;
+}
