@@ -7,34 +7,29 @@ interface Props {
 
 const { property } = Astro.props;
 
-// 1. EXTRAEMOS LA BASE (será '/galindo' en tu host de pruebas)
-const base = import.meta.env.BASE_URL;
+// ✅ RUTA ABSOLUTA A LA RAÍZ: Sin prefijos que causen 404
+const detailUrl = `/propiedades/${property.slug}`;
 
-// LÓGICA DE ESTADOS BASADA EN EXCEL
 const estatus = property.estatus?.toLowerCase().trim();
 const isVendido = estatus === 'vendido';
 const isRentado = estatus === 'rentado';
 const isCerrado = isVendido || isRentado;
 
-// LÓGICA DE "NUEVO" (Menos de 10 días de publicado)
+// Lógica de "Nuevo" (Menos de 10 días)
 const fechaPub = new Date(property.fechaPublicacion);
 const hoy = new Date();
 const diferenciaDias = Math.floor((hoy.getTime() - fechaPub.getTime()) / (1000 * 60 * 60 * 24));
 const isNuevo = diferenciaDias <= 10 && !isCerrado;
 
 const formatCurrency = (value, currency) =>
-  new Intl.NumberFormat('es-MX', {
-    style: 'currency',
-    currency,
-    maximumFractionDigits: 0
-  }).format(value);
+  new Intl.NumberFormat('es-MX', { style: 'currency', currency, maximumFractionDigits: 0 }).format(value);
 
 const whatsappUrl = `https://wa.me/${property.contacto.whatsapp}?text=${encodeURIComponent(property.contacto.mensajeBase)}`;
 ---
 
 <article class={`group relative flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${isCerrado ? 'opacity-85' : ''}`}>
   
-  <div class="relative block h-64 overflow-hidden">
+  <a href={detailUrl} class="relative block h-64 overflow-hidden cursor-pointer">
     <img 
       src={property.imagenes[0]} 
       alt={property.titulo} 
@@ -42,7 +37,7 @@ const whatsappUrl = `https://wa.me/${property.contacto.whatsapp}?text=${encodeUR
     />
     
     <div class="absolute left-4 top-4 flex flex-col gap-2">
-      <span class={`rounded-lg px-3 py-1 text-[10px] font-black uppercase text-white shadow-lg ${isCerrado ? 'bg-slate-500' : 'bg-emerald-600'}`}>
+      <span class={`rounded-lg px-3 py-1 text-[10px] font-black uppercase text-white shadow-lg ${isCerrado ? 'bg-slate-500' : 'bg-red-600'}`}>
         {property.operacion}
       </span>
 
@@ -64,16 +59,16 @@ const whatsappUrl = `https://wa.me/${property.contacto.whatsapp}?text=${encodeUR
         </span>
       )}
     </div>
-  </div>
+  </a>
 
   <div class="flex flex-1 flex-col p-5">
     <div class="mb-4">
-      <div class={`text-2xl font-black leading-tight ${isCerrado ? 'text-slate-400 line-through' : 'text-slate-900'}`}>
+      <div class={`text-2xl font-black leading-tight ${isCerrado ? 'text-slate-400 line-through' : 'text-red-600'}`}>
         {formatCurrency(property.precio, property.moneda)}
       </div>
-      <h3 class="mt-1 line-clamp-1 text-lg font-bold text-slate-800">{property.titulo}</h3>
+      <h3 class="mt-1 line-clamp-1 text-lg font-bold text-slate-800 italic uppercase tracking-tighter">{property.titulo}</h3>
       <p class="mt-1 flex items-center gap-1 text-sm font-medium text-slate-500 italic">
-        <MapPin class="h-3 w-3 text-emerald-500" /> {property.zona}, {property.ciudad}
+        <MapPin class="h-3 w-3 text-red-500" /> {property.zona}, {property.ciudad}
       </p>
     </div>
 
@@ -91,32 +86,32 @@ const whatsappUrl = `https://wa.me/${property.contacto.whatsapp}?text=${encodeUR
           <span class="text-sm font-bold text-slate-900">{property.estacionamientos}</span>
         </div>
         <div class="flex flex-col items-center border-r border-slate-200">
-          <Ruler class="h-4 w-4 mb-1" />
+          <Ruler class="h-4 w-4 mb-1 text-red-500" />
           <span class="text-sm font-bold text-slate-900">{property.m2Construccion}</span>
         </div>
         <div class="flex flex-col items-center">
-          <Landmark class="h-4 w-4 text-emerald-600 mb-1" />
-          <span class="text-sm font-bold text-emerald-600">{property.m2Terreno}</span>
+          <Landmark class="h-4 w-4 text-red-600 mb-1" />
+          <span class="text-sm font-bold text-red-600">{property.m2Terreno}</span>
         </div>
-      </div>
+    </div>
 
     <div class="mt-auto flex gap-2">
       {isCerrado ? (
-        <div class="flex flex-1 items-center justify-center gap-2 rounded-xl bg-slate-100 py-3.5 text-sm font-black uppercase tracking-widest text-slate-500 border border-slate-200">
-           {property.estatus} </div>
+        <div class="flex-1 text-center py-3.5 text-sm font-black uppercase text-slate-500 bg-slate-100 rounded-xl italic border border-slate-200">
+           {property.estatus} 
+        </div>
       ) : (
         <>
-          {/* 2. EL FIX: Usamos ${base} para que el link funcione en la subcarpeta */}
           <a 
-            href={`${base}/propiedades/${property.slug}`} 
-            class="flex-1 rounded-xl bg-slate-900 py-3.5 text-center text-sm font-black text-white hover:bg-emerald-700 transition-all shadow-lg shadow-slate-200"
+            href={detailUrl} 
+            class="flex-1 rounded-xl bg-slate-900 py-3.5 text-center text-sm font-black text-white hover:bg-red-600 transition-all shadow-lg active:scale-95 uppercase tracking-widest"
           >
             Ver Detalles
           </a>
           <a 
             href={whatsappUrl} 
             target="_blank" 
-            class="rounded-xl border-2 border-green-600 px-4 py-3 text-green-600 hover:bg-green-600 hover:text-white transition-all"
+            class="rounded-xl border-2 border-[#25D366] px-4 py-3 text-[#25D366] hover:bg-[#25D366] hover:text-white transition-all active:scale-95 shadow-md"
           >
             <MessageCircle class="h-5 w-5" />
           </a>

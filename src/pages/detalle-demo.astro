@@ -1,68 +1,81 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import propiedades from '../../data/propiedades.json';
 import { BedDouble, Bath, Car, Ruler, MapPin, MessageCircle, ChevronLeft, Landmark } from 'lucide-astro';
 
-// 1. EXTRAEMOS LA BASE (será '/galindo')
-const base = import.meta.env.BASE_URL;
+export async function getStaticPaths() {
+  return propiedades.map((p) => ({
+    params: { slug: p.slug },
+    props: { property: p }
+  }));
+}
 
-const property = {
-  titulo: "Propiedad con Zoom y Ficha Completa",
-  precio: 4200000,
-  moneda: "MXN",
-  zona: "Fraccionamiento Las Ánimas",
-  ciudad: "Xalapa",
-  descripcion: "Este prototipo tiene el zoom corregido y la ficha técnica actualizada con metros de terreno. Pasa el cursor sobre la imagen para ver el aumento real. Haz clic en las miniaturas para cambiar de vista.",
-  recamaras: 4,
-  banos: 3,
-  estacionamientos: 2,
-  m2Construccion: 210,
-  m2Terreno: 350,
-  contacto: { whatsapp: "522281852255" } // Actualizado con tu número
-};
+const { property } = Astro.props;
 
+// 1. FORMATEO DE PRECIO
 const formatCurrency = (value, currency) =>
   new Intl.NumberFormat('es-MX', { style: 'currency', currency, maximumFractionDigits: 0 }).format(value);
 
-const randomImages = Array.from({ length: 6 }, (_, i) => `https://picsum.photos/1200/900?random=${i + 40}`);
+// 2. WHATSAPP DINÁMICO
+const whatsappUrl = `https://wa.me/${property.contacto.whatsapp}?text=${encodeURIComponent(`Hola, me interesa la propiedad: ${property.titulo}`)}`;
+
+// 3. MANEJO DE IMÁGENES (Rutas limpias para la raíz)
+const galleryImages = property.imagenes && property.imagenes.length > 0 
+  ? property.imagenes 
+  : ["/images/placeholder-galindo.jpg"];
 ---
 
-<BaseLayout title="Detalle Pro | Inmobiliaria">
+<BaseLayout title={`${property.titulo} | Gestión Inmobiliaria Galindo`}>
   <div class="max-w-7xl mx-auto px-4 py-8">
-    <a href={base} class="inline-flex items-center gap-2 text-slate-500 hover:text-red-600 transition-colors mb-8 font-bold">
-      <ChevronLeft class="h-5 w-5" /> Volver al catálogo
+    
+    <a href="/" class="inline-flex items-center gap-2 text-slate-500 hover:text-red-600 transition-colors mb-8 font-bold uppercase text-[10px] tracking-widest">
+      <ChevronLeft class="h-4 w-4" /> VOLVER AL CATÁLOGO
     </a>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
       <div class="space-y-4">
-        <div class="relative overflow-hidden rounded-3xl shadow-2xl border-4 border-white bg-slate-100 cursor-none" id="zoom-area">
+        <div class="relative overflow-hidden rounded-3xl shadow-2xl border-4 border-white bg-slate-100 cursor-crosshair" id="zoom-area">
           <img 
             id="main-image" 
-            src={randomImages[0]} 
-            class="w-full h-[500px] object-cover transition-opacity duration-300" 
-            alt="Imagen principal"
+            src={galleryImages[0]} 
+            class="w-full h-[450px] md:h-[550px] object-cover transition-opacity duration-300" 
+            alt={property.titulo}
           />
           <div 
             id="zoom-lens" 
-            class="absolute pointer-events-none rounded-full border-2 border-white shadow-xl opacity-0 transition-opacity duration-200"
-            style="width: 180px; height: 180px; background-repeat: no-repeat; display: none; z-index: 10;"
+            class="absolute pointer-events-none rounded-full border-2 border-white shadow-xl opacity-0 transition-opacity duration-200 hidden md:block"
+            style="width: 180px; height: 180px; background-repeat: no-repeat; z-index: 10;"
           ></div>
         </div>
 
-        <div class="grid grid-cols-6 gap-2">
-          {randomImages.map((img) => (
-            <button class="thumb-btn rounded-xl overflow-hidden h-16 border-2 border-transparent hover:border-red-500 transition-all" data-src={img}>
-              <img src={img} class="w-full h-full object-cover" />
+        <div class="grid grid-cols-5 gap-2">
+          {galleryImages.map((img, index) => (
+            <button 
+              class={`thumb-btn rounded-xl overflow-hidden h-16 border-2 transition-all ${index === 0 ? 'border-red-600' : 'border-transparent'}`} 
+              data-src={img}
+            >
+              <img src={img} class="w-full h-full object-cover" alt="Miniatura" />
             </button>
           ))}
         </div>
       </div>
 
       <div>
-        <h1 class="text-4xl font-black text-slate-900 mb-4 tracking-tight uppercase leading-tight">{property.titulo}</h1>
+        <div class="mb-4">
+           <span class="bg-red-600 text-white px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest italic">
+            En {property.operacion}
+          </span>
+        </div>
+        
+        <h1 class="text-4xl font-black text-slate-900 mb-4 tracking-tighter uppercase leading-none italic">
+          {property.titulo}
+        </h1>
+        
         <p class="flex items-center gap-2 text-slate-500 mb-8 font-medium italic">
           <MapPin class="h-5 w-5 text-red-500" /> {property.zona}, {property.ciudad}
         </p>
-        <div class="text-5xl font-black text-red-600 mb-10 tracking-tighter italic">
+        
+        <div class="text-5xl font-black text-red-600 mb-10 tracking-tighter italic border-b border-slate-100 pb-6">
           {formatCurrency(property.precio, property.moneda)}
         </div>
 
@@ -70,40 +83,43 @@ const randomImages = Array.from({ length: 6 }, (_, i) => `https://picsum.photos/
           <div class="flex flex-col items-center border-r border-slate-50">
             <BedDouble class="text-slate-400 mb-1 h-5 w-5" />
             <span class="text-sm font-bold text-slate-900">{property.recamaras}</span>
-            <span class="text-[8px] text-slate-400 font-black uppercase tracking-tighter">Hab.</span>
+            <span class="text-[8px] text-slate-400 font-black uppercase">Hab.</span>
           </div>
           <div class="flex flex-col items-center border-r border-slate-50">
             <Bath class="text-slate-400 mb-1 h-5 w-5" />
             <span class="text-sm font-bold text-slate-900">{property.banos}</span>
-            <span class="text-[8px] text-slate-400 font-black uppercase tracking-tighter">Baños</span>
+            <span class="text-[8px] text-slate-400 font-black uppercase">Baños</span>
           </div>
           <div class="flex flex-col items-center border-r border-slate-50">
             <Car class="text-slate-400 mb-1 h-5 w-5" />
             <span class="text-sm font-bold text-slate-900">{property.estacionamientos}</span>
-            <span class="text-[8px] text-slate-400 font-black uppercase tracking-tighter">Estac.</span>
+            <span class="text-[8px] text-slate-400 font-black uppercase">Estac.</span>
           </div>
           <div class="flex flex-col items-center border-r border-slate-50">
-            <Ruler class="text-slate-400 mb-1 h-5 w-5" />
+            <Ruler class="text-red-500 mb-1 h-5 w-5" />
             <span class="text-sm font-bold text-slate-900">{property.m2Construccion}</span>
-            <span class="text-[8px] text-slate-400 font-black uppercase tracking-tighter">Const.</span>
+            <span class="text-[8px] text-slate-400 font-black uppercase">Const. m²</span>
           </div>
           <div class="flex flex-col items-center">
             <Landmark class="text-red-600 mb-1 h-5 w-5" />
             <span class="text-sm font-bold text-red-700">{property.m2Terreno}</span>
-            <span class="text-[8px] text-slate-400 font-black uppercase tracking-tighter">Terr.</span>
+            <span class="text-[8px] text-slate-400 font-black uppercase">Terr. m²</span>
           </div>
         </div>
 
-        <p class="text-slate-600 leading-relaxed mb-10 border-l-4 border-red-500 pl-4 italic bg-slate-50 py-4 rounded-r-2xl">
-          {property.descripcion}
-        </p>
+        <div class="mb-10">
+          <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 italic">Descripción Detallada</h3>
+          <p class="text-slate-600 leading-relaxed border-l-4 border-red-500 pl-4 italic bg-slate-50 py-5 rounded-r-2xl">
+            {property.descripcion}
+          </p>
+        </div>
         
         <a 
-          href={`https://wa.me/${property.contacto.whatsapp}`} 
+          href={whatsappUrl} 
           target="_blank"
-          class="flex items-center justify-center gap-3 bg-green-600 text-white py-5 rounded-2xl font-black text-xl hover:bg-green-700 transition-all shadow-xl shadow-green-100 hover:-translate-y-1"
+          class="flex items-center justify-center gap-3 bg-[#25D366] text-white py-6 rounded-2xl font-black text-xl hover:bg-[#128C7E] transition-all shadow-xl shadow-green-100 hover:-translate-y-1 active:scale-95 italic uppercase tracking-tighter"
         >
-          <MessageCircle class="h-6 w-6" /> CONTACTAR POR WHATSAPP
+          <MessageCircle class="h-7 w-7" /> CONTACTAR POR WHATSAPP
         </a>
       </div>
     </div>
@@ -111,60 +127,50 @@ const randomImages = Array.from({ length: 6 }, (_, i) => `https://picsum.photos/
 </BaseLayout>
 
 <script>
-  // Lógica de Zoom y Galería (Sin cambios, ya son compatibles)
-  const zoomArea = document.getElementById('zoom-area');
-  const zoomLens = document.getElementById('zoom-lens');
-  const mainImage = document.getElementById('main-image') as HTMLImageElement;
-  const thumbBtns = document.querySelectorAll('.thumb-btn');
+  const setupGallery = () => {
+    const zoomArea = document.getElementById('zoom-area');
+    const zoomLens = document.getElementById('zoom-lens');
+    const mainImage = document.getElementById('main-image') as HTMLImageElement;
+    const thumbBtns = document.querySelectorAll('.thumb-btn');
 
-  thumbBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const src = btn.getAttribute('data-src');
-      if(src && mainImage) {
-        mainImage.style.opacity = '0.5';
-        setTimeout(() => {
-          mainImage.src = src;
-          if(zoomLens) zoomLens.style.backgroundImage = `url('${src}')`;
-          mainImage.style.opacity = '1';
-        }, 150);
-      }
-    });
-  });
-
-  if (zoomArea && zoomLens && mainImage) {
-    zoomArea.addEventListener('mousemove', (e: MouseEvent) => {
-      const rect = zoomArea.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const lensSize = 180;
-
-      let posX = x - lensSize / 2;
-      let posY = y - lensSize / 2;
-
-      if (posX < 0) posX = 0;
-      if (posY < 0) posY = 0;
-      if (posX > rect.width - lensSize) posX = rect.width - lensSize;
-      if (posY > rect.height - lensSize) posY = rect.height - lensSize;
-
-      zoomLens.style.left = `${posX}px`;
-      zoomLens.style.top = `${posY}px`;
-
-      const zoomFactor = 2.5; 
-      zoomLens.style.backgroundImage = `url('${mainImage.src}')`;
-      zoomLens.style.backgroundSize = `${rect.width * zoomFactor}px ${rect.height * zoomFactor}px`;
-      zoomLens.style.backgroundPosition = `-${x * zoomFactor - lensSize / 2}px -${y * zoomFactor - lensSize / 2}px`;
+    thumbBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const src = btn.getAttribute('data-src');
+        if(src && mainImage) {
+          mainImage.style.opacity = '0.5';
+          setTimeout(() => {
+            mainImage.src = src;
+            thumbBtns.forEach(b => b.classList.remove('border-red-600'));
+            btn.classList.add('border-red-600');
+            if(zoomLens) zoomLens.style.backgroundImage = `url('${src}')`;
+            mainImage.style.opacity = '1';
+          }, 150);
+        }
+      });
     });
 
-    zoomArea.addEventListener('mouseenter', () => {
-      zoomLens.style.display = 'block';
-      zoomLens.style.opacity = '1';
-    });
+    if (window.innerWidth > 768 && zoomArea && zoomLens && mainImage) {
+      zoomArea.addEventListener('mousemove', (e: MouseEvent) => {
+        const rect = zoomArea.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const lensSize = 180;
+        let posX = x - lensSize / 2;
+        let posY = y - lensSize / 2;
+        if (posX < 0) posX = 0; if (posY < 0) posY = 0;
+        if (posX > rect.width - lensSize) posX = rect.width - lensSize;
+        if (posY > rect.height - lensSize) posY = rect.height - lensSize;
+        zoomLens.style.left = `${posX}px`; zoomLens.style.top = `${posY}px`;
+        const zoomFactor = 2.5; 
+        zoomLens.style.backgroundImage = `url('${mainImage.src}')`;
+        zoomLens.style.backgroundSize = `${rect.width * zoomFactor}px ${rect.height * zoomFactor}px`;
+        zoomLens.style.backgroundPosition = `-${x * zoomFactor - lensSize / 2}px -${y * zoomFactor - lensSize / 2}px`;
+      });
+      zoomArea.addEventListener('mouseenter', () => { zoomLens.style.display = 'block'; zoomLens.style.opacity = '1'; });
+      zoomArea.addEventListener('mouseleave', () => { zoomLens.style.opacity = '0'; setTimeout(() => { if(zoomLens) zoomLens.style.display = 'none'; }, 200); });
+    }
+  };
 
-    zoomArea.addEventListener('mouseleave', () => {
-      zoomLens.style.opacity = '0';
-      setTimeout(() => { 
-        if(zoomLens) zoomLens.style.display = 'none'; 
-      }, 200);
-    });
-  }
+  window.addEventListener('load', setupGallery);
+  document.addEventListener('astro:after-swap', setupGallery);
 </script>

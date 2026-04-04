@@ -3,17 +3,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PropertyCard from '../components/PropertyCard.astro';
 import propiedades from '../data/propiedades.json';
 
-// 1. EXTRAEMOS LA BASE PARA LOS ENLACES
-const base = import.meta.env.BASE_URL;
-
+// Estadísticas blindadas (limpiamos espacios y normalizamos minúsculas)
 const total = propiedades.length;
-const disponibles = propiedades.filter(p => p.estatus === 'disponible').length;
-const cerrados = propiedades.filter(p => p.estatus === 'vendido' || p.estatus === 'rentado').length;
+const disponibles = propiedades.filter(p => p.estatus.toLowerCase().trim() === 'disponible').length;
+const cerrados = propiedades.filter(p => 
+  ['vendido', 'rentado'].includes(p.estatus.toLowerCase().trim())
+).length;
 ---
 
 <BaseLayout title="Gestión Inmobiliaria Galindo | Catálogo">
-  <header class="mb-16 text-center">
-    <span class="text-red-600 font-black uppercase text-[10px] tracking-[0.4em] mb-4 block text-center">Xalapa & Veracruz</span>
+  <header class="mb-16 text-center pt-8">
+    <span class="text-red-600 font-black uppercase text-[10px] tracking-[0.4em] mb-4 block italic">Xalapa & Veracruz</span>
     <h1 class="text-5xl md:text-6xl font-black tracking-tighter text-slate-900 uppercase italic leading-none">
        Gestión Inmobiliaria <span class="text-red-600">Galindo</span>
     </h1>
@@ -39,8 +39,8 @@ const cerrados = propiedades.filter(p => p.estatus === 'vendido' || p.estatus ==
       <div class="flex items-center gap-3 bg-[#334155] px-6 py-3 rounded-2xl shadow-lg shadow-slate-200">
         <span class="text-lg">🚩</span>
         <div class="text-left">
-          <p class="text-[9px] font-black uppercase tracking-widest text-slate-300 leading-none">Resultados</p>
-          <p class="text-base font-black text-white leading-none mt-1">{cerrados} Casos de Éxito</p>
+          <p class="text-[9px] font-black uppercase tracking-widest text-slate-300 leading-none">Éxitos</p>
+          <p class="text-base font-black text-white leading-none mt-1">{cerrados} Cerrados</p>
         </div>
       </div>
     </div>
@@ -54,9 +54,13 @@ const cerrados = propiedades.filter(p => p.estatus === 'vendido' || p.estatus ==
     <button class="filter-btn" data-filter="rentado">🤝 Rentados</button>
   </div>
 
-  <div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3" id="properties-grid">
+  <div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 min-h-[400px]" id="properties-grid">
     {propiedades.map((prop) => (
-      <div class="property-wrapper transition-all duration-300" data-category={prop.operacion} data-status={prop.estatus}>
+      <div 
+        class="property-wrapper transition-all duration-500 ease-in-out" 
+        data-category={prop.operacion.toLowerCase().trim()} 
+        data-status={prop.estatus.toLowerCase().trim()}
+      >
         <PropertyCard property={prop} />
       </div>
     ))}
@@ -64,7 +68,11 @@ const cerrados = propiedades.filter(p => p.estatus === 'vendido' || p.estatus ==
 </BaseLayout>
 
 <style is:global>
+  /* Animación suave para las tarjetas */
   .hidden-card { 
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
     display: none !important;
   }
 
@@ -78,7 +86,7 @@ const cerrados = propiedades.filter(p => p.estatus === 'vendido' || p.estatus ==
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
   }
   
@@ -107,11 +115,12 @@ const cerrados = propiedades.filter(p => p.estatus === 'vendido' || p.estatus ==
       btn.addEventListener('click', () => {
         buttons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        const filter = btn.getAttribute('data-filter');
+
+        const filter = btn.getAttribute('data-filter')?.toLowerCase().trim();
         
         wrappers.forEach(wrapper => {
-          const status = wrapper.getAttribute('data-status');
-          const category = wrapper.getAttribute('data-category');
+          const status = wrapper.getAttribute('data-status')?.toLowerCase().trim();
+          const category = wrapper.getAttribute('data-category')?.toLowerCase().trim();
           let shouldShow = false;
 
           if (filter === 'todos') {
@@ -123,17 +132,24 @@ const cerrados = propiedades.filter(p => p.estatus === 'vendido' || p.estatus ==
           }
 
           if (shouldShow) {
-            wrapper.classList.remove('hidden-card');
+            (wrapper as HTMLElement).style.display = 'block';
+            setTimeout(() => {
+                wrapper.classList.remove('hidden-card');
+            }, 10);
           } else {
             wrapper.classList.add('hidden-card');
+            (wrapper as HTMLElement).style.display = 'none';
           }
         });
       });
     });
 
-    const initialBtn = document.querySelector('.filter-btn.active') as HTMLElement;
-    if (initialBtn) initialBtn.click();
+    // Aplicar filtro inicial (Disponibles)
+    const activeBtn = document.querySelector('.filter-btn.active') as HTMLElement;
+    if (activeBtn) activeBtn.click();
   }
 
+  // Soporte para carga inicial y navegación de Astro
   window.addEventListener('load', setupFilters);
+  document.addEventListener('astro:after-swap', setupFilters);
 </script>
