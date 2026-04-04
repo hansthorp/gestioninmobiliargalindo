@@ -11,7 +11,7 @@ Thumbs.db
 
 # ✅ IMÁGENES DE PROPIEDADES (Para no saturar el Repo de GitHub)
 # Tu script de Python las vuelve a crear en tu carpeta local
-public/images/properties/
+#public/images/properties/
 
 # Logs de error
 npm-debug.log*
