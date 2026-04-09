@@ -1,104 +1,133 @@
 import os
 import pandas as pd
-from tkinter import filedialog, Tk, messagebox
+import shutil
+import json
+import re
+from datetime import datetime
+from tkinter import filedialog, Tk
 
-def seleccionar_ruta(titulo, es_archivo=True):
-    """Abre una ventana nativa de Windows para seleccionar archivos o carpetas"""
+# --- CONFIGURACIÓN DE RUTAS ---
+BASE_URL = "" 
+RUTA_DESTINO_FOTOS = "./public/images/properties/"
+RUTA_JSON_ASTRO = "./src/data/propiedades.json"
+
+def slugify(text):
+    text = str(text).lower()
+    text = re.sub(r'[áéíóúüñ]', lambda m: {'á':'a','é':'e','í':'i','ó':'o','ú':'u','ü':'u','ñ':'n'}[m.group()], text)
+    text = re.sub(r'[^\w\s-]', '', text)
+    return re.sub(r'[-\s]+', '-', text).strip('-')
+
+def pedir_ruta_windows(tipo="archivo"):
+    """Selector de archivos nativo para Windows"""
     root = Tk()
-    root.withdraw()  # Oculta la ventana pequeña de Tkinter
-    root.attributes("-topmost", True)  # Asegura que la ventana aparezca al frente
-
-    if es_archivo:
-        ruta = filedialog.askopenfilename(
-            title=titulo,
-            filetypes=[("Excel files", "*.xlsx *.xls")]
-        )
+    root.withdraw()
+    root.attributes("-topmost", True)
+    if tipo == "archivo":
+        ruta = filedialog.askopenfilename(title="Selecciona el Excel", filetypes=[("Excel", "*.xlsx *.xls")])
     else:
-        ruta = filedialog.askdirectory(title=titulo)
-    
+        ruta = filedialog.askdirectory(title="Selecciona carpeta de fotos originales")
     root.destroy()
     return ruta if ruta else None
 
-def run_relocation_windows():
-    print("--- 🏠 Gestor de Inventario Inmobiliario (Windows Version) ---")
+def run_full_pipeline():
+    # 1. Pedir rutas
+    path_excel = pedir_ruta_windows("archivo")
+    path_fotos_origen = pedir_ruta_windows("carpeta")
     
-    # 1. Selección de insumos
-    path_excel = seleccionar_ruta("Selecciona el archivo Excel de Inventario", es_archivo=True)
-    if not path_excel: 
-        print("❌ No se seleccionó ningún Excel."); return
+    if not path_excel or not path_fotos_origen:
+        print("❌ Operación cancelada por el usuario.")
+        return
 
-    path_fotos_raiz = seleccionar_ruta("Selecciona la carpeta raíz de las fotos", es_archivo=False)
-    if not path_fotos_raiz: 
-        print("❌ No se seleccionó la carpeta de fotos."); return
+    print("🧹 Iniciando limpieza profunda en Windows...")
+    
+    # Borrar JSON anterior
+    if os.path.exists(RUTA_JSON_ASTRO):
+        os.remove(RUTA_JSON_ASTRO)
 
-    print(f"\n🚀 Procesando...\n📍 Excel: {path_excel}\n📸 Carpeta: {path_fotos_raiz}\n")
+    # Borrar y recrear carpeta de fotos destino
+    if os.path.exists(RUTA_DESTINO_FOTOS):
+        shutil.rmtree(RUTA_DESTINO_FOTOS)
+    os.makedirs(RUTA_DESTINO_FOTOS, exist_ok=True)
 
     try:
-        # Cargar datos
         df = pd.read_excel(path_excel)
+        propiedades_json_list = []
         
-        # Limpieza básica de la columna 'whatsapp' si existe
-        if 'whatsapp' in df.columns:
-            df['whatsapp'] = df['whatsapp'].apply(
-                lambda x: str(x).split('/')[0].strip() if pd.notnull(x) and x != "" else x
-            )
+        print(f"🚀 Procesando {len(df)} filas...")
 
-        nombres_finales_columna = []
-        carpetas_encontradas = 0
+        for index, row in df.iterrows():
+            prop_id = str(row.get('id', '')).strip()
+            titulo = str(row.get('titulo', '')).strip()
+            
+            if not prop_id or prop_id == 'nan' or not titulo:
+                continue
 
-        for _, row in df.iterrows():
-            # Obtener ID (ej: C-001) y limpiar espacios
-            prop_id = str(row['id']).strip()
-            ruta_carpeta_prop = os.path.join(path_fotos_raiz, prop_id)
-            fotos_renombradas = []
+            # --- PROCESAMIENTO DE FOTOS ---
+            folder_origen = None
+            # Buscamos la carpeta del ID ignorando mayúsculas
+            for d in os.listdir(path_fotos_origen):
+                if d.lower().strip() == prop_id.lower().strip():
+                    folder_origen = os.path.join(path_fotos_origen, d)
+                    break
 
-            if os.path.exists(ruta_carpeta_prop) and os.path.isdir(ruta_carpeta_prop):
-                # Filtrar solo imágenes reales
-                archivos = [f for f in os.listdir(ruta_carpeta_prop) 
-                           if f.lower().endswith(('.jpg', '.jpeg', '.png', '.webp'))]
+            fotos_registradas = []
+            if folder_origen and os.path.isdir(folder_origen):
+                folder_destino_web = os.path.join(RUTA_DESTINO_FOTOS, prop_id)
+                os.makedirs(folder_destino_web, exist_ok=True)
                 
-                # Ordenar para que el 1, 2, 3 sea consistente
+                archivos = [f for f in os.listdir(folder_origen) 
+                           if f.lower().endswith(('.jpg', '.jpeg', '.png', '.webp'))]
                 archivos.sort()
 
-                for i, nombre_original in enumerate(archivos, start=1):
-                    ext = os.path.splitext(nombre_original)[1].lower()
+                for i, archivo_orig in enumerate(archivos, start=1):
+                    ext = os.path.splitext(archivo_orig)[1].lower()
                     nuevo_nombre = f"{prop_id}_{i}{ext}"
                     
-                    ruta_vieja = os.path.join(ruta_carpeta_prop, nombre_original)
-                    ruta_nueva = os.path.join(ruta_carpeta_prop, nuevo_nombre)
+                    # Copiamos la foto del origen a la carpeta public de Astro
+                    shutil.copy2(os.path.join(folder_origen, archivo_orig), 
+                                 os.path.join(folder_destino_web, nuevo_nombre))
                     
-                    # Renombrar solo si el nombre es diferente
-                    if ruta_vieja != ruta_nueva:
-                        try:
-                            os.rename(ruta_vieja, ruta_nueva)
-                        except OSError as e:
-                            print(f"⚠️ No se pudo renombrar {nombre_original}: {e}")
-                    
-                    fotos_renombradas.append(nuevo_nombre)
-                
-                carpetas_encontradas += 1
-            
-            # Guardar la lista de fotos separadas por coma para el JSON posterior
-            nombres_finales_columna.append(",".join(fotos_renombradas))
+                    # Ruta relativa que usará Astro
+                    fotos_registradas.append(f"/images/properties/{prop_id}/{nuevo_nombre}")
 
-        # 2. Guardar el nuevo Excel con los IDs de las fotos vinculados
-        df['ids_imagenes'] = nombres_finales_columna
-        output_path = path_excel.replace(".xlsx", "_PROCESADO.xlsx")
-        df.to_excel(output_path, index=False)
+            # --- CONSTRUCCIÓN DEL OBJETO JSON ---
+            prop_data = {
+                "id": prop_id,
+                "slug": slugify(titulo),
+                "titulo": titulo,
+                "descripcion": str(row.get('descripcion', '')).strip(),
+                "operacion": str(row.get('operacion', 'venta')).lower().strip(),
+                "tipo": str(row.get('tipo', 'casa')).lower().strip(),
+                "precio": int(row.get('precio', 0)) if pd.notnull(row.get('precio')) else 0,
+                "moneda": "MXN",
+                "zona": str(row.get('zona', '')).strip(),
+                "ciudad": str(row.get('ciudad', 'Veracruz')).strip(),
+                "m2Terreno": int(row.get('m2Terreno', 0)) if pd.notnull(row.get('m2Terreno')) else 0,
+                "m2Construccion": int(row.get('m2Construccion', 0)) if pd.notnull(row.get('m2Construccion')) else 0,
+                "recamaras": int(row.get('recamaras', 0)) if pd.notnull(row.get('recamaras')) else 0,
+                "banos": int(row.get('banos', 0)) if pd.notnull(row.get('banos')) else 0,
+                "estacionamientos": int(row.get('estacionamientos', 0)) if pd.notnull(row.get('estacionamientos')) else 0,
+                "fechaPublicacion": str(row.get('fecha_publicacion', '')),
+                "estatus": str(row.get('estatus', 'disponible')).lower().strip(),
+                "imagenes": fotos_registradas if fotos_registradas else ["/images/placeholder-galindo.jpg"],
+                "contacto": {
+                    "whatsapp": str(row.get('whatsapp', '')).split('.')[0].strip(),
+                    "mensajeBase": f"Hola, me interesa la propiedad: {titulo}"
+                }
+            }
+            propiedades_json_list.append(prop_data)
 
-        # Mensaje final
-        print(f"✅ ¡Éxito!")
-        print(f"📂 Carpetas de propiedades vinculadas: {carpetas_encontradas}")
-        print(f"📝 Nuevo archivo creado: {os.path.basename(output_path)}")
-        
-        # Alerta visual en Windows
-        final_root = Tk()
-        final_root.withdraw()
-        messagebox.showinfo("Proceso Completado", f"Se procesaron {carpetas_encontradas} carpetas.\nArchivo guardado como: {os.path.basename(output_path)}")
-        final_root.destroy()
+        # 2. Guardar JSON final
+        os.makedirs(os.path.dirname(RUTA_JSON_ASTRO), exist_ok=True)
+        with open(RUTA_JSON_ASTRO, 'w', encoding='utf-8') as f:
+            json.dump(propiedades_json_list, f, indent=2, ensure_ascii=False)
+
+        print(f"\n✅ PIPELINE COMPLETADO")
+        print(f"🏠 Propiedades procesadas: {len(propiedades_json_list)}")
+        print(f"📂 Fotos copiadas a: {RUTA_DESTINO_FOTOS}")
 
     except Exception as e:
-        print(f"❌ Error crítico durante la ejecución: {e}")
+        print(f"❌ Error: {e}")
 
 if __name__ == "__main__":
-    run_relocation_windows()
+    run_full_pipeline()
