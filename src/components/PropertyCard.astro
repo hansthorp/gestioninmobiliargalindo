@@ -7,7 +7,7 @@ interface Props {
 
 const { property } = Astro.props;
 
-// ✅ RUTA ABSOLUTA A LA RAÍZ: Sin prefijos que causen 404
+// ✅ RUTA ABSOLUTA: Ajustado para usar el slug del JSON plano
 const detailUrl = `/propiedades/${property.slug}`;
 
 const estatus = property.estatus?.toLowerCase().trim();
@@ -15,41 +15,39 @@ const isVendido = estatus === 'vendido';
 const isRentado = estatus === 'rentado';
 const isCerrado = isVendido || isRentado;
 
-// Lógica de "Nuevo" (Menos de 10 días)
-const fechaPub = new Date(property.fechaPublicacion);
+// ✅ FECHA: Ajustado a 'fecha_publicacion' que es la que viene en tu JSON plano
+const fechaPub = new Date(property.fecha_publicacion || Date.now());
 const hoy = new Date();
 const diferenciaDias = Math.floor((hoy.getTime() - fechaPub.getTime()) / (1000 * 60 * 60 * 24));
-const isNuevo = diferenciaDias <= 10 && !isCerrado;
+const isNuevo = diferenciaDias <= 15 && !isCerrado;
 
-const formatCurrency = (value, currency) =>
-  new Intl.NumberFormat('es-MX', { style: 'currency', currency, maximumFractionDigits: 0 }).format(value);
+// ✅ MONEDA: Ajustado para que si no existe 'moneda', use 'MXN' por defecto
+const formatCurrency = (value, currency = 'MXN') =>
+  new Intl.NumberFormat('es-MX', { style: 'currency', currency, maximumFractionDigits: 0 }).format(value || 0);
 
-const whatsappUrl = `https://wa.me/${property.contacto.whatsapp}?text=${encodeURIComponent(property.contacto.mensajeBase)}`;
+// ✅ WHATSAPP: Acceso directo (JSON PLANO) para evitar el error de 'undefined'
+const whatsappNum = property.whatsapp || "2281852255";
+const mensajeBase = `Hola, me interesa la propiedad: ${property.titulo} (ID: ${property.id})`;
+const whatsappUrl = `https://wa.me/${whatsappNum}?text=${encodeURIComponent(mensajeBase)}`;
 ---
 
 <article class={`group relative flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${isCerrado ? 'opacity-85' : ''}`}>
   
   <a href={detailUrl} class="relative block h-64 overflow-hidden cursor-pointer">
     <img 
-      src={property.imagenes[0]} 
+      src={property.imagenes?.[0] || "/images/placeholder-galindo.jpg"} 
       alt={property.titulo} 
       class={`h-full w-full object-cover transition-transform duration-700 group-hover:scale-110 ${isCerrado ? 'grayscale' : ''}`} 
     />
     
     <div class="absolute left-4 top-4 flex flex-col gap-2">
       <span class={`rounded-lg px-3 py-1 text-[10px] font-black uppercase text-white shadow-lg ${isCerrado ? 'bg-slate-500' : 'bg-galindo'}`}>
-        {property.operacion}
+        En {property.operacion}
       </span>
 
       {isVendido && (
         <span class="flex items-center gap-1 rounded-lg bg-galindo px-3 py-1 text-[10px] font-black uppercase text-white shadow-lg shadow-red-200">
           <CheckCircle2 class="h-3 w-3" /> VENDIDO
-        </span>
-      )}
-
-      {isRentado && (
-        <span class="flex items-center gap-1 rounded-lg bg-blue-600 px-3 py-1 text-[10px] font-black uppercase text-white shadow-lg shadow-blue-200">
-          <CheckCircle2 class="h-3 w-3" /> RENTADO
         </span>
       )}
 
@@ -75,23 +73,23 @@ const whatsappUrl = `https://wa.me/${property.contacto.whatsapp}?text=${encodeUR
     <div class="mb-5 grid grid-cols-5 gap-1 border-y border-slate-100 py-4 text-slate-600 text-center bg-slate-50/50 rounded-xl">
         <div class="flex flex-col items-center border-r border-slate-200">
           <BedDouble class="h-4 w-4 mb-1" />
-          <span class="text-sm font-bold text-slate-900">{property.recamaras}</span>
+          <span class="text-sm font-bold text-slate-900">{property.recamaras || 0}</span>
         </div>
         <div class="flex flex-col items-center border-r border-slate-200">
           <Bath class="h-4 w-4 mb-1" />
-          <span class="text-sm font-bold text-slate-900">{property.banos}</span>
+          <span class="text-sm font-bold text-slate-900">{property.banos || 0}</span>
         </div>
         <div class="flex flex-col items-center border-r border-slate-200">
           <Car class="h-4 w-4 mb-1" />
-          <span class="text-sm font-bold text-slate-900">{property.estacionamientos}</span>
+          <span class="text-sm font-bold text-slate-900">{property.estacionamientos || 0}</span>
         </div>
         <div class="flex flex-col items-center border-r border-slate-200">
           <Ruler class="h-4 w-4 mb-1 text-red-500" />
-          <span class="text-sm font-bold text-slate-900">{property.m2Construccion}</span>
+          <span class="text-sm font-bold text-slate-900">{property.m2Construccion || 0}</span>
         </div>
         <div class="flex flex-col items-center">
           <Landmark class="h-4 w-4 text-galindo mb-1" />
-          <span class="text-sm font-bold text-galindo">{property.m2Terreno}</span>
+          <span class="text-sm font-bold text-galindo">{property.m2Terreno || 0}</span>
         </div>
     </div>
 

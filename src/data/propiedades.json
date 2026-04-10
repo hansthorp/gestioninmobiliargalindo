@@ -1,21 +1,21 @@
 [
   {
     "id": "C-001",
-    "slug": "campestre",
-    "titulo": "Campestre",
-    "descripcion": "Espacio para 10 autos.\nSala con chimenea.\nAmplia cocina con isla central.\n3 Recámaras con guardarropa c/u, la principal con tina de hidromasaje.\nCuarta recámara independiente con baño completo.\n1 1/2 Baños para visitas.\nALOJAMIENTO DE LA VIVIENDA.\nAmbiente totalmente relajante con un clima inigualable.\nAmplios espacios para todo tipo de eventos.\nTotal seguridad y tranquilidad las 24 HRS del día.\n2 Cisternas de aproximadamente 10 lts cada una.\nAMENIDADES.\nEspacio de fogata.\nPalapa con asador.\nÁrea de juegos infantiles.",
+    "slug": "campestre-c-001",
+    "titulo": "CAMPESTRE",
     "operacion": "venta",
     "tipo": "casa",
     "precio": 8500000,
-    "moneda": "MXN",
     "zona": "COACOATZINTLA",
     "ciudad": "xalapa",
-    "m2Terreno": 3,
-    "m2Construccion": 440,
+    "m2Terreno": 3.713,
+    "m2Construccion": 440.0,
     "recamaras": 4,
     "banos": 5,
     "estacionamientos": 7,
-    "fechaPublicacion": "2026-04-03 00:00:00",
+    "descripcion": "Espacio para 10 autos.\nSala con chimenea.\nAmplia cocina con isla central.\n3 Recámaras con guardarropa c/u, la principal con tina de hidromasaje.\nCuarta recámara independiente con baño completo.\n1 1/2 Baños para visitas.\nALOJAMIENTO DE LA VIVIENDA.\nAmbiente totalmente relajante con un clima inigualable.\nAmplios espacios para todo tipo de eventos.\nTotal seguridad y tranquilidad las 24 HRS del día.\n2 Cisternas de aproximadamente 10 lts cada una.\nAMENIDADES.\nEspacio de fogata.\nPalapa con asador.\nÁrea de juegos infantiles.",
+    "whatsapp": "2281852255",
+    "fecha_publicacion": "2026-04-03 00:00:00",
     "estatus": "disponible",
     "imagenes": [
       "/images/properties/C-001/C-001_1.jpg",
@@ -32,29 +32,25 @@
       "/images/properties/C-001/C-001_12.jpg",
       "/images/properties/C-001/C-001_13.jpg",
       "/images/properties/C-001/C-001_14.jpg"
-    ],
-    "contacto": {
-      "whatsapp": "2281852255",
-      "mensajeBase": "Hola, me interesa la propiedad: Campestre"
-    }
+    ]
   },
   {
     "id": "C-002",
-    "slug": "residencial",
-    "titulo": "Residencial",
-    "descripcion": "FRACCIONAMIENTO PRIVADO EN COATEPEC, VER.\nCochera techada p/2 autos.\nCisterna de 8,000 LTS.\nAmplia Cocina con finos acabados.\n3 Recamaras grandes con baño completo, closet y balcón c/u.\nDos medios baños.\nEstudio.\nSala de cine que incluye pantalla y sonido.\nTerraza empergolada para el descanso.\nLA BARRA DE LA COCINA ES CON ACABADO EN GRANITO.\nTODOS LOS ACABADOS DE MADERA EN COCINA, PUERTAS Y CLOSET SON DE CEDRO.\nLAS CUBIERTAS DE LOS BAÑOS SON DE MARMOL.",
+    "slug": "residencial-c-002",
+    "titulo": "RESIDENCIAL",
     "operacion": "venta",
     "tipo": "casa",
     "precio": 4250000,
-    "moneda": "MXN",
     "zona": "coatepec",
     "ciudad": "xalapa",
-    "m2Terreno": 143,
-    "m2Construccion": 350,
+    "m2Terreno": 143.0,
+    "m2Construccion": 350.0,
     "recamaras": 3,
     "banos": 6,
     "estacionamientos": 2,
-    "fechaPublicacion": "2026-04-03 00:00:00",
+    "descripcion": "FRACCIONAMIENTO PRIVADO EN COATEPEC, VER.\nCochera techada p/2 autos.\nCisterna de 8,000 LTS.\nAmplia Cocina con finos acabados.\n3 Recamaras grandes con baño completo, closet y balcón c/u.\nDos medios baños.\nEstudio.\nSala de cine que incluye pantalla y sonido.\nTerraza empergolada para el descanso.\nLA BARRA DE LA COCINA ES CON ACABADO EN GRANITO.\nTODOS LOS ACABADOS DE MADERA EN COCINA, PUERTAS Y CLOSET SON DE CEDRO.\nLAS CUBIERTAS DE LOS BAÑOS SON DE MARMOL.",
+    "whatsapp": "2281852255",
+    "fecha_publicacion": "2026-04-03 00:00:00",
     "estatus": "disponible",
     "imagenes": [
       "/images/properties/C-002/C-002_1.jpg",
@@ -69,29 +65,25 @@
       "/images/properties/C-002/C-002_10.jpg",
       "/images/properties/C-002/C-002_11.jpg",
       "/images/properties/C-002/C-002_12.jpg"
-    ],
-    "contacto": {
-      "whatsapp": "2281852255",
-      "mensajeBase": "Hola, me interesa la propiedad: Residencial"
-    }
+    ]
   },
   {
     "id": "T-001",
-    "slug": "terreno",
+    "slug": "terreno-t-001",
     "titulo": "TERRENO",
-    "descripcion": "UBICADO EN EL HAYA \nTERRENO  330 M2\nCUENTA CON ESCRITURA PUBLICA \nTOMA DE AGUA",
     "operacion": "venta",
     "tipo": "terreno",
     "precio": 1050000,
-    "moneda": "MXN",
     "zona": "EL HAYA",
     "ciudad": "Xalapa",
-    "m2Terreno": 330,
-    "m2Construccion": 0,
+    "m2Terreno": 330.3,
+    "m2Construccion": 0.0,
     "recamaras": 0,
     "banos": 0,
     "estacionamientos": 0,
-    "fechaPublicacion": "2026-04-08 00:00:00",
+    "descripcion": "UBICADO EN EL HAYA \nTERRENO  330 M2\nCUENTA CON ESCRITURA PUBLICA \nTOMA DE AGUA",
+    "whatsapp": "2281470383",
+    "fecha_publicacion": "2026-04-08 00:00:00",
     "estatus": "disponible",
     "imagenes": [
       "/images/properties/T-001/T-001_1.jpg",
@@ -100,29 +92,25 @@
       "/images/properties/T-001/T-001_4.jpg",
       "/images/properties/T-001/T-001_5.jpg",
       "/images/properties/T-001/T-001_6.jpg"
-    ],
-    "contacto": {
-      "whatsapp": "2281470383",
-      "mensajeBase": "Hola, me interesa la propiedad: TERRENO"
-    }
+    ]
   },
   {
     "id": "C-004",
-    "slug": "casa",
-    "titulo": "CASA",
-    "descripcion": "ESTRENE COMODA CASA DE TRES RECAMARAS, JARDIN Y COCHERA, UBICADA A UNAS CUADRAS DE CAMINO ANTIGUO A NAOLINCO.\n105 M2 DE TERRENO.\n158 M2 DE CONSTRUCCION.\nINVERSION FIJA DE  $ 2, 100,000\nPLANTA BAJA:\nCOCHERA PARA UN AUTO \n1/2 BAÑO.\nSALA-COMEDOR.\nCOCINA CON BARRA DESAYUNADOR.\nJARDIN.\nPLANTA ALTA:\nDOS RECAMARAS SECUNDARIAS.\n1 BAÑO COMPLETO COMPARTIDO.\nAMPLIA RECAMARA PRINCIPAL CON BAÑO COMPLETO.\nAZOTEA:\nAREA DE LAVADO TECHADA.",
+    "slug": "casa-jardines-c-004",
+    "titulo": "CASA JARDINES",
     "operacion": "venta",
     "tipo": "casa",
     "precio": 2100000,
-    "moneda": "MXN",
     "zona": "JARDINES",
     "ciudad": "XALAPA",
-    "m2Terreno": 105,
-    "m2Construccion": 158,
+    "m2Terreno": 105.0,
+    "m2Construccion": 158.0,
     "recamaras": 3,
     "banos": 3,
     "estacionamientos": 1,
-    "fechaPublicacion": "2026-04-08 00:00:00",
+    "descripcion": "ESTRENE COMODA CASA DE TRES RECAMARAS, JARDIN Y COCHERA, UBICADA A UNAS CUADRAS DE CAMINO ANTIGUO A NAOLINCO.\n105 M2 DE TERRENO.\n158 M2 DE CONSTRUCCION.\nINVERSION FIJA DE  $ 2, 100,000\nPLANTA BAJA:\nCOCHERA PARA UN AUTO \n1/2 BAÑO.\nSALA-COMEDOR.\nCOCINA CON BARRA DESAYUNADOR.\nJARDIN.\nPLANTA ALTA:\nDOS RECAMARAS SECUNDARIAS.\n1 BAÑO COMPLETO COMPARTIDO.\nAMPLIA RECAMARA PRINCIPAL CON BAÑO COMPLETO.\nAZOTEA:\nAREA DE LAVADO TECHADA.",
+    "whatsapp": "2281470383",
+    "fecha_publicacion": "2026-04-08 00:00:00",
     "estatus": "disponible",
     "imagenes": [
       "/images/properties/C-004/C-004_1.jpg",
@@ -134,21 +122,15 @@
       "/images/properties/C-004/C-004_7.jpg",
       "/images/properties/C-004/C-004_8.jpg",
       "/images/properties/C-004/C-004_9.jpg"
-    ],
-    "contacto": {
-      "whatsapp": "2281470383",
-      "mensajeBase": "Hola, me interesa la propiedad: CASA"
-    }
+    ]
   },
   {
     "id": "D-001",
-    "slug": "deprtanto",
-    "titulo": "DEPRTANTO",
-    "descripcion": "DEPARTAMENTOS  UBICADOS AUN COSTADO DE PLAZA CRISTAL \n\n                                   $ 1,550,000\nCajón de estacionamiento p/1 auto (la cochera es techada y con portón eléctrico).\nCisterna.\nSala-Comedor.\nCocina integral con pequeña barra desayunador y gabinete de madera.\nDos recámaras con clóset c/u. La principal cuenta con pequeño balcón.\n1 Baño completo.\nAZOTEA:\nÁrea de lavado y tendido.",
+    "slug": "departamento-d-001",
+    "titulo": "DEPARTAMENTO",
     "operacion": "venta",
     "tipo": "departamento",
     "precio": 1550000,
-    "moneda": "MXN",
     "zona": "JARDINES",
     "ciudad": "XALAPA",
     "m2Terreno": 0,
@@ -156,7 +138,9 @@
     "recamaras": 2,
     "banos": 1,
     "estacionamientos": 1,
-    "fechaPublicacion": "2026-04-08 00:00:00",
+    "descripcion": "DEPARTAMENTOS  UBICADOS AUN COSTADO DE PLAZA CRISTAL \n\n                                   $ 1,550,000\nCajón de estacionamiento p/1 auto (la cochera es techada y con portón eléctrico).\nCisterna.\nSala-Comedor.\nCocina integral con pequeña barra desayunador y gabinete de madera.\nDos recámaras con clóset c/u. La principal cuenta con pequeño balcón.\n1 Baño completo.\nAZOTEA:\nÁrea de lavado y tendido.",
+    "whatsapp": "2281470383",
+    "fecha_publicacion": "2026-04-08 00:00:00",
     "estatus": "disponible",
     "imagenes": [
       "/images/properties/D-001/D-001_1.jpg",
@@ -167,29 +151,25 @@
       "/images/properties/D-001/D-001_6.jpg",
       "/images/properties/D-001/D-001_7.jpg",
       "/images/properties/D-001/D-001_8.jpg"
-    ],
-    "contacto": {
-      "whatsapp": "2281470383",
-      "mensajeBase": "Hola, me interesa la propiedad: DEPRTANTO"
-    }
+    ]
   },
   {
     "id": "C-005",
-    "slug": "casa",
-    "titulo": "CASA",
-    "descripcion": "PLANTA BAJA:\nCochera Techada p/3 autos.\nCisterna de 10,000 LTS.\nAcceso independiente al patio trasero con pequeño jardín.\nSala.\nComedor con acceso al patio.\nAmplia Cocina con acceso al corredor.\n1 Recamara individual.\n1/2 Baño.\n                  PLANTA ALTA:\nÁrea de estudio.\nAmplia sala de TV.\nÁrea de juegos.\nAmplia recamara principal con baño completo, vestidor y balcón.\nOtras 2 recamaras secundarias con closet c/u.\n1 baño completo.\nBalcón trasero.\n                     AZOTEA:\nÁrea de lavado techado.\nAmplio ROFF GARDEN.",
+    "slug": "casa-trancas-c-005",
+    "titulo": "CASA TRANCAS",
     "operacion": "venta",
     "tipo": "casa",
     "precio": 3000000,
-    "moneda": "MXN",
     "zona": "TRANCAS",
     "ciudad": "EMILIANO ZAPATA",
-    "m2Terreno": 143,
-    "m2Construccion": 350,
+    "m2Terreno": 143.0,
+    "m2Construccion": 350.0,
     "recamaras": 4,
     "banos": 3,
     "estacionamientos": 3,
-    "fechaPublicacion": "2026-04-08 00:00:00",
+    "descripcion": "PLANTA BAJA:\nCochera Techada p/3 autos.\nCisterna de 10,000 LTS.\nAcceso independiente al patio trasero con pequeño jardín.\nSala.\nComedor con acceso al patio.\nAmplia Cocina con acceso al corredor.\n1 Recamara individual.\n1/2 Baño.\n                  PLANTA ALTA:\nÁrea de estudio.\nAmplia sala de TV.\nÁrea de juegos.\nAmplia recamara principal con baño completo, vestidor y balcón.\nOtras 2 recamaras secundarias con closet c/u.\n1 baño completo.\nBalcón trasero.\n                     AZOTEA:\nÁrea de lavado techado.\nAmplio ROFF GARDEN.",
+    "whatsapp": "2281470383",
+    "fecha_publicacion": "2026-04-08 00:00:00",
     "estatus": "disponible",
     "imagenes": [
       "/images/properties/C-005/C-005_1.jpg",
@@ -202,29 +182,25 @@
       "/images/properties/C-005/C-005_8.jpg",
       "/images/properties/C-005/C-005_9.jpg",
       "/images/properties/C-005/C-005_10.jpg"
-    ],
-    "contacto": {
-      "whatsapp": "2281470383",
-      "mensajeBase": "Hola, me interesa la propiedad: CASA"
-    }
+    ]
   },
   {
     "id": "C-006",
-    "slug": "casa",
-    "titulo": "CASA",
-    "descripcion": "FRACCIONAMIENTO PRIVADO; CARRETERA LAS TRANCAS\n105 M2 DE TERRENO.\n146 M2 DE CONSTRUCCION.\nPLANTA BAJA:\nCochera p/1 auto..\nSala.\n1/2 Baño.\nComedor.\nCocina Integral.\nÁrea de lavado techado. \n1 Recamara con closet y baño completo.\nPLANTA ALTA:\nSala de T.V.\nRecamara principal con baño completo y vestidor.\nRecamara secundaria con closet, baño completo y balcón.",
+    "slug": "casa-coatepec-c-006",
+    "titulo": "CASA COATEPEC",
     "operacion": "venta",
     "tipo": "casa",
     "precio": 2500000,
-    "moneda": "MXN",
     "zona": "COATEPEC",
     "ciudad": "XALAPA",
-    "m2Terreno": 105,
-    "m2Construccion": 146,
+    "m2Terreno": 105.0,
+    "m2Construccion": 146.0,
     "recamaras": 3,
     "banos": 4,
     "estacionamientos": 1,
-    "fechaPublicacion": "2026-04-08 00:00:00",
+    "descripcion": "FRACCIONAMIENTO PRIVADO; CARRETERA LAS TRANCAS\n105 M2 DE TERRENO.\n146 M2 DE CONSTRUCCION.\nPLANTA BAJA:\nCochera p/1 auto..\nSala.\n1/2 Baño.\nComedor.\nCocina Integral.\nÁrea de lavado techado. \n1 Recamara con closet y baño completo.\nPLANTA ALTA:\nSala de T.V.\nRecamara principal con baño completo y vestidor.\nRecamara secundaria con closet, baño completo y balcón.",
+    "whatsapp": "2281470383",
+    "fecha_publicacion": "2026-04-08 00:00:00",
     "estatus": "disponible",
     "imagenes": [
       "/images/properties/C-006/C-006_1.jpg",
@@ -237,29 +213,25 @@
       "/images/properties/C-006/C-006_8.jpg",
       "/images/properties/C-006/C-006_9.jpg",
       "/images/properties/C-006/C-006_10.jpg"
-    ],
-    "contacto": {
-      "whatsapp": "2281470383",
-      "mensajeBase": "Hola, me interesa la propiedad: CASA"
-    }
+    ]
   },
   {
     "id": "C-007",
-    "slug": "casa",
-    "titulo": "CASA",
-    "descripcion": "PLANTA BAJA:\nAmplia cochera p/2 autos.\n1 Baño de visitas.\nSala \nComedor.\nCocina con barra desayunador.\n1 Recamara con closet y baño completo.\nPLANTA ALTA:\nAmplia recámara principal con baño completo y espacio de vestidor.\nRecamara secundaria con espacio de closet. \n1 baño completo \nÁrea de servicio y terraza.",
+    "slug": "casa-trancas-ii-c-007",
+    "titulo": "CASA TRANCAS II",
     "operacion": "venta",
     "tipo": "casa",
     "precio": 2240000,
-    "moneda": "MXN",
     "zona": "TRANCAS",
     "ciudad": "EMILIANO ZAPATA",
-    "m2Terreno": 120,
-    "m2Construccion": 150,
+    "m2Terreno": 120.0,
+    "m2Construccion": 150.0,
     "recamaras": 3,
     "banos": 4,
     "estacionamientos": 2,
-    "fechaPublicacion": "2026-04-08 00:00:00",
+    "descripcion": "PLANTA BAJA:\nAmplia cochera p/2 autos.\n1 Baño de visitas.\nSala \nComedor.\nCocina con barra desayunador.\n1 Recamara con closet y baño completo.\nPLANTA ALTA:\nAmplia recámara principal con baño completo y espacio de vestidor.\nRecamara secundaria con espacio de closet. \n1 baño completo \nÁrea de servicio y terraza.",
+    "whatsapp": "2281470383",
+    "fecha_publicacion": "2026-04-08 00:00:00",
     "estatus": "disponible",
     "imagenes": [
       "/images/properties/C-007/C-007_1.jpg",
@@ -270,29 +242,25 @@
       "/images/properties/C-007/C-007_6.jpg",
       "/images/properties/C-007/C-007_7.jpg",
       "/images/properties/C-007/C-007_8.jpg"
-    ],
-    "contacto": {
-      "whatsapp": "2281470383",
-      "mensajeBase": "Hola, me interesa la propiedad: CASA"
-    }
+    ]
   },
   {
     "id": "C-008",
-    "slug": "casa",
-    "titulo": "CASA",
-    "descripcion": "PLANTA BAJA:\nDOBLE COCHERA.\nCISTERNA DE 8,500 LTS\n1/2 BAÑO.\nSALA-COMEDOR.\nCOCINA INTEGRAL Y CON ISLA CENTRAL.\nCOLINDA CON AREA VERDE EN LA PARTE DE ATRAS.\nPLANTA ALTA:\nDOS RECAMARAS FRONTALES CON BALCON Y CLOSET C/U.\n1 BAÑO COMPLETO COMPARTIDO.\nAMPLIA RECAMARA PRINCIPAL CON VESTIDOR Y BAÑO COMPLETO.\nAZOTEA:\nAREA DE LAVADO TECHADO.\nAREA EMPERGOLADA.\nBARRA CON TARJA Y ASADOR.\nROFF GARDEN.\nACCESO A LOSA PARA CHEQUEO DE ROTOPLAS",
+    "slug": "casa-morada-del-quetzal-c-008",
+    "titulo": "CASA MORADA DEL QUETZAL",
     "operacion": "venta",
     "tipo": "casa",
     "precio": 3190000,
-    "moneda": "MXN",
     "zona": "MORADA DEL QUETZAL",
     "ciudad": "EMILIANO ZAPATA",
-    "m2Terreno": 105,
-    "m2Construccion": 198,
+    "m2Terreno": 105.0,
+    "m2Construccion": 198.0,
     "recamaras": 3,
     "banos": 4,
     "estacionamientos": 2,
-    "fechaPublicacion": "2026-04-08 00:00:00",
+    "descripcion": "PLANTA BAJA:\nDOBLE COCHERA.\nCISTERNA DE 8,500 LTS\n1/2 BAÑO.\nSALA-COMEDOR.\nCOCINA INTEGRAL Y CON ISLA CENTRAL.\nCOLINDA CON AREA VERDE EN LA PARTE DE ATRAS.\nPLANTA ALTA:\nDOS RECAMARAS FRONTALES CON BALCON Y CLOSET C/U.\n1 BAÑO COMPLETO COMPARTIDO.\nAMPLIA RECAMARA PRINCIPAL CON VESTIDOR Y BAÑO COMPLETO.\nAZOTEA:\nAREA DE LAVADO TECHADO.\nAREA EMPERGOLADA.\nBARRA CON TARJA Y ASADOR.\nROFF GARDEN.\nACCESO A LOSA PARA CHEQUEO DE ROTOPLAS",
+    "whatsapp": "2281470383",
+    "fecha_publicacion": "2026-04-08 00:00:00",
     "estatus": "disponible",
     "imagenes": [
       "/images/properties/C-008/C-008_1.jpg",
@@ -309,29 +277,25 @@
       "/images/properties/C-008/C-008_12.jpg",
       "/images/properties/C-008/C-008_13.jpg",
       "/images/properties/C-008/C-008_14.jpg"
-    ],
-    "contacto": {
-      "whatsapp": "2281470383",
-      "mensajeBase": "Hola, me interesa la propiedad: CASA"
-    }
+    ]
   },
   {
     "id": "C-009",
-    "slug": "casa",
-    "titulo": "CASA",
-    "descripcion": "PLANTA BAJA:\nAmplia cochera techada y con portón eléctrico p/2 autos.\nCisterna de 10,000 lts.\n1 Baño.\nSala \nComedor.\nCocina integral con barra desayunador.\n1 Recamara con closet y baño completo.\nPLANTA ALTA:\nAmplia recámara principal con balcón, baño completo con tina de hidromasaje y vestidor.\nOtras 2 recamaras con closet y baño completo c/u.\nAZOTEA:\nÁrea de lavado techado.\nHermosa vista panorámica.\nAmplio ROFF GARDEN con asador.",
+    "slug": "casa-trancas-iii-c-009",
+    "titulo": "CASA TRANCAS III",
     "operacion": "venta",
     "tipo": "casa",
     "precio": 3800000,
-    "moneda": "MXN",
     "zona": "TRANCAS",
     "ciudad": "EMILIANO ZAPATA",
-    "m2Terreno": 171,
-    "m2Construccion": 220,
+    "m2Terreno": 171.0,
+    "m2Construccion": 220.0,
     "recamaras": 4,
     "banos": 4,
     "estacionamientos": 2,
-    "fechaPublicacion": "2026-04-08 00:00:00",
+    "descripcion": "PLANTA BAJA:\nAmplia cochera techada y con portón eléctrico p/2 autos.\nCisterna de 10,000 lts.\n1 Baño.\nSala \nComedor.\nCocina integral con barra desayunador.\n1 Recamara con closet y baño completo.\nPLANTA ALTA:\nAmplia recámara principal con balcón, baño completo con tina de hidromasaje y vestidor.\nOtras 2 recamaras con closet y baño completo c/u.\nAZOTEA:\nÁrea de lavado techado.\nHermosa vista panorámica.\nAmplio ROFF GARDEN con asador.",
+    "whatsapp": "2281470383",
+    "fecha_publicacion": "2026-04-08 00:00:00",
     "estatus": "disponible",
     "imagenes": [
       "/images/properties/C-009/C-009_1.jpg",
@@ -342,29 +306,25 @@
       "/images/properties/C-009/C-009_6.jpg",
       "/images/properties/C-009/C-009_7.jpg",
       "/images/properties/C-009/C-009_8.jpg"
-    ],
-    "contacto": {
-      "whatsapp": "2281470383",
-      "mensajeBase": "Hola, me interesa la propiedad: CASA"
-    }
+    ]
   },
   {
     "id": "C-010",
-    "slug": "casa",
-    "titulo": "CASA",
-    "descripcion": "Cochera p/1 auto con portón \nSala-Comedor.\nCocina Integral.\n2 Recamara con closet.\n3 Baños completos.\n  Área de lavado. \n.",
+    "slug": "casa-col-mexico-c-010",
+    "titulo": "CASA COL. MEXICO",
     "operacion": "venta",
     "tipo": "casa",
     "precio": 1650000,
-    "moneda": "MXN",
     "zona": "COL. MEXICO",
     "ciudad": "XALAPA",
-    "m2Terreno": 126,
+    "m2Terreno": 126.0,
     "m2Construccion": 0,
     "recamaras": 2,
     "banos": 1,
     "estacionamientos": 1,
-    "fechaPublicacion": "2026-04-08 00:00:00",
+    "descripcion": "Cochera p/1 auto con portón \nSala-Comedor.\nCocina Integral.\n2 Recamara con closet.\n3 Baños completos.\n  Área de lavado. \n.",
+    "whatsapp": "2281852255",
+    "fecha_publicacion": "2026-04-08 00:00:00",
     "estatus": "disponible",
     "imagenes": [
       "/images/properties/C-010/C-010_1.jpg",
@@ -375,29 +335,25 @@
       "/images/properties/C-010/C-010_6.jpg",
       "/images/properties/C-010/C-010_7.jpg",
       "/images/properties/C-010/C-010_8.jpg"
-    ],
-    "contacto": {
-      "whatsapp": "2281852255",
-      "mensajeBase": "Hola, me interesa la propiedad: CASA"
-    }
+    ]
   },
   {
     "id": "C-011",
-    "slug": "casa",
-    "titulo": "CASA",
-    "descripcion": "PLANTA BAJA:\nAmplia cochera techada y con portón electrico p/2 autos.\nPequeño espacio de jardin.\nCisterna de 8,000 lts.\n1/2 Baño.\nSala Concepto doble altura.\nComedor.\nCocina integral y con tarja moderna.\n1 Recamara con closet y baño completo.\nPozo de luz y con lavadero.\nPLANTA ALTA:\nAmplia recamara principal con balcón, baño completo y vestidor.\nPasillo principal con closet para blancos.\nOtras 2 recamaras con closet y baño completo c/u.\nAZOTEA:\nÁrea de lavado techado.\nHermosa vista panorámica a áreas verdes.\nAmplio ROFF GARDEN.",
+    "slug": "casa-villa-las-flores-c-011",
+    "titulo": "CASA VILLA LAS FLORES",
     "operacion": "venta",
     "tipo": "casa",
     "precio": 3500000,
-    "moneda": "MXN",
     "zona": "VILLA LAS FLORES",
     "ciudad": "TRANCAS",
-    "m2Terreno": 120,
-    "m2Construccion": 230,
+    "m2Terreno": 120.0,
+    "m2Construccion": 230.0,
     "recamaras": 4,
     "banos": 5,
     "estacionamientos": 2,
-    "fechaPublicacion": "2026-04-08 00:00:00",
+    "descripcion": "PLANTA BAJA:\nAmplia cochera techada y con portón electrico p/2 autos.\nPequeño espacio de jardin.\nCisterna de 8,000 lts.\n1/2 Baño.\nSala Concepto doble altura.\nComedor.\nCocina integral y con tarja moderna.\n1 Recamara con closet y baño completo.\nPozo de luz y con lavadero.\nPLANTA ALTA:\nAmplia recamara principal con balcón, baño completo y vestidor.\nPasillo principal con closet para blancos.\nOtras 2 recamaras con closet y baño completo c/u.\nAZOTEA:\nÁrea de lavado techado.\nHermosa vista panorámica a áreas verdes.\nAmplio ROFF GARDEN.",
+    "whatsapp": "2281852255",
+    "fecha_publicacion": "2026-04-08 00:00:00",
     "estatus": "disponible",
     "imagenes": [
       "/images/properties/C-011/C-011_1.jpg",
@@ -411,10 +367,6 @@
       "/images/properties/C-011/C-011_9.jpg",
       "/images/properties/C-011/C-011_10.jpg",
       "/images/properties/C-011/C-011_11.jpg"
-    ],
-    "contacto": {
-      "whatsapp": "2281852255",
-      "mensajeBase": "Hola, me interesa la propiedad: CASA"
-    }
+    ]
   }
 ]

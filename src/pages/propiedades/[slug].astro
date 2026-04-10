@@ -5,7 +5,7 @@ import { BedDouble, Bath, Car, Ruler, MapPin, MessageCircle, ChevronLeft, Landma
 
 export async function getStaticPaths() {
   return propiedades.map((p) => ({
-    // ✅ Blindamos el slug contra espacios o mayúsculas del Excel
+    // ✅ Trim y lowercase para evitar errores de rutas si el Excel tiene espacios
     params: { slug: p.slug.trim().toLowerCase() },
     props: { property: p }
   }));
@@ -13,11 +13,26 @@ export async function getStaticPaths() {
 
 const { property } = Astro.props;
 
-const formatCurrency = (value, currency) =>
-  new Intl.NumberFormat('es-MX', { style: 'currency', currency, maximumFractionDigits: 0 }).format(value);
+// SEGURIDAD: Si la propiedad no existe, evitamos el error
+if (!property) {
+  return Astro.redirect('/404');
+}
 
-const whatsappUrl = `https://wa.me/${property.contacto.whatsapp}?text=${encodeURIComponent(property.contacto.mensajeBase)}`;
+// 1. FORMATEO DE PRECIO (Añadimos valor por defecto y moneda opcional)
+const formatCurrency = (value, currency = 'MXN') =>
+  new Intl.NumberFormat('es-MX', { 
+    style: 'currency', 
+    currency: currency || 'MXN', 
+    maximumFractionDigits: 0 
+  }).format(value || 0);
 
+// 2. ✅ WHATSAPP DINÁMICO (AJUSTADO A JSON PLANO)
+// Quitamos el ".contacto" porque ahora los datos vienen directos
+const whatsappNumber = property.whatsapp || "2281852255";
+const mensaje = `Hola, me interesa la propiedad: ${property.titulo} (ID: ${property.id})`;
+const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(mensaje)}`;
+
+// 3. MANEJO DE IMÁGENES
 const galleryImages = property.imagenes && property.imagenes.length > 0 
   ? property.imagenes 
   : ["/images/placeholder-galindo.jpg"];
@@ -106,9 +121,10 @@ const galleryImages = property.imagenes && property.imagenes.length > 0
 
         <div class="mb-10">
           <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-4 italic">Descripción de la Propiedad</h3>
-          <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm leading-relaxed text-slate-600 font-medium italic border-l-4 border-galindo uppercase tracking-tighter text-xs">
+          {/* ✅ whitespace-pre-line para respetar los párrafos del Excel */}
+          <p class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm leading-relaxed text-slate-600 font-medium italic border-l-4 border-galindo uppercase tracking-tighter text-xs whitespace-pre-line">
             {property.descripcion}
-          </div>
+          </p>
         </div>
         
         <a href={whatsappUrl} target="_blank" class="group flex items-center justify-center gap-4 bg-[#25D366] text-white py-6 rounded-2xl font-black text-xl hover:bg-[#128C7E] transition-all shadow-xl shadow-green-100 active:scale-95 uppercase italic tracking-tighter">
@@ -160,7 +176,7 @@ const galleryImages = property.imagenes && property.imagenes.length > 0
         zoomLens.style.backgroundPosition = `-${x * zoomFactor - lensSize / 2}px -${y * zoomFactor - lensSize / 2}px`;
       });
       zoomArea.addEventListener('mouseenter', () => { zoomLens.style.display = 'block'; setTimeout(() => zoomLens.style.opacity = '1', 10); });
-      zoomArea.addEventListener('mouseleave', () => { zoomLens.style.opacity = '0'; setTimeout(() => zoomLens.style.display = 'none', 200); });
+      zoomArea.addEventListener('mouseleave', () => { zoomLens.style.opacity = '0'; setTimeout(() => { if(zoomLens) zoomLens.style.display = 'none'; }, 200); });
     }
   };
 
