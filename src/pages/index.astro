@@ -2,53 +2,72 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PropertyCard from '../components/PropertyCard.astro';
 import propiedades from '../data/propiedades.json';
+import { MessageCircle, Building2, ChevronRight } from 'lucide-astro';
 
-// Estadísticas simplificadas
+// Solo contamos las que realmente están disponibles
 const disponibles = propiedades.filter(p => p.estatus.toLowerCase().trim() === 'disponible').length;
 ---
 
 <BaseLayout title="Gestión Inmobiliaria Galindo | Catálogo">
   
-  <header class="mb-12 text-center pt-8">
-    <div class="mb-10">
+  <section class="relative min-h-[70vh] flex items-center justify-center bg-slate-50 overflow-hidden rounded-b-[3rem] shadow-2xl mb-12">
+    <div class="absolute inset-0 z-0">
       <img 
-        src="/images/logo.jpeg" 
-        alt="Galindo Gestión Inmobiliaria" 
-        class="h-20 md:h-28 mx-auto object-contain transition-transform hover:scale-105 duration-300"
+        src="/images/work.jpg" 
+        alt="Asesoría Profesional Galindo" 
+        class="w-full h-full object-cover object-center scale-105"
       />
+      <div class="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent"></div>
     </div>
 
-    <div class="flex items-center justify-center gap-4 text-slate-400 mb-6">
-      <div class="h-[1px] w-8 bg-slate-200"></div>
-      <p class="text-[11px] font-black uppercase tracking-[0.3em] italic">
-        Contamos con <span class="text-galindo text-sm">{disponibles}</span> inmuebles disponibles para ti
-      </p>
-      <div class="h-[1px] w-8 bg-slate-200"></div>
-    </div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div class="flex flex-col justify-center items-start space-y-6 py-12">
+        <img src="/images/logo.jpeg" alt="Logo Galindo" class="h-20 md:h-24 drop-shadow-md rounded-lg" />
 
-    <p class="text-[10px] text-slate-300 font-medium italic uppercase tracking-widest">
-      "Calidad, honradez y profesionalismo"
-    </p>
-  </header>
+        <div class="space-y-4">
+          <div class="inline-flex items-center gap-2 bg-galindo/10 text-galindo px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest italic border border-galindo/20">
+            <Building2 class="h-3.5 w-3.5" /> Calidad, honradez y profesionalismo
+          </div>
+          
+          <h1 class="text-5xl md:text-7xl font-black text-slate-950 tracking-tighter leading-[0.9] italic uppercase">
+            Tu patrimonio <br/> en buenas <span class="text-galindo">manos.</span>
+          </h1>
+          
+          <p class="text-lg text-slate-600 max-w-md font-medium italic border-l-4 border-slate-900 pl-6">
+            Contamos con <span class="text-slate-900 font-black">{disponibles}</span> inmuebles exclusivos esperándote.
+          </p>
+        </div>
 
-  <div class="mb-14 flex flex-wrap justify-center gap-2 md:gap-3" id="filters-container">
-    <button class="filter-btn active" data-filter="todos">Ver Todo</button>
-    <button class="filter-btn" data-filter="venta">Venta</button>
-    <button class="filter-btn" data-filter="renta">Renta</button>
-    <button class="filter-btn" data-filter="vendido">Vendidos</button>
-    <button class="filter-btn" data-filter="rentado">Rentados</button>
-  </div>
-
-  <div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 min-h-[400px]" id="properties-grid">
-    {propiedades.map((prop) => (
-      <div 
-        class="property-wrapper transition-all duration-500 ease-in-out" 
-        data-category={prop.operacion.toLowerCase().trim()} 
-        data-status={prop.estatus.toLowerCase().trim()}
-      >
-        <PropertyCard property={prop} />
+        <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+          <a href="#propiedades" class="bg-slate-950 text-white px-8 py-4 rounded-2xl font-black text-sm flex items-center justify-center gap-2 hover:bg-galindo transition-all active:scale-95 italic uppercase tracking-tighter shadow-xl shadow-slate-200">
+            Ver Catálogo <ChevronRight class="h-4 w-4" />
+          </a>
+          <a href="https://wa.me/2281852255" target="_blank" class="bg-[#25D366] text-white px-8 py-4 rounded-2xl font-black text-sm flex items-center justify-center gap-2 hover:bg-[#128C7E] transition-all active:scale-95 italic uppercase tracking-tighter shadow-xl shadow-green-100">
+            <MessageCircle class="h-4 w-4" /> WhatsApp
+          </a>
+        </div>
       </div>
-    ))}
+    </div>
+  </section>
+
+  <div id="propiedades" class="max-w-7xl mx-auto px-4 py-12">
+    <div class="mb-14 flex flex-wrap justify-center gap-2 md:gap-4" id="filters-container">
+      <button class="filter-btn active" data-filter="todos">Ver Todo</button>
+      <button class="filter-btn" data-filter="venta">Venta</button>
+      <button class="filter-btn" data-filter="renta">Renta</button>
+    </div>
+
+    <div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 min-h-[400px]" id="properties-grid">
+      {propiedades.map((prop) => (
+        <div 
+          class="property-wrapper transition-all duration-500 ease-in-out" 
+          data-category={prop.operacion.toLowerCase().trim()} 
+          data-status={prop.estatus.toLowerCase().trim()}
+        >
+          <PropertyCard property={prop} />
+        </div>
+      ))}
+    </div>
   </div>
 </BaseLayout>
 
@@ -59,31 +78,32 @@ const disponibles = propiedades.filter(p => p.estatus.toLowerCase().trim() === '
     display: none !important;
   }
 
-  /* Filtros más discretos para que no compitan con el logo */
   .filter-btn {
-    border-radius: 0.5rem;
+    border-radius: 1rem;
     border: 1px solid #e2e8f0;
     background-color: white;
-    padding: 0.6rem 1.2rem;
+    padding: 0.8rem 2rem;
     font-weight: 800;
     color: #94a3b8;
-    font-size: 0.65rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    transition: all 0.2s ease;
+    letter-spacing: 0.15em;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
   }
   
   .filter-btn:hover:not(.active) {
-    border-color: #D0162B; /* Rojo Galindo */
+    border-color: #D0162B;
     color: #D0162B;
+    transform: translateY(-2px);
   }
   
   .filter-btn.active {
-    border-color: #0f172a; /* Slate 900 */
+    border-color: #0f172a;
     background-color: #0f172a;
     color: white;
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+    box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.2);
   }
 </style>
 
@@ -102,14 +122,16 @@ const disponibles = propiedades.filter(p => p.estatus.toLowerCase().trim() === '
         wrappers.forEach(wrapper => {
           const status = wrapper.getAttribute('data-status')?.toLowerCase().trim();
           const category = wrapper.getAttribute('data-category')?.toLowerCase().trim();
+          
+          // NUEVA LÓGICA: Solo mostrar si el estatus es "disponible"
           let shouldShow = false;
 
-          if (filter === 'todos') {
-            shouldShow = (status === 'disponible');
-          } else if (filter === 'vendido' || filter === 'rentado') {
-            shouldShow = (status === filter);
-          } else {
-            shouldShow = (category === filter && status === 'disponible');
+          if (status === 'disponible') {
+            if (filter === 'todos') {
+              shouldShow = true;
+            } else {
+              shouldShow = (category === filter);
+            }
           }
 
           if (shouldShow) {
@@ -123,7 +145,6 @@ const disponibles = propiedades.filter(p => p.estatus.toLowerCase().trim() === '
       });
     });
 
-    // Forzar el filtro inicial
     const initialBtn = document.querySelector('.filter-btn.active') as HTMLElement;
     if (initialBtn) initialBtn.click();
   }
