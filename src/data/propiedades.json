@@ -474,8 +474,8 @@
     "precio": 8500,
     "zona": "OLMO",
     "ciudad": "XALAPA",
-    "m2Terreno": 0,
-    "m2Construccion": 0,
+    "m2Terreno": 150.0,
+    "m2Construccion": 100.0,
     "recamaras": 3,
     "banos": 2,
     "estacionamientos": 2,
@@ -631,7 +631,13 @@
     "fecha_publicacion": "2026-04-14 00:00:00",
     "estatus": "disponible",
     "imagenes": [
-      "/images/placeholder.jpg"
+      "/images/properties/C-017/C-017_1.jpeg",
+      "/images/properties/C-017/C-017_2.jpeg",
+      "/images/properties/C-017/C-017_3.jpeg",
+      "/images/properties/C-017/C-017_4.jpeg",
+      "/images/properties/C-017/C-017_5.jpeg",
+      "/images/properties/C-017/C-017_6.jpeg",
+      "/images/properties/C-017/C-017_7.jpeg"
     ]
   },
   {
