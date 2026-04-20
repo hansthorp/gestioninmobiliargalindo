@@ -1,63 +1,44 @@
-require('dotenv').config();
 const { google } = require('googleapis');
 const { getAuth } = require('../src/auth/googleAuth.cjs');
 const fs = require('fs');
 const path = require('path');
+require('dotenv').config(); // <--- AGREGA ESTA LÍNEA AQUÍ
 
-// --- CONFIGURACIÓN E ID's ---
-const SPREADSHEET_ID = process.env.SPREADSHEET_ID;
-const DRIVE_FOLDER_ID = process.env.DRIVE_FOLDER_ID;
-
-console.log("--- 🔍 DEBUG SISTEMA GALINDO ---");
-console.log("¿GOOGLE_CREDENTIALS detectada?:", !!process.env.GOOGLE_CREDENTIALS);
-console.log("¿SPREADSHEET_ID detectada?:", !!SPREADSHEET_ID);
-console.log("¿DRIVE_FOLDER_ID detectada?:", !!DRIVE_FOLDER_ID);
-console.log("---------------------------------");
-
-// --- UTILIDADES ---
+// --- UTILIDADES OPTIMIZADAS ---
 const slugify = (t) => t.toString().toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '-').replace(/[^\w\-]+/g, '').replace(/\-\-+/g, '-');
 const cleanNum = (v) => !v || v === "NAN" ? 0 : parseFloat(v.toString().replace(/[$,]/g, '')) || 0;
 
-// Link de miniatura optimizado para carga rápida en la web
+// Link directo optimizado (s0 trae la resolución original)
+//const getDirectLink = (id) => `https://lh3.googleusercontent.com/d/${id}=s0`;
+// Prueba esta versión si la anterior falla después de dar permisos
+//const getDirectLink = (id) => `https://drive.google.com/uc?export=view&id=${id}`;
 const getDirectLink = (id) => `https://drive.google.com/thumbnail?sz=w1000&id=${id}`;
-
 async function run() {
   try {
-    if (!SPREADSHEET_ID || !DRIVE_FOLDER_ID) {
-      throw new Error("Faltan variables de entorno esenciales (ID de Sheet o Carpeta).");
-    }
-
     console.log('🚀 Iniciando Pipeline Cloud: Sheets + Drive...');
-    
     const auth = await getAuth();
     const drive = google.drive({ version: 'v3', auth });
     const sheets = google.sheets({ version: 'v4', auth });
 
-    // 1. EXTRAER DATOS DEL EXCEL
-    // Asegúrate que la pestaña se llame exactamente 'Template Excel'
+    // 1. EXTRAER DATOS
     const res = await sheets.spreadsheets.values.get({
-      spreadsheetId: SPREADSHEET_ID,
+      spreadsheetId: process.env.SPREADSHEET_ID,
       range: "'Template Excel'!A1:Z200", 
     });
 
     const rows = res.data.values;
-    if (!rows || rows.length === 0) {
-      console.log('⚠️ No se encontraron filas en el Excel.');
-      return;
-    }
+    if (!rows) return console.log('❌ Error: No hay datos.');
 
     let lastTitulo = "", lastZona = "", lastCiudad = "";
     const propiedades = [];
 
-    // 2. PROCESAR FILAS (Desde la fila 2 para saltar encabezados)
+    // 2. PROCESAR FILAS (FFILL + DRIVE SYNC)
     for (let i = 1; i < rows.length; i++) {
       const row = rows[i];
       const propId = String(row[0] || "").trim().toUpperCase();
-      
-      // Saltamos filas vacías o basura
       if (!propId || propId === "ID" || propId === "NAN") continue;
 
-      // Lógica de Autocompletado (FFill)
+      // Lógica de Relleno (FFill)
       const titulo = row[1] || lastTitulo; lastTitulo = titulo;
       const zona = row[6] || lastZona; lastZona = zona;
       const ciudad = row[7] || lastCiudad; lastCiudad = ciudad;
@@ -65,16 +46,15 @@ async function run() {
       let fotos = ["/images/placeholder.jpg"];
 
       try {
-        // Buscamos la carpeta que se llame como el ID de la propiedad
+        // Búsqueda de carpeta por nombre (ID)
         const fld = await drive.files.list({
-          q: `'${DRIVE_FOLDER_ID}' in parents and name = '${propId}' and mimeType = 'application/vnd.google-apps.folder' and trashed = false`,
+          q: `'${process.env.DRIVE_FOLDER_ID}' in parents and name = '${propId}' and mimeType = 'application/vnd.google-apps.folder' and trashed = false`,
           fields: 'files(id)'
         });
 
         if (fld.data.files?.length > 0) {
-          const folderId = fld.data.files[0].id;
           const img = await drive.files.list({
-            q: `'${folderId}' in parents and mimeType contains 'image/' and trashed = false`,
+            q: `'${fld.data.files[0].id}' in parents and mimeType contains 'image/' and trashed = false`,
             fields: 'files(id, name)'
           });
           
@@ -82,14 +62,12 @@ async function run() {
             fotos = img.data.files
               .sort((a, b) => a.name.localeCompare(b.name, undefined, {numeric: true}))
               .map(f => getDirectLink(f.id));
-            console.log(`✅ ${propId}: ${fotos.length} fotos encontradas.`);
+            console.log(`✅ ${propId}: ${fotos.length} fotos.`);
           }
         }
-      } catch (e) { 
-        console.log(`⚠️ ${propId}: Error al buscar fotos o carpeta no encontrada.`); 
-      }
+      } catch (e) { console.log(`⚠️ ${propId}: Sin fotos.`); }
 
-      // 3. ARMADO DEL OBJETO FINAL
+      // 3. MAPEO AL OBJETO FINAL
       propiedades.push({
         id: propId,
         slug: slugify(`${titulo}-${propId}`),
@@ -106,23 +84,21 @@ async function run() {
         estacionamientos: Math.floor(cleanNum(row[12])),
         descripcion: (row[13] || "").trim(),
         whatsapp: (row[14] || "2281852255").toString().split('.')[0],
-        fecha_publicacion: row[15] || new Date().toISOString().split('T')[0],
+        fecha_publicacion: row[15] || "2026-04-03",
         estatus: (row[16] || "disponible").toLowerCase().trim(),
         imagenes: fotos
       });
     }
 
-    // 4. GUARDAR EL RESULTADO
-    const outPath = path.join(process.cwd(), 'src/data/propiedades.json');
-    fs.mkdirSync(path.dirname(outPath), { recursive: true });
-    fs.writeFileSync(outPath, JSON.stringify(propiedades, null, 2));
-    
-    console.log(`\n✨ ÉXITO: Se exportaron ${propiedades.length} propiedades correctamente.`);
+    // 4. GUARDAR JSON
+    const out = path.join(process.cwd(), 'src/data/propiedades.json');
+    fs.mkdirSync(path.dirname(out), { recursive: true });
+    fs.writeFileSync(out, JSON.stringify(propiedades, null, 2));
+    console.log(`\n✨ Listo: ${propiedades.length} propiedades exportadas.`);
 
   } catch (err) {
-    console.error('❌ ERROR CRÍTICO EN EL SCRIPT:', err.message);
+    console.error('❌ Error Crítico:', err);
     process.exit(1);
   }
 }
-
 run();
