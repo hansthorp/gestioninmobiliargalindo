@@ -1,0 +1,33 @@
+name: Actualizar Propiedades Galindo
+on:
+  push:
+    branches: [ main ]  # Se activa cuando subes cambios
+  schedule:
+    - cron: '0 0 * * *' # Se activa solo cada medianoche (opcional)
+  workflow_dispatch:    # Permite activarlo manualmente desde GitHub
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Generar JSON de propiedades
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{ secrets.GOOGLE_CREDENTIALS }}
+          SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+        run: node scripts/generate-json.js # Un script que crearemos para Astro
+
+      - name: Build y Deploy
+        run: |
+          npm run build
+          # Aquí puedes añadir el comando para subir a tu hosting (Netlify, Vercel, etc.)

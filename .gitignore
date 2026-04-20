@@ -1,19 +1,23 @@
-# Dependencias
+# --- SEGURIDAD: CLAVES Y SECRETOS ---
+# El archivo de credenciales de Google (Service Account)
+credentials.json
+# Variables de entorno locales (donde guardas los IDs)
+.env
+.env.local
+
+# --- DEPENDENCIAS ---
 node_modules/
 
-# Astro y Vite (Caché y Build)
+# --- ASTRO Y VITE (Build y Caché) ---
 .astro/
 dist/
 
-# Archivos de Sistema
+# --- IMÁGENES DE PROPIEDADES ---
+# Descomenta la siguiente línea si prefieres que las fotos vivan solo en Drive 
+# y no se suban a GitHub para mantener el repo ligero:
+# public/images/properties/
+
+# --- SISTEMA Y LOGS ---
 .DS_Store
 Thumbs.db
-
-# ✅ IMÁGENES DE PROPIEDADES (Para no saturar el Repo de GitHub)
-# Tu script de Python las vuelve a crear en tu carpeta local
-#public/images/properties/
-
-# Logs de error
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
