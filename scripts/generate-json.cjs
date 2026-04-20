@@ -2,7 +2,10 @@ const { google } = require('googleapis');
 const { getAuth } = require('../src/auth/googleAuth.cjs');
 const fs = require('fs');
 const path = require('path');
-require('dotenv').config(); // <--- AGREGA ESTA LÍNEA AQUÍ
+require('dotenv').config(); // Asegura que lea el .env o las variables de Vercel
+console.log("--- DEBUG VERCEL ---");
+console.log("Variable GOOGLE_CREDENTIALS detectada:", !!process.env.GOOGLE_CREDENTIALS);
+console.log("Variable SPREADSHEET_ID detectada:", !!process.env.SPREADSHEET_ID);
 
 // --- UTILIDADES OPTIMIZADAS ---
 const slugify = (t) => t.toString().toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '-').replace(/[^\w\-]+/g, '').replace(/\-\-+/g, '-');

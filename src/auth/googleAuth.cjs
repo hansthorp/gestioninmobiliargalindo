@@ -1,3 +1,4 @@
+require('dotenv').config(); // <--- ESTA LÍNEA ES EL "BOTÓN DE ENCENDIDO" PARA LAS VARIABLES
 const { google } = require('googleapis');
 const path = require('path');
 
@@ -10,8 +11,8 @@ async function getAuth() {
   try {
     let authOptions;
 
-    // 1. Verificamos si estamos en Vercel (Variable de entorno)
-    if (process.env.GOOGLE_CREDENTIALS) {
+    // Prioridad a Vercel
+    if (process.env.GOOGLE_CREDENTIALS && process.env.GOOGLE_CREDENTIALS.length > 0) {
       console.log("✅ Utilizando credenciales desde Vercel (Variable de Entorno)");
       const credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
       authOptions = {
@@ -19,7 +20,7 @@ async function getAuth() {
         scopes: SCOPES,
       };
     } 
-    // 2. Si no, buscamos el archivo local (Tu PC)
+    // Plan B: Local
     else {
       console.log("💻 Utilizando archivo credentials.json local");
       authOptions = {
@@ -32,7 +33,7 @@ async function getAuth() {
     return await auth.getClient();
     
   } catch (error) {
-    console.error('❌ Error en Auth:', error);
+    console.error('❌ Error en Auth:', error.message);
     throw error;
   }
 }
