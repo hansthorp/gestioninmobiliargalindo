@@ -2,59 +2,62 @@ const { google } = require('googleapis');
 const { getAuth } = require('../src/auth/googleAuth.cjs');
 const fs = require('fs');
 const path = require('path');
-require('dotenv').config(); // <--- AGREGA ESTA LÍNEA AQUÍ
 
-// --- UTILIDADES OPTIMIZADAS ---
+// Carga variables de entorno (Local: .env | Cloud: Vercel Settings)
+require('dotenv').config();
+
+// --- UTILIDADES ---
 const slugify = (t) => t.toString().toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '-').replace(/[^\w\-]+/g, '').replace(/\-\-+/g, '-');
 const cleanNum = (v) => !v || v === "NAN" ? 0 : parseFloat(v.toString().replace(/[$,]/g, '')) || 0;
-
-// Link directo optimizado (s0 trae la resolución original)
-//const getDirectLink = (id) => `https://lh3.googleusercontent.com/d/${id}=s0`;
-// Prueba esta versión si la anterior falla después de dar permisos
-//const getDirectLink = (id) => `https://drive.google.com/uc?export=view&id=${id}`;
 const getDirectLink = (id) => `https://drive.google.com/thumbnail?sz=w1000&id=${id}`;
+
 async function run() {
   try {
-    console.log('🚀 Iniciando Pipeline Cloud: Sheets + Drive...');
+    console.log('🚀 Sincronizando con Google Cloud (Galindo System)...');
+    
     const auth = await getAuth();
     const drive = google.drive({ version: 'v3', auth });
     const sheets = google.sheets({ version: 'v4', auth });
 
-    // 1. EXTRAER DATOS
+    // 1. OBTENER DATOS DEL EXCEL
     const res = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.SPREADSHEET_ID,
       range: "'Template Excel'!A1:Z200", 
     });
 
     const rows = res.data.values;
-    if (!rows) return console.log('❌ Error: No hay datos.');
+    if (!rows || rows.length === 0) {
+      throw new Error('No se encontraron datos en el Spreadsheet.');
+    }
 
     let lastTitulo = "", lastZona = "", lastCiudad = "";
     const propiedades = [];
 
-    // 2. PROCESAR FILAS (FFILL + DRIVE SYNC)
+    // 2. PROCESAR FILAS (Saltando encabezados)
     for (let i = 1; i < rows.length; i++) {
       const row = rows[i];
       const propId = String(row[0] || "").trim().toUpperCase();
+      
       if (!propId || propId === "ID" || propId === "NAN") continue;
 
-      // Lógica de Relleno (FFill)
-      const titulo = row[1] || lastTitulo; lastTitulo = titulo;
-      const zona = row[6] || lastZona; lastZona = zona;
-      const ciudad = row[7] || lastCiudad; lastCiudad = ciudad;
+      // Lógica de Autocompletado (FFill)
+      const titulo = (row[1] || lastTitulo).trim(); lastTitulo = titulo;
+      const zona = (row[6] || lastZona).trim(); lastZona = zona;
+      const ciudad = (row[7] || lastCiudad).trim(); lastCiudad = ciudad;
 
       let fotos = ["/images/placeholder.jpg"];
 
       try {
-        // Búsqueda de carpeta por nombre (ID)
+        // Buscar carpeta por nombre (ID de propiedad)
         const fld = await drive.files.list({
           q: `'${process.env.DRIVE_FOLDER_ID}' in parents and name = '${propId}' and mimeType = 'application/vnd.google-apps.folder' and trashed = false`,
           fields: 'files(id)'
         });
 
         if (fld.data.files?.length > 0) {
+          const folderId = fld.data.files[0].id;
           const img = await drive.files.list({
-            q: `'${fld.data.files[0].id}' in parents and mimeType contains 'image/' and trashed = false`,
+            q: `'${folderId}' in parents and mimeType contains 'image/' and trashed = false`,
             fields: 'files(id, name)'
           });
           
@@ -62,12 +65,14 @@ async function run() {
             fotos = img.data.files
               .sort((a, b) => a.name.localeCompare(b.name, undefined, {numeric: true}))
               .map(f => getDirectLink(f.id));
-            console.log(`✅ ${propId}: ${fotos.length} fotos.`);
+            console.log(`✅ ${propId}: ${fotos.length} fotos listas.`);
           }
         }
-      } catch (e) { console.log(`⚠️ ${propId}: Sin fotos.`); }
+      } catch (e) { 
+        console.log(`⚠️ ${propId}: Error al cargar fotos.`); 
+      }
 
-      // 3. MAPEO AL OBJETO FINAL
+      // 3. MAPEO DE DATOS
       propiedades.push({
         id: propId,
         slug: slugify(`${titulo}-${propId}`),
@@ -84,21 +89,28 @@ async function run() {
         estacionamientos: Math.floor(cleanNum(row[12])),
         descripcion: (row[13] || "").trim(),
         whatsapp: (row[14] || "2281852255").toString().split('.')[0],
-        fecha_publicacion: row[15] || "2026-04-03",
+        fecha_publicacion: row[15] || new Date().toISOString().split('T')[0],
         estatus: (row[16] || "disponible").toLowerCase().trim(),
         imagenes: fotos
       });
     }
 
-    // 4. GUARDAR JSON
-    const out = path.join(process.cwd(), 'src/data/propiedades.json');
-    fs.mkdirSync(path.dirname(out), { recursive: true });
-    fs.writeFileSync(out, JSON.stringify(propiedades, null, 2));
-    console.log(`\n✨ Listo: ${propiedades.length} propiedades exportadas.`);
+    // 4. GUARDAR ARCHIVO JSON
+    const outPath = path.join(process.cwd(), 'src/data/propiedades.json');
+    
+    // Crear carpeta si no existe (Vital para Vercel)
+    if (!fs.existsSync(path.dirname(outPath))) {
+      fs.mkdirSync(path.dirname(outPath), { recursive: true });
+    }
+
+    fs.writeFileSync(outPath, JSON.stringify(propiedades, null, 2));
+    
+    console.log(`\n✨ Sincronización Finalizada: ${propiedades.length} propiedades.`);
 
   } catch (err) {
-    console.error('❌ Error Crítico:', err);
+    console.error('❌ ERROR CRÍTICO:', err.message);
     process.exit(1);
   }
 }
+
 run();
