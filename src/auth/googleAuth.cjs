@@ -10,18 +10,18 @@ async function getAuth() {
   try {
     let authOptions;
 
-    // MAGIA DE VERCEL: Si detecta la variable de entorno, la usa
+    // 1. Verificamos si estamos en Vercel (Variable de entorno)
     if (process.env.GOOGLE_CREDENTIALS) {
-      console.log("Utilizando credenciales desde variable de entorno (Vercel)");
+      console.log("✅ Utilizando credenciales desde Vercel (Variable de Entorno)");
       const credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
       authOptions = {
         credentials,
         scopes: SCOPES,
       };
     } 
-    // MODO LOCAL: Si no hay variable, busca el archivo en tu PC
+    // 2. Si no, buscamos el archivo local (Tu PC)
     else {
-      console.log("Utilizando archivo credentials.json local");
+      console.log("💻 Utilizando archivo credentials.json local");
       authOptions = {
         keyFile: path.join(process.cwd(), 'credentials.json'),
         scopes: SCOPES,
@@ -30,8 +30,9 @@ async function getAuth() {
 
     const auth = new google.auth.GoogleAuth(authOptions);
     return await auth.getClient();
+    
   } catch (error) {
-    console.error('Error en Auth:', error);
+    console.error('❌ Error en Auth:', error);
     throw error;
   }
 }
