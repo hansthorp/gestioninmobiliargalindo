@@ -1,27 +1,39 @@
 const { google } = require('googleapis');
 const path = require('path');
 
-// Solo usamos googleapis, que es lo que npm audit confirmó que tienes
-// Cambia la línea de SCOPES en src/auth/googleAuth.js
 const SCOPES = [
   'https://www.googleapis.com/auth/spreadsheets',
-  'https://www.googleapis.com/auth/drive.metadata.readonly' // Para ver nombres de fotos
+  'https://www.googleapis.com/auth/drive.metadata.readonly'
 ];
+
 async function getAuth() {
   try {
-    // Apunta al credentials.json que tienes en la raíz del proyecto
-    const auth = new google.auth.GoogleAuth({
-      keyFile: path.join(process.cwd(), 'credentials.json'),
-      scopes: SCOPES,
-    });
+    let authOptions;
 
-    const client = await auth.getClient();
-    return client;
+    // MAGIA DE VERCEL: Si detecta la variable de entorno, la usa
+    if (process.env.GOOGLE_CREDENTIALS) {
+      console.log("Utilizando credenciales desde variable de entorno (Vercel)");
+      const credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
+      authOptions = {
+        credentials,
+        scopes: SCOPES,
+      };
+    } 
+    // MODO LOCAL: Si no hay variable, busca el archivo en tu PC
+    else {
+      console.log("Utilizando archivo credentials.json local");
+      authOptions = {
+        keyFile: path.join(process.cwd(), 'credentials.json'),
+        scopes: SCOPES,
+      };
+    }
+
+    const auth = new google.auth.GoogleAuth(authOptions);
+    return await auth.getClient();
   } catch (error) {
     console.error('Error en Auth:', error);
     throw error;
   }
 }
 
-// ESTA LÍNEA ES VITAL:
 module.exports = { getAuth };
