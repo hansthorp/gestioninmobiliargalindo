@@ -1,27 +1,43 @@
 const { google } = require('googleapis');
+const fs = require('fs');
 const path = require('path');
 
-// Solo usamos googleapis, que es lo que npm audit confirmó que tienes
-// Cambia la línea de SCOPES en src/auth/googleAuth.js
-const SCOPES = [
-  'https://www.googleapis.com/auth/spreadsheets',
-  'https://www.googleapis.com/auth/drive.metadata.readonly' // Para ver nombres de fotos
-];
 async function getAuth() {
-  try {
-    // Apunta al credentials.json que tienes en la raíz del proyecto
-    const auth = new google.auth.GoogleAuth({
-      keyFile: path.join(process.cwd(), 'credentials.json'),
-      scopes: SCOPES,
-    });
+  let credentials;
 
-    const client = await auth.getClient();
-    return client;
-  } catch (error) {
-    console.error('Error en Auth:', error);
-    throw error;
+  // 1. Intentar leer desde la Variable de Entorno (Modo Vercel)
+  if (process.env.GOOGLE_CREDENTIALS) {
+    try {
+      console.log('🔑 Usando credenciales desde Variable de Entorno...');
+      credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
+    } catch (e) {
+      console.error('❌ Error al parsear GOOGLE_CREDENTIALS:', e);
+    }
+  } 
+  
+  // 2. Si no hay variable, intentar leer el archivo físico (Modo Local)
+  if (!credentials) {
+    const keyPath = path.join(process.cwd(), 'credentials.json');
+    if (fs.existsSync(keyPath)) {
+      console.log('📂 Usando archivo credentials.json local...');
+      credentials = JSON.parse(fs.readFileSync(keyPath, 'utf8'));
+    }
   }
+
+  if (!credentials) {
+    throw new Error('No se encontraron credenciales (ni en variable ni en archivo).');
+  }
+
+  // Crear el cliente de autenticación
+  const auth = new google.auth.GoogleAuth({
+    credentials,
+    scopes: [
+      'https://www.googleapis.com/auth/spreadsheets.readonly',
+      'https://www.googleapis.com/auth/drive.metadata.readonly'
+    ],
+  });
+
+  return auth;
 }
 
-// ESTA LÍNEA ES VITAL:
 module.exports = { getAuth };
